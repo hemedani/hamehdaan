@@ -1,13 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text, FlatList, Alert, Image, ScrollView, Dimensions } from "react-native";
+import { View, StyleSheet, Text, FlatList, Alert, ScrollView, Dimensions } from "react-native";
 import { connect } from "react-redux";
-import SideMenu from "react-native-side-menu";
 import MyCarousel from "./carousel/MyCarousel";
 
-import { getCenters } from "../actions";
-import { Button } from "react-native-elements";
+import { getCenters, cleanCenters } from "../actions";
 
-import Menu from "./Menu";
+import ButtonPerple from "./utils/ButtonPerple";
 
 class ListJobsScreen extends React.PureComponent {
   constructor(props) {
@@ -25,13 +23,11 @@ class ListJobsScreen extends React.PureComponent {
 
   componentDidMount() {
     this.props.getCenters({ etehadiye: this.props.auth.user.officerEt });
-    // Alert.alert("This.props.centers", JSON.stringify(this.props.centers, null, 2));
-    // Alert.alert("This.props.auth", JSON.stringify(this.props.auth, null, 2));
+    this.props.cleanCenters();
   }
 
   render() {
     return (
-      // <SideMenu menuPosition="right" menu={<Menu navigation={this.props.navigation} />}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d8d8d8" }}>
         {this.props.centers.centerLoading ? (
           <Text>Sallam</Text>
@@ -62,23 +58,7 @@ class ListJobsScreen extends React.PureComponent {
                     >
                       آدرس : {item.address.city} {item.address.parish} {item.address.text}
                     </Text>
-                    <Button
-                      raised
-                      rightIcon={{ color: "white", name: "envira", type: "font-awesome" }}
-                      buttonStyle={{
-                        borderWidth: 2,
-                        borderColor: "#fff",
-                        borderRadius: 50,
-                        marginLeft: 0,
-                        marginRight: 0,
-                        marginBottom: 0,
-                        backgroundColor: "rgb(112, 26, 146)"
-                      }}
-                      titleStyle={{
-                        fontFamily: "Shabnam-FD"
-                      }}
-                      title="بیشتر"
-                    />
+                    <ButtonPerple path="Details" _id={item._id} navigate={this.props.navigation.navigate} title="بیشتر" />
                   </View>
                 </View>
               )}
@@ -87,7 +67,6 @@ class ListJobsScreen extends React.PureComponent {
           </ScrollView>
         )}
       </View>
-      // </SideMenu>
     );
   }
 }
@@ -131,5 +110,5 @@ const msp = ({ auth, centers }) => ({ auth, centers });
 
 export default connect(
   msp,
-  { getCenters }
+  { getCenters, cleanCenters }
 )(ListJobsScreen);

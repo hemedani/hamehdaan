@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CENTERS, CENTERS_LOAD, GET_CENTERS_ERR, RU } from "../types";
+import { GET_CENTERS, CENTERS_LOAD, GET_CENTERS_ERR, CLEAN_CENTERS, RU } from "../types";
 
 export const getCenters = query => {
   return dispatch => {
@@ -10,3 +10,5 @@ export const getCenters = query => {
       .catch(e => dispatch({ type: GET_CENTERS_ERR, payload: e }));
   };
 };
+
+export const cleanCenters = () => ({ type: CLEAN_CENTERS });

@@ -4,11 +4,13 @@ import LoginScreen from "../component/Login";
 import WelcomeScreen from "../component/Welcome";
 import DetailsScreen from "../component/Details";
 import SettingsScreen from "../component/Setting";
+import AboutUsScreen from "../component/AboutUs";
 
 const TabNavigator = createBottomTabNavigator(
   {
     Jobs: ListJobsScreen,
-    Settings: SettingsScreen
+    Settings: SettingsScreen,
+    AboutUs: AboutUsScreen
   },
   {
     navigationOptions: {

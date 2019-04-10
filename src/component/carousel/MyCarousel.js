@@ -9,7 +9,7 @@ export default class MyCarousel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      slider1ActiveSlide: 0
+      slider1ActiveSlide: 1
     };
   }
   _renderItem({ item, index }) {
@@ -28,6 +28,7 @@ export default class MyCarousel extends React.PureComponent {
           }}
           data={this.props.pics}
           renderItem={this._renderItem}
+          firstItem={1}
           sliderWidth={Dimensions.get("screen").width - 35}
           itemWidth={Dimensions.get("screen").width - 150}
           onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
