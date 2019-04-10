@@ -1,10 +1,28 @@
-import { createStackNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
-import HomeScreen from "../component/Home";
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
+import ListJobsScreen from "../component/ListJobs";
 import LoginScreen from "../component/Login";
 import WelcomeScreen from "../component/Welcome";
 import DetailsScreen from "../component/Details";
+import SettingsScreen from "../component/Setting";
 
-const AppStack = createStackNavigator({ Home: HomeScreen, Details: DetailsScreen });
+const TabNavigator = createBottomTabNavigator(
+  {
+    Jobs: ListJobsScreen,
+    Settings: SettingsScreen
+  },
+  {
+    navigationOptions: {
+      title: "خانه"
+    },
+    tabBarOptions: {
+      labelStyle: {
+        fontFamily: "Shabnam-FD"
+      }
+    }
+  }
+);
+
+const AppStack = createStackNavigator({ Home: TabNavigator, Details: DetailsScreen });
 
 const AuthStack = createStackNavigator({
   SignIn: {

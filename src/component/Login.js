@@ -13,7 +13,7 @@ import { getItem, removeItem, signWithMob, stopAuthTimer, setAuthTimerLeft, cout
 import { AUTH_USER } from "../types";
 
 const backImg = require("../img/back.png");
-class HomeScreen extends React.PureComponent {
+class LoginScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -230,4 +230,4 @@ const msp = ({ auth }) => ({ auth });
 export default connect(
   msp,
   { signWithMob, stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer, sendCode }
-)(HomeScreen);
+)(LoginScreen);
