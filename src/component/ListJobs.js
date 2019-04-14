@@ -15,7 +15,7 @@ class ListJobsScreen extends React.PureComponent {
     };
   }
   static navigationOptions = {
-    title: "خانه",
+    title: "صنف ها",
     titleStyle: {
       fontFamily: "Shabnam-FD"
     }
@@ -44,13 +44,13 @@ class ListJobsScreen extends React.PureComponent {
                 <View style={styles.cardContainer}>
                   <MyCarousel pics={item.pics} />
                   <View style={styles.cardDetail}>
-                    <Text style={{ marginBottom: 2, textAlign: "right", fontFamily: "Shabnam-FD", fontSize: 18 }}>
+                    <Text style={{ marginBottom: 2, writingDirection: "rtl", fontFamily: "Shabnam-FD", fontSize: 18 }}>
                       {item.name}
                     </Text>
                     <Text
                       style={{
                         marginBottom: 10,
-                        textAlign: "right",
+                        writingDirection: "rtl",
                         fontFamily: "Shabnam-FD",
                         fontSize: 12,
                         color: "rgb(145, 151, 158)"
@@ -58,7 +58,7 @@ class ListJobsScreen extends React.PureComponent {
                     >
                       آدرس : {item.address.city} {item.address.parish} {item.address.text}
                     </Text>
-                    <ButtonPerple path="Details" _id={item._id} navigate={this.props.navigation.navigate} title="بیشتر" />
+                    <ButtonPerple path="Details" job={item} navigate={this.props.navigation.navigate} title="بیشتر" />
                   </View>
                 </View>
               )}

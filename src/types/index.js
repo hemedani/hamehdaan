@@ -1,5 +1,6 @@
 /* Address localhost */
-export const RU = "http://localhost:1367/api";
+// export const RU = "http://localhost:1367/api";
+export const RU = "http://172.20.10.3:1367/api";
 // export const RU = 'http://192.168.1.11:1357'
 
 export const AUTH_USER = "AUTH_USER";

@@ -1,9 +1,9 @@
 import React from "react";
-import { View, ImageBackground, Text, AppState, Alert } from "react-native";
+import { View, ImageBackground, Text, AppState, Alert, KeyboardAvoidingView } from "react-native";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Card, Button } from "react-native-elements";
-import ProgressCircle from "react-native-progress-circle";
+import ProgressCircle from "react-native-progress-circle-rtl";
 import moment from "moment";
 import { Hideo } from "react-native-textinput-effects-pr";
 import CodeInput from "react-native-confirmation-code-field";
@@ -103,7 +103,7 @@ class LoginScreen extends React.PureComponent {
   render() {
     return (
       <ImageBackground source={backImg} style={{ width: "100%", height: "100%" }}>
-        <View style={{ flex: 3, justifyContent: "center" }}>
+        <KeyboardAvoidingView style={{ flex: 3, justifyContent: "center" }} behavior="padding" enabled>
           <Card
             title="ورود"
             containerStyle={{
@@ -213,7 +213,7 @@ class LoginScreen extends React.PureComponent {
               </View>
             )}
           </Card>
-        </View>
+        </KeyboardAvoidingView>
 
         {/* {this.props.auth.authTimer > 0 && (
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-native-elements";
 
-const ButtonPerple = ({ _id, navigate, path, title }) => {
-  const handleOnPress = () => navigate(path, { _id });
+const ButtonPerple = ({ job, navigate, path, title }) => {
+  const handleOnPress = () => navigate(path, { job });
   return (
     <Button
       raised
