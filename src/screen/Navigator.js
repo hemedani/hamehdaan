@@ -52,13 +52,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const AppStack = createStackNavigator({
   Home: TabNavigator,
-  Details: {
-    screen: DetailsScreen,
-    navigationOptions: {
-      headerMode: "none",
-      header: null
-    }
-  }
+  Details: DetailsScreen
 });
 
 const AuthStack = createStackNavigator({

@@ -30,12 +30,14 @@ class DetailsScreen extends React.Component {
       },
       mapModalVisible: false,
       phonesModalVisible: false,
-      reportModalVisible: false
+      reportModalVisible: false,
+      yOffset: 0
     };
     this.backBtnPress = this.backBtnPress.bind(this);
     this.toggleMapModal = this.toggleMapModal.bind(this);
     this.togglePhonesModal = this.togglePhonesModal.bind(this);
     this.toggleReportModal = this.toggleReportModal.bind(this);
+    this.setYOffset = this.setYOffset.bind(this);
   }
   componentDidMount() {
     const job = this.props.navigation.getParam("job", null);
@@ -50,6 +52,11 @@ class DetailsScreen extends React.Component {
       });
     }
   }
+
+  static navigationOptions = {
+    headerMode: "none",
+    header: null
+  };
 
   _renderItem({ item, index }) {
     return (
@@ -80,11 +87,25 @@ class DetailsScreen extends React.Component {
     this.setState({ phonesModalVisible: !this.state.phonesModalVisible });
   }
 
+  setYOffset(e) {
+    this.setState({ yOffset: e.nativeEvent.contentOffset.y });
+  }
+
   render() {
     const job = this.props.navigation.getParam("job", {});
     return (
-      <View>
-        <ScrollView style={styles.pageContainer}>
+      <View style={{ flex: 1 }}>
+        {this.state.yOffset > 10 && (
+          <View style={styles.hiddenHeader}>
+            <TouchableOpacity style={[styles.backBtn, { flexDirection: "row" }]} onPress={this.backBtnPress}>
+              <Ionicons name={"ios-arrow-forward"} size={30} color={teamcheColors.cornFlowerBlue} />
+              <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr, { color: teamcheColors.cornFlowerBlue }]}>
+                بازگشت
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        <ScrollView style={styles.pageContainer} onScroll={this.setYOffset}>
           <TouchableOpacity style={styles.backBtn} onPress={this.backBtnPress}>
             <Ionicons name={"ios-arrow-forward"} size={30} color={"white"} />
           </TouchableOpacity>
@@ -174,7 +195,7 @@ class DetailsScreen extends React.Component {
                   onPress={this.toggleMapModal}
                 />
               </View>
-              <View style={styles.mapView}>
+              {/* <View style={styles.mapView}>
                 <MapView style={styles.map} region={this.state.region}>
                   <Marker
                     coordinate={this.state.region}
@@ -182,10 +203,10 @@ class DetailsScreen extends React.Component {
                     description={`آدرس : ${job.address.city} ${job.address.parish} ${job.address.text}`}
                     centerOffset={{ x: 0, y: -20 }}
                   >
-                    <Image source={require("../img/marker/marker.png")} style={{ width: 27, height: 40 }} />
+                    <Image source={require("../img/marker/marker-destination.png")} style={{ width: 27, height: 40 }} />
                   </Marker>
                 </MapView>
-              </View>
+              </View> */}
               <Text>detail container</Text>
             </View>
           </View>
@@ -193,14 +214,13 @@ class DetailsScreen extends React.Component {
         <View style={styles.reportBtnContainer}>
           <Button
             raised
-            icon={{ name: "cached", color: "white" }}
+            icon={{ name: "report", color: "white" }}
             buttonStyle={{
-              borderWidth: 2,
+              borderWidth: 1,
               borderColor: "#fff",
-              borderRadius: 50,
-              width: 200,
+              borderRadius: 5,
               height: 40,
-              backgroundColor: "rgb(112, 26, 146)"
+              backgroundColor: teamcheColors.purple
             }}
             titleStyle={{
               fontFamily: "Shabnam-FD",
@@ -209,10 +229,31 @@ class DetailsScreen extends React.Component {
             title={"ثبت بازرسی"}
             onPress={this.toggleReportModal}
           />
+          <Button
+            raised
+            icon={{ name: "comment", color: "white" }}
+            buttonStyle={{
+              borderWidth: 1,
+              borderColor: "#fff",
+              borderRadius: 5,
+              height: 40,
+              backgroundColor: teamcheColors.cornFlowerBlue
+            }}
+            titleStyle={{
+              fontFamily: "Shabnam-FD",
+              fontSize: 15
+            }}
+            title={"ثبت اطلاعات"}
+            onPress={this.toggleReportModal}
+          />
         </View>
-        <MapModal toggleModal={this.toggleMapModal} isModalVisible={this.state.mapModalVisible} />
+        <MapModal toggleModal={this.toggleMapModal} isModalVisible={this.state.mapModalVisible} job={job} />
         <ReportModal toggleModal={this.toggleReportModal} isModalVisible={this.state.reportModalVisible} />
-        <PhoneCallModal toggleModal={this.togglePhonesModal} isModalVisible={this.state.phonesModalVisible} />
+        <PhoneCallModal
+          toggleModal={this.togglePhonesModal}
+          isModalVisible={this.state.phonesModalVisible}
+          phone={job.phone}
+        />
       </View>
     );
   }
@@ -221,7 +262,16 @@ class DetailsScreen extends React.Component {
 const styles = StyleSheet.create({
   pageContainer: {
     backgroundColor: teamcheColors.gray,
-    minHeight: Dimensions.get("screen").height
+    flex: 1
+  },
+  hiddenHeader: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    height: 85,
+    width: Dimensions.get("screen").width,
+    backgroundColor: "white",
+    zIndex: 999
   },
   sliderContainer: {
     height: Dimensions.get("screen").height / 2.5
@@ -319,7 +369,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 3,
     width: Dimensions.get("screen").width,
-    alignItems: "center"
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 

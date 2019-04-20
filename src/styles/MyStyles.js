@@ -6,7 +6,8 @@ export const teamcheColors = {
   lightGray: "#EDEEEF",
   darkerGray: "rgb(179, 179, 179)",
   cornFlowerBlue: "#5187D1",
-  seaFoam: "#6BBFAB"
+  seaFoam: "#6BBFAB",
+  dullRed: "#B34334"
 };
 
 export default StyleSheet.create({

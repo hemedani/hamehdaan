@@ -800,6 +800,11 @@
     "@types/istanbul-lib-coverage" "^1.1.0"
     "@types/yargs" "^12.0.9"
 
+"@mapbox/polyline@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/polyline/-/polyline-1.0.0.tgz#b6f1c3cf61f8dddcf9ac6dce0b2e50e5f4e965bc"
+  integrity sha512-5Vu99e/+kVF0h0eiWa3er3bYnjorq6SGTn06HqeinFAETlQpcHGj7+DanmFlNyXkgvRcKi0nQytuMm6QA2CkAQ==
+
 "@react-native-community/async-storage@^1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.2.2.tgz#1f9851a6dd2b0af08ed3ab69b7f7353c4e85ea1d"
@@ -5168,6 +5173,14 @@ react-native-gesture-handler@~1.0.14:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-map-link@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.4.0.tgz#1c86fd1193e3c7578c76e0cc98e892ae418284cd"
+  integrity sha512-Rlw1O+zMibGL49V1ZBo97rST6zZOcnZdMenz+9tw4DVilP8fP0PZh+pY2JvN87I93U8bmuai3EZs0dpfQo5Gkw==
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-modal "^9.0.0"
+
 react-native-maps@^0.24.0:
   version "0.24.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.24.0.tgz#6627942e9357768c96ddd22bf66d7e88084d19b0"
@@ -5180,6 +5193,11 @@ react-native-modal@^9.0.0:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "^1.2.4"
+
+react-native-phone-call@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.9.tgz#4468ec6f95856557fbff9bd69a0db04b54c35e1d"
+  integrity sha512-OPWYg8qeWNG/U4bWGMAKcQTH/ifqJnsvUPCH4lOkvWFHbQS3fbH5M8rFhXCzcfS0GVNzHhZX9ZByMM368TFAUQ==
 
 react-native-progress-circle-rtl@^2.0.1:
   version "2.0.1"

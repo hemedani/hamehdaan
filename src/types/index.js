@@ -3,6 +3,9 @@
 export const RU = "http://172.20.10.3:1367/api";
 // export const RU = 'http://192.168.1.11:1357'
 
+export const API_KEY = "AIzaSyDHrAOj672WWAVKh9bHho2Cbh5obIaNgOE";
+export const DIRECTION_API_KEY = "AIzaSyCWN8u9CsZDhHZIh_r6quHh5C3pFrRFVXY";
+
 export const AUTH_USER = "AUTH_USER";
 export const USER_LOAD = "USER_LOAD";
 export const UNAUTH_USER = "UNAUTH_USER";
