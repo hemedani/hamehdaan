@@ -34,7 +34,8 @@
     "react-navigation": "^3.4.1",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rn-placeholder": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

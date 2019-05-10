@@ -24,6 +24,7 @@ class LoginScreen extends React.PureComponent {
     this.onSendPhone = this.onSendPhone.bind(this);
     this.handleText = this.handleText.bind(this);
     this.handlerOnFulfill = this.handlerOnFulfill.bind(this);
+    this.clearCode = this.clearCode.bind(this);
   }
   componentDidMount() {
     AppState.addEventListener("change", this._handleAppStateChange);
@@ -64,13 +65,10 @@ class LoginScreen extends React.PureComponent {
         <Text
           style={{
             fontSize: 16,
-            fontFamily: "Shabnam-Bold-FD",
+            fontFamily: "Shabnam-FD",
             textAlign: "center",
-            marginBottom: 5,
-            color: "rgb(112, 26, 146)",
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowColor: "#fff",
-            textShadowRadius: 10
+            marginBottom: 15,
+            color: "rgb(112, 26, 146)"
           }}
         >
           شماره شما : {this.props.auth.user.phone}
@@ -88,15 +86,25 @@ class LoginScreen extends React.PureComponent {
   onSendPhone() {
     this.props.signWithMob({ phone: this.state.phone });
   }
+
+  field = React.createRef();
+
+  clearCode() {
+    const { current } = this.field;
+
+    if (current) {
+      current.clear();
+      current.focus();
+    }
+  }
   async handlerOnFulfill(code) {
     // Alert.alert("code", code);
     const sended = await this.props.sendCode({ phone: this.props.auth.user.phone, code });
-    console.log("==================");
-    console.log("sended from handlerOnFulfill", sended);
-    console.log("==================");
 
     if (sended.type === AUTH_USER) {
       this.props.navigation.navigate("App");
+    } else {
+      this.clearCode();
     }
   }
 
@@ -107,36 +115,33 @@ class LoginScreen extends React.PureComponent {
           <Card
             title="ورود"
             containerStyle={{
-              borderWidth: 2,
-              borderColor: "#fff",
-              borderRadius: 10,
-              backgroundColor: "rgba(255, 255, 255, 0.4)",
+              borderColor: "rgb(255, 255, 255)",
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
               minHeight: 200
             }}
             dividerStyle={{
-              borderColor: "rgb(255, 255, 255)",
-              borderWidth: 1
+              backgroundColor: "rgb(112, 26, 146)"
             }}
             titleStyle={{
               fontSize: 16,
               fontFamily: "Shabnam-Bold-FD",
-              color: "rgb(112, 26, 146)",
-              textShadowOffset: { width: 2, height: 2 },
-              textShadowColor: "#fff",
-              textShadowRadius: 10
+              color: "rgb(112, 26, 146)"
+              // textShadowOffset: { width: 2, height: 2 },
+              // textShadowColor: "#fff",
+              // textShadowRadius: 10
             }}
           >
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: "Shabnam-Bold-FD",
+                fontFamily: "Shabnam-FD",
                 direction: "rtl",
                 textAlign: "center",
-                marginBottom: 5,
-                color: "rgb(112, 26, 146)",
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowColor: "#fff",
-                textShadowRadius: 10
+                marginBottom: 15,
+                color: "rgb(112, 26, 146)"
+                // textShadowOffset: { width: 2, height: 2 },
+                // textShadowColor: "#fff",
+                // textShadowRadius: 10
               }}
             >
               {this.props.auth.authMsg}
@@ -144,7 +149,13 @@ class LoginScreen extends React.PureComponent {
             {this.handleText()}
             {this.props.auth.authTimer > 0 ? (
               <View>
-                <CodeInput autoFocus onFulfill={this.handlerOnFulfill} codeLength={4} keyboardType="numeric" />
+                <CodeInput
+                  ref={this.field}
+                  autoFocus
+                  onFulfill={this.handlerOnFulfill}
+                  codeLength={4}
+                  keyboardType="numeric"
+                />
                 <View style={{ marginTop: 52, alignItems: "center" }}>
                   <ProgressCircle
                     percent={(this.props.auth.authTimer * 100) / 90}
@@ -169,18 +180,18 @@ class LoginScreen extends React.PureComponent {
                     inputStyle={{
                       backgroundColor: "rgba(255, 255, 255, 0.5)",
                       fontFamily: "Shabnam-FD",
-                      borderTopRightRadius: 20,
-                      borderBottomRightRadius: 20,
-                      borderWidth: 2,
-                      borderLeftWidth: 0,
-                      borderColor: "#fff"
+                      // borderTopRightRadius: 20,
+                      // borderBottomRightRadius: 20,
+                      borderWidth: 0.5,
+                      borderStartWidth: 0,
+                      borderColor: "rgb(112, 26, 146)"
                     }}
                     labelStyle={{
-                      backgroundColor: "rgb(112, 26, 146)",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
-                      borderWidth: 2,
-                      borderColor: "#fff"
+                      backgroundColor: "rgb(112, 26, 146)"
+                      // borderTopLeftRadius: 20,
+                      // borderBottomLeftRadius: 20,
+                      // borderWidth: 1,
+                      // borderColor: "#fff"
                     }}
                     name="phone"
                     placeholder="شماره تلفن"
@@ -192,22 +203,25 @@ class LoginScreen extends React.PureComponent {
                   />
                 </View>
                 <Button
-                  containerStyle={{
-                    width: "95%",
-                    marginTop: 5,
-                    marginLeft: 10
-                  }}
+                  // containerStyle={{
+                  //   width: "95%",
+                  //   marginTop: 5,
+                  //   marginLeft: 10
+                  // }}
                   buttonStyle={{
-                    borderWidth: 2,
+                    borderWidth: 1,
                     borderColor: "#fff",
-                    borderRadius: 50,
+                    // borderRadius: 50,
+                    marginLeft: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
                     backgroundColor: "rgb(112, 26, 146)"
                   }}
                   titleStyle={{
                     fontFamily: "Shabnam-FD"
                   }}
                   onPress={this.onSendPhone}
-                  raised
+                  loading={this.props.auth.loginLoading}
                   title="ورود"
                 />
               </View>

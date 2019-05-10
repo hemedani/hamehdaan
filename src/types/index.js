@@ -1,7 +1,12 @@
 /* Address localhost */
+/* Address localhost local for simulator */
 // export const RU = "http://localhost:1367/api";
-export const RU = "http://172.20.10.3:1367/api";
-// export const RU = 'http://192.168.1.11:1357'
+
+/* Address localhost local for physical divece */
+// export const RU = "http://172.20.10.3:1367/api";
+
+/* Address remote */
+export const RU = process.env.NODE_ENV === "development" ? "http://localhost:1367/api" : "http://37.120.146.71:1367/api";
 
 export const API_KEY = "AIzaSyDHrAOj672WWAVKh9bHho2Cbh5obIaNgOE";
 export const DIRECTION_API_KEY = "AIzaSyCWN8u9CsZDhHZIh_r6quHh5C3pFrRFVXY";
@@ -66,13 +71,10 @@ export const SET_CITY_COORDS = "SET_CITY_COORDS";
 
 /************  --PARISHES--  *************/
 export const GET_PARISHES = "GET_PARISHES";
-export const ADD_PARISH = "ADD_PARISH";
-export const REMOVE_PARISH = "REMOVE_PARISH";
-export const PARISH_LOAD = "PARISH_LOAD";
-export const YOUR_PARISH = "YOUR_PARISH";
-export const CLEAN_PARISH = "CLEAN_PARISH";
-export const ADD_PARISH_ERR = "ADD_PARISH_ERR";
-export const SET_PARISH_COORDS = "SET_PARISH_COORDS";
+export const PARISHES_LOAD = "PARISHES_LOAD";
+export const SELECTED_PATISH = "SELECTED_PATISH";
+export const CLEAN_PARISHES = "CLEAN_PARISHES";
+export const GET_PARISHES_ERR = "GET_PARISHES_ERR";
 
 /************  --CENTER--  *************/
 export const GET_CENTER = "GET_CENTER";

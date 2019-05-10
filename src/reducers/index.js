@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
 
-import authReducer from "./auth_reducer";
+import auth from "./auth_reducer";
 import centers from "./centers_rc";
+import parishes from "./parishes_rc";
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  centers
-});
+const rootReducer = combineReducers({ auth, centers, parishes });
 
 export default rootReducer;

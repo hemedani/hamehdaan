@@ -5,6 +5,7 @@ export const teamcheColors = {
   gray: "rgb(216, 216, 216)",
   lightGray: "#EDEEEF",
   darkerGray: "rgb(179, 179, 179)",
+  dark: "rgb(37, 33, 33)",
   cornFlowerBlue: "#5187D1",
   seaFoam: "#6BBFAB",
   dullRed: "#B34334"
@@ -14,7 +15,7 @@ export default StyleSheet.create({
   textBase: {
     writingDirection: "rtl",
     fontFamily: "Shabnam-FD",
-    fontSize: 13
+    fontSize: 12
   },
   textTitr: {
     fontSize: 20,

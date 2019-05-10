@@ -21,8 +21,9 @@ import {
 
 import { getToken, setItem, getItem, removeItem } from "./AsyncStorageAct";
 
-export const phoneMsg = "لطفا شماره تلفن همراه خود را وارد کنید";
+export const phoneMsg = "لطفا شمــــاره تلفن همراه خود را وارد کنید";
 export const codeMsg = "لطفا کد پیامک شده را وارد کنید";
+export const invalidCode = "کد وارد شده صحیح نیست لطفا کد صحیح را وارد کنید";
 
 export const setCacheUser = () => {
   return async dispatch => {
@@ -131,6 +132,7 @@ export const sendCode = usr => {
           dispatch(stopAuthTimer());
           return dispatch({ type: AUTH_USER, payload: resp.data });
         } else {
+          dispatch({ type: SET_AUTH_MSG, payload: invalidCode });
           return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
         }
       })

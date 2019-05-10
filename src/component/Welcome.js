@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ImageBackground, Image, Alert } from "react-native";
+import { View, Text, ImageBackground, Image, Alert, Dimensions, Animated, Easing } from "react-native";
 import { connect } from "react-redux";
 import { Card } from "react-native-elements";
 import LottieView from "lottie-react-native";
@@ -19,8 +19,11 @@ import moment from "moment";
 const backImg = require("../img/back-02.jpg");
 const hamedanLogo = require("../img/hamedan-logo.png");
 const sailsAnimation = require("../img/animations/sails.json");
-// const happyDostAnimation = require("../img/animations/happy-dots.json");
-// const LiquiedLogo = require("../img/animations/liquid-logo-animation.json");
+const dotAmimation = require("../img/animations/dotAnimation2.json");
+const circleAnimation = require("../img/animations/circle.json");
+const wordLocation = require("../img/animations/world-animation2.json");
+const happyDostAnimation = require("../img/animations/happy-dots.json");
+const LiquiedLogo = require("../img/animations/liquid-logo-animation.json");
 // const isometricMall = require("../img/animations/isometric-mall.json");
 // const yAnimate = require("../img/animations/bienvenida-boceto.json");
 // const fishAnimation = require("../img/animations/fish-animation.json");
@@ -29,11 +32,21 @@ class WelcomeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.timer = null;
+    // this.state = {
+    //   progress: new Animated.Value(0)
+    // };
   }
   async componentDidMount() {
     // Alert.alert("auth", JSON.stringify(this.props.auth, null, 2));
+
+    // Animated.timing(this.state.progress, {
+    //   toValue: 1,
+    //   duration: 5000,
+    //   easing: Easing.linear
+    // }).start();
+
     const { navigation, getOwn, stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer, setCacheUser } = this.props;
-    this.timer = path => setTimeout(() => navigation.navigate(path), 150);
+    this.timer = path => setTimeout(() => navigation.navigate(path), 1950);
     const token = await getToken();
     // Alert.alert("token", JSON.stringify(token, null, 2));
     if (token) {
@@ -65,15 +78,19 @@ class WelcomeScreen extends React.PureComponent {
 
   render() {
     return (
-      <ImageBackground source={backImg} style={{ width: "100%", height: "100%" }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Card
+      <ImageBackground
+        source={backImg}
+        style={{ width: Dimensions.get("window").width, height: Dimensions.get("window").height }}
+      >
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          {/* <Card
             title="خوش آمدید"
             containerStyle={{
               borderWidth: 2,
               borderColor: "#fff",
+              borderWidth: 0,
               borderRadius: 10,
-              backgroundColor: "rgba(255, 255, 255, 1)"
+              backgroundColor: "rgba(255, 255, 255, 0)"
             }}
             dividerStyle={{
               borderColor: "rgb(255, 255, 255)",
@@ -83,14 +100,20 @@ class WelcomeScreen extends React.PureComponent {
               fontFamily: "Shabnam-FD",
               color: "rgb(112, 26, 146)"
             }}
-          >
-            <View style={{ height: 200 }}>
-              <LottieView source={sailsAnimation} autoPlay loop />
-            </View>
-            <Text style={{ fontFamily: "Shabnam-FD", alignSelf: "center", textAlign: "center" }}>
+          > */}
+          {/* <View style={{ width: Dimensions.get("window").width - 200, height: Dimensions.get("window").height - 200 }}> */}
+          <LottieView
+            style={{ width: 400, height: 400 }}
+            source={wordLocation}
+            autoPlay
+            loop
+            // progress={this.state.progress}
+          />
+          {/* </View> */}
+          {/* <Text style={{ fontFamily: "Shabnam-FD", alignSelf: "center", textAlign: "center" }}>
               به جامع ترین نرم افزار کسب و کار همدان خوش آمدید
             </Text>
-          </Card>
+          </Card> */}
         </View>
         <View
           style={{

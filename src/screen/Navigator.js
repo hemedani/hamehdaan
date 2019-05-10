@@ -8,6 +8,7 @@ import WelcomeScreen from "../component/Welcome";
 import DetailsScreen from "../component/Details";
 import SettingsScreen from "../component/Setting";
 import AboutUsScreen from "../component/AboutUs";
+import CustomHeader from "./header/CustomHeader";
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -34,10 +35,16 @@ const TabNavigator = createBottomTabNavigator(
       }
     }),
     navigationOptions: {
-      title: "اصناف",
-      titleStyle: {
-        fontFamily: "Shabnam-FD"
-      }
+      header: props => <CustomHeader {...props} />,
+      headerStyle: {
+        backgroundColor: "transparent"
+      },
+      headerTitleStyle: {
+        fontWeight: "bold",
+        color: "#fff"
+      },
+      headerTintColor: "#fff",
+      animationEnabled: true
     },
     tabBarOptions: {
       labelStyle: {
