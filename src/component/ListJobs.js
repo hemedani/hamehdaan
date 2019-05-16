@@ -1,6 +1,7 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { connect } from "react-redux";
+import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
 import { getCenters, cleanCenters } from "../actions";
 
@@ -13,18 +14,35 @@ class ListJobsScreen extends React.PureComponent {
     this.state = {
       slider1ActiveSlide: 0
     };
+    this.handleCenterSearch = this.handleCenterSearch.bind(this);
   }
 
   componentDidMount() {
+    this.handleCenterSearch();
+  }
+
+  handleCenterSearch() {
     this.props.cleanCenters();
-    this.props.getCenters({ etehadiye: this.props.auth.user.officerEt });
+    this.props.getCenters(this.props.searches.query);
+  }
+
+  renderPlaceholder() {
+    const { centerLoading } = this.props.centers;
+    return (
+      <Placeholder isReady={!centerLoading} animation="fade" renderLeft={() => <Media />}>
+        <Line width="70%" />
+        <Line />
+        <Line />
+        <Line width="30%" />
+      </Placeholder>
+    );
   }
 
   renderSeparator() {
     return (
       <View
         style={{
-          height: 0.3,
+          height: 0.5,
           width: "80%",
           backgroundColor: teamcheColors.dark,
           marginLeft: "20%"
@@ -35,18 +53,23 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <FlatList
-        style={{ backgroundColor: teamcheColors.lightGray }}
-        data={this.props.centers.centers}
-        ItemSeparatorComponent={this.renderSeparator}
-        keyExtractor={item => item._id}
-        renderItem={({ item }) => <Job item={item} path="Details" navigate={this.props.navigation.navigate} />}
-      />
+      <View>
+        <FlatList
+          style={{ backgroundColor: teamcheColors.lightGray }}
+          data={this.props.centers.centers}
+          ItemSeparatorComponent={this.renderSeparator}
+          keyExtractor={item => item._id}
+          renderItem={({ item }) => <Job item={item} path="Details" navigate={this.props.navigation.navigate} />}
+          refreshing={this.props.centers.centerLoading}
+          onRefresh={this.handleCenterSearch}
+        />
+        {this.renderPlaceholder()}
+      </View>
     );
   }
 }
 
-const msp = ({ auth, centers }) => ({ auth, centers });
+const msp = ({ auth, centers, searches }) => ({ auth, centers, searches });
 
 export default connect(
   msp,

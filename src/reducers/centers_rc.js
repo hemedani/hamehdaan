@@ -22,7 +22,7 @@ import {
 import _ from "lodash";
 import { immutableSplice } from "../utils/Imutable";
 
-let centerDef = {
+let defaultState = {
   centerLoading: false,
   picLoading: false,
   error: "",
@@ -38,7 +38,7 @@ let centerDef = {
   errors: { countErr: null }
 };
 
-export default (state = centerDef, action) => {
+export default (state = defaultState, action) => {
   switch (action.type) {
     case CENTERS_LOAD:
       return { ...state, centerLoading: true };

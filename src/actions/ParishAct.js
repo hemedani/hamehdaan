@@ -14,4 +14,3 @@ export const getParishes = query => {
 };
 
 export const cleanParishes = () => ({ type: CLEAN_PARISHES });
-export const setSelectedParish = parish => ({ type: SELECTED_PATISH, payload: parish });

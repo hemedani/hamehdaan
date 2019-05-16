@@ -7,11 +7,13 @@ export const teamcheColors = {
   darkerGray: "rgb(179, 179, 179)",
   dark: "rgb(37, 33, 33)",
   cornFlowerBlue: "#5187D1",
+  royal: "#002fa4",
   seaFoam: "#6BBFAB",
-  dullRed: "#B34334"
+  dullRed: "#B34334",
+  lightPink: "rgb(237, 238, 239)"
 };
 
-export default StyleSheet.create({
+const teamcheStyle = StyleSheet.create({
   textBase: {
     writingDirection: "rtl",
     fontFamily: "Shabnam-FD",
@@ -24,3 +26,5 @@ export default StyleSheet.create({
     marginBottom: 15
   }
 });
+
+export default teamcheStyle;

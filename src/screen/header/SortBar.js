@@ -25,13 +25,13 @@ class SortBar extends React.PureComponent {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Button
             type="outline"
-            rightIcon={{ color: "white", name: "envira", type: "font-awesome" }}
+            icon={{ color: "white", name: "sort", type: "font-awesome", size: 14 }}
             buttonStyle={{
-              borderColor: teamcheColors.purple,
+              borderColor: teamcheColors.lightPink,
               marginHorizontal: 5
             }}
             titleStyle={{
-              color: teamcheColors.purple,
+              color: teamcheColors.lightPink,
               fontFamily: "Shabnam-FD",
               fontSize: 12,
               padding: 0
@@ -39,7 +39,7 @@ class SortBar extends React.PureComponent {
             title="مرتب سازی"
           />
         </View>
-        <View style={{ borderStartWidth: 1, borderStartColor: teamcheColors.darkerGray }} />
+        <View style={{ borderStartWidth: 1, borderStartColor: teamcheColors.lightPink }} />
       </View>
     );
   }

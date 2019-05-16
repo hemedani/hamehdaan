@@ -41,7 +41,7 @@ export const signinUser = ({ email, password }) => {
       .post(`${RU}/login`, { email, password })
       .then(async resp => {
         await setItem("token", resp.data.token);
-        await setItem("user", resp.data.user);
+        await setItem("user", JSON.stringify(resp.data.user));
         return dispatch({ type: AUTH_USER, payload: resp.data });
       })
       .catch(e => {
@@ -148,8 +148,8 @@ export const editOwn = usr => {
     const token = getToken();
     return axios
       .post(`${RU}/user/editown`, usr, { headers: { sabti: token } })
-      .then(resp => {
-        setItem("user", resp.data.user);
+      .then(async resp => {
+        await setItem("user", JSON.stringify(resp.data.user));
         return dispatch({ type: GET_OWN_USER, payload: resp.data.user });
       })
       .catch(e => {
@@ -163,9 +163,9 @@ export const register = ({ email, password, address, name, familyName, phone }) 
     dispatch({ type: USER_SIGNIN_LOAD });
     return axios
       .post(`${RU}/register`, { email, password, address, name, familyName, phone })
-      .then(resp => {
-        setItem("user", resp.data.user);
-        setItem("token", resp.data.token);
+      .then(async resp => {
+        await setItem("user", JSON.stringify(resp.data.user));
+        await setItem("token", resp.data.token);
         return dispatch({ type: AUTH_USER, payload: resp.data });
       })
       .catch(error => {
@@ -230,7 +230,10 @@ export const getOwn = () => {
     if (token) {
       return axios
         .get(`${RU}/user/getown`, { headers: { sabti: token } })
-        .then(resp => dispatch({ type: GET_OWN_USER, payload: resp.data.user }))
+        .then(async resp => {
+          await setItem("user", JSON.stringify(resp.data.user));
+          return dispatch({ type: GET_OWN_USER, payload: resp.data.user });
+        })
         .catch(e => dispatch({ type: GET_OWN_USER_FAIL }));
     } else {
       return dispatch({ type: GET_OWN_USER_FAIL });

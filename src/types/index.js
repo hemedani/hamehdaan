@@ -374,6 +374,12 @@ export const ADD_OPTION_ERR = "ADD_OPTION_ERR";
 export const OPTION_PIC_LOAD = "OPTION_PIC_LOAD";
 export const OPTION_ADD_PIC = "OPTION_ADD_PIC";
 
+/************  --SEARCH--  *************/
+export const ON_SEARCH_TEXT_CHANGE = "ON_SEARCH_TEXT_CHANGE";
+export const SET_SELECTED_PARISH = "SET_SELECTED_PARISH";
+export const SET_GEO_SEARCH = "SET_GEO_SEARCH";
+export const CLEAR_SELECTED_PARISH = "CLEAR_SELECTED_PARISH";
+
 /************  --STATE--  *************/
 export const GET_STATES = "GET_STATES";
 export const ADD_STATE = "ADD_STATE";
