@@ -6,6 +6,7 @@
 // export const RU = "http://172.20.10.3:1367/api";
 
 /* Address remote */
+// export const RU = "http://37.120.146.71:1367/api";
 export const RU = process.env.NODE_ENV === "development" ? "http://localhost:1367/api" : "http://37.120.146.71:1367/api";
 
 export const API_KEY = "AIzaSyDHrAOj672WWAVKh9bHho2Cbh5obIaNgOE";
@@ -379,6 +380,9 @@ export const ON_SEARCH_TEXT_CHANGE = "ON_SEARCH_TEXT_CHANGE";
 export const SET_SELECTED_PARISH = "SET_SELECTED_PARISH";
 export const SET_GEO_SEARCH = "SET_GEO_SEARCH";
 export const CLEAR_SELECTED_PARISH = "CLEAR_SELECTED_PARISH";
+export const SET_NEARBY_QUERY = "SET_NEARBY_QUERY";
+export const SET_SEARCH_SORT = "SET_SEARCH_SORT";
+export const CLEAR_SEARCH_SORT = "CLEAR_SEARCH_SORT";
 
 /************  --STATE--  *************/
 export const GET_STATES = "GET_STATES";

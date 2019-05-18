@@ -3,10 +3,13 @@ import { Provider } from "react-redux";
 import AppContainer from "./src/screen/Navigator";
 
 import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import reducer from "./src/reducers/index";
 
-const store = createStore(reducer, applyMiddleware(thunk));
+// const store = createStore(reducer, applyMiddleware(thunk));
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => (
   <Provider store={store}>

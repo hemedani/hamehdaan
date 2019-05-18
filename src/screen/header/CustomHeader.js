@@ -9,7 +9,10 @@ import {
   handleSearchTextChange,
   getCenters,
   clearSelectedParish,
-  cleanParishes
+  cleanParishes,
+  setNearByQuery,
+  setSortQuery,
+  cleanSortQuery
 } from "../../actions";
 import SearchBar, { SEARCHBAR_HEIGHT } from "./SearchBar";
 import SortBar, { SORT_BAR_HEIGHT } from "./SortBar";
@@ -42,7 +45,10 @@ class CustomHeader extends React.PureComponent {
       handleSearchTextChange,
       searches,
       getCenters,
-      clearSelectedParish
+      clearSelectedParish,
+
+      setSortQuery,
+      cleanSortQuery
     } = this.props;
     return (
       <View
@@ -51,7 +57,7 @@ class CustomHeader extends React.PureComponent {
           paddingTop: STATUSBAR_HEIGHT + 5,
           paddingBottom: 5,
           justifyContent: "flex-end",
-          backgroundColor: teamcheColors.royal
+          backgroundColor: teamcheColors.purple
         }}
       >
         <Location
@@ -59,6 +65,7 @@ class CustomHeader extends React.PureComponent {
           handleCenterSearch={this.handleCenterSearch}
           cleanParishes={cleanParishes}
           setParish={this.setParish}
+          setNearByQuery={this.props.setNearByQuery}
           parishes={parishes}
           searches={searches}
           clearSelectedParish={clearSelectedParish}
@@ -69,7 +76,12 @@ class CustomHeader extends React.PureComponent {
           textValue={searches.text}
           getCenters={getCenters}
         />
-        <SortBar />
+        <SortBar
+          setSortQuery={setSortQuery}
+          cleanSortQuery={cleanSortQuery}
+          searches={searches}
+          handleCenterSearch={this.handleCenterSearch}
+        />
       </View>
     );
   }
@@ -79,5 +91,17 @@ const msp = ({ parishes, searches }) => ({ parishes, searches });
 
 export default connect(
   msp,
-  { getParishes, cleanCenters, setSelectedParish, handleSearchTextChange, getCenters, cleanParishes, clearSelectedParish }
+  {
+    getParishes,
+    cleanCenters,
+    setSelectedParish,
+    handleSearchTextChange,
+    getCenters,
+    cleanParishes,
+    clearSelectedParish,
+    setNearByQuery,
+
+    setSortQuery,
+    cleanSortQuery
+  }
 )(CustomHeader);
