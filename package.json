@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "postversion": "react-native-version",
     "test": "jest"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "babel-jest": "^24.5.0",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.1",
+    "react-native-version": "^3.1.0",
     "react-test-renderer": "16.8.3",
     "redux-devtools-extension": "^2.13.8"
   },

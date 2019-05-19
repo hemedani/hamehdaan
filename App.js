@@ -9,6 +9,8 @@ import reducer from "./src/reducers/index";
 
 // const store = createStore(reducer, applyMiddleware(thunk));
 
+// TODO Get implement react-native-screen for better performance in this link : https://github.com/kmagiera/react-native-screens ==================
+
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => (

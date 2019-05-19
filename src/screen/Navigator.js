@@ -9,10 +9,35 @@ import DetailsScreen from "../component/Details";
 import SettingsScreen from "../component/Setting";
 import AboutUsScreen from "../component/AboutUs";
 import CustomHeader from "./header/CustomHeader";
+import { teamcheColors } from "../styles/MyStyles";
+
+const Jobs = createStackNavigator(
+  {
+    Jobs: {
+      screen: ListJobsScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+          header: props => <CustomHeader {...props} />,
+          headerStyle: {
+            backgroundColor: "transparent"
+          }
+        };
+      }
+    }
+  },
+  {
+    navigationOptions: {
+      title: "اصناف",
+      labelStyle: {
+        fontFamily: "Shabnam-FD"
+      }
+    }
+  }
+);
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Jobs: ListJobsScreen,
+    Jobs,
     Settings: SettingsScreen,
     AboutUs: AboutUsScreen
   },
@@ -35,15 +60,9 @@ const TabNavigator = createBottomTabNavigator(
       }
     }),
     navigationOptions: {
-      header: props => <CustomHeader {...props} />,
-      headerStyle: {
-        backgroundColor: "transparent"
-      },
-      headerTitleStyle: {
-        fontWeight: "bold",
-        color: "#fff"
-      },
-      headerTintColor: "#fff",
+      headerMode: "none",
+      header: null,
+      headerBackTitle: null,
       animationEnabled: true
     },
     tabBarOptions: {
@@ -59,7 +78,12 @@ const TabNavigator = createBottomTabNavigator(
 
 const AppStack = createStackNavigator({
   Home: TabNavigator,
-  Details: DetailsScreen
+  Details: {
+    screen: DetailsScreen,
+    navigationOptions: {
+      headerTintColor: teamcheColors.lightPink
+    }
+  }
 });
 
 const AuthStack = createStackNavigator({

@@ -53,9 +53,12 @@ class DetailsScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    headerMode: "none",
-    header: null
+  static navigationOptions = ({ navigation }) => {
+    return {
+      // headerTitle: <Text style={{ color: "white", fontSize: 18 }}>Test</Text>,
+      headerTransparent: true,
+      headerStyle: { borderBottomWidth: 0 }
+    };
   };
 
   _renderItem({ item, index }) {
@@ -95,7 +98,7 @@ class DetailsScreen extends React.Component {
     const job = this.props.navigation.getParam("job", {});
     return (
       <View style={{ flex: 1 }}>
-        {this.state.yOffset > 10 && (
+        {/* {this.state.yOffset > 10 && (
           <View style={styles.hiddenHeader}>
             <TouchableOpacity style={[styles.backBtn, { flexDirection: "row" }]} onPress={this.backBtnPress}>
               <Ionicons name={"ios-arrow-forward"} size={30} color={teamcheColors.cornFlowerBlue} />
@@ -104,11 +107,11 @@ class DetailsScreen extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        )} */}
         <ScrollView style={styles.pageContainer} onScroll={this.setYOffset}>
-          <TouchableOpacity style={styles.backBtn} onPress={this.backBtnPress}>
+          {/* <TouchableOpacity style={styles.backBtn} onPress={this.backBtnPress}>
             <Ionicons name={"ios-arrow-forward"} size={30} color={"white"} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={{ alignItems: "center" }}>
             <View style={styles.sliderContainer}>
               <Carousel
