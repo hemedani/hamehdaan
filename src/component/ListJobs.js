@@ -16,12 +16,6 @@ class ListJobsScreen extends React.PureComponent {
     };
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
   }
-  static navigationOptions = {
-    title: "اصناف",
-    labelStyle: {
-      fontFamily: "Shabnam-FD"
-    }
-  };
 
   componentDidMount() {
     this.handleCenterSearch();

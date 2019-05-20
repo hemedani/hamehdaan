@@ -8,7 +8,10 @@ export default ({ item, path, navigate }) => {
   const handleOnPress = () => navigate(path, { job: item });
   return (
     <TouchableOpacity style={styles.touchableOpacityContainer} onPress={handleOnPress}>
-      <Image style={{ width: 50, height: 50, flex: 2, borderRadius: 5 }} source={{ uri: `${RU}/pic/800/${item.pics[0]}` }} />
+      <Image
+        style={{ width: 50, height: 50, flex: 2, borderRadius: 5 }}
+        source={{ uri: `${RU}/pic/240/${item.pics.length > 0 ? item.pics[0] : item.etPic}` }}
+      />
       <View style={{ flex: 8, padding: 5, paddingLeft: 10 }}>
         <Text style={{ marginBottom: 5, writingDirection: "rtl", fontFamily: "Shabnam-FD", fontSize: 18 }}>{item.name}</Text>
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>

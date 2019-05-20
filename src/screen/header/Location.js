@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import MyStyles, { teamcheColors } from "../../styles/MyStyles";
 import SelectParishModal from "../../component/modals/SelectParishModal";
 import { Button, Icon } from "react-native-elements";
@@ -10,6 +10,7 @@ class Location extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      getNear: false,
       selectParishModalVisible: false,
       path: ""
     };
@@ -23,6 +24,7 @@ class Location extends React.PureComponent {
     this.props.getParishes();
   }
   setNearByQuery() {
+    this.setState({ getNear: true });
     navigator.geolocation.getCurrentPosition(
       async position => {
         await this.props.setNearByQuery(
@@ -33,6 +35,7 @@ class Location extends React.PureComponent {
                 coordinates: [position.coords.longitude, position.coords.latitude]
               }
         );
+        this.setState({ getNear: false });
         this.props.handleCenterSearch();
       },
       error => console.log(error.message),
@@ -92,31 +95,50 @@ class Location extends React.PureComponent {
         )}
         <View style={locationStyle.selectedParishContainer} />
         <View style={locationStyle.iconNearByContainer}>
-          {this.props.searches.nearSearch && (
+          <View
+            style={{
+              backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink,
+              height: 25,
+              borderRadius: 5,
+              paddingHorizontal: 5,
+              paddingEnd: 15,
+              marginEnd: -15
+            }}
+          >
+            <Text
+              style={[
+                MyStyles.textBase,
+                { color: this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple, paddingTop: 3 }
+              ]}
+            >
+              نزدیکترین ها
+            </Text>
+          </View>
+          {this.state.getNear ? (
             <View
               style={{
-                backgroundColor: teamcheColors.royal,
-                height: 25,
-                borderRadius: 5,
-                paddingHorizontal: 5,
-                paddingEnd: 15,
-                marginEnd: -15
+                width: 40,
+                height: 40,
+                backgroundColor: teamcheColors.lightPink,
+                borderRadius: 40,
+                justifyContent: "center"
               }}
             >
-              <Text style={[MyStyles.textBase, { color: teamcheColors.lightPink, paddingTop: 3 }]}>نزدیکترین ها</Text>
+              <ActivityIndicator size="small" color={teamcheColors.purple} />
             </View>
+          ) : (
+            <Icon
+              reverse
+              raised
+              name="location"
+              type="evilicon"
+              size={18}
+              iconStyle={{ fontSize: 22 }}
+              color={this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink}
+              reverseColor={this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple}
+              onPress={this.setNearByQuery}
+            />
           )}
-          <Icon
-            reverse
-            raised
-            name="location"
-            type="evilicon"
-            size={18}
-            iconStyle={{ fontSize: 22 }}
-            color={this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink}
-            reverseColor={this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple}
-            onPress={this.setNearByQuery}
-          />
         </View>
 
         <SelectParishModal
