@@ -1,5 +1,6 @@
 import axios from "axios";
 import moment from "moment";
+import { Alert } from "react-native";
 import {
   AUTH_USER,
   GET_OWN_USER_LOAD,
@@ -97,11 +98,7 @@ export const signWithMob = usr => {
     return axios
       .post(`${RU}/login/withmob`, usr)
       .then(async resp => {
-        if (process.env.NODE_ENV === "development") {
-          console.log("====================================");
-          console.log(resp.data);
-          console.log("====================================");
-        }
+        Alert.alert("err", JSON.stringify(resp.data, null, 2));
         clearInterval(authInterval);
         await setItem("acceptCodeTimer", "90");
         await setItem("AuthTimerDate", moment().toString());
@@ -110,7 +107,8 @@ export const signWithMob = usr => {
         dispatch({ type: SET_AUTH_MSG, payload: codeMsg });
         return dispatch({ type: ACCEPT_PHONE, payload: resp.data });
       })
-      .catch(e => {
+      .catch(err => {
+        Alert.alert("err", JSON.stringify(err, null, 2));
         return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
       });
   };
