@@ -98,7 +98,7 @@ export const signWithMob = usr => {
     return axios
       .post(`${RU}/login/withmob`, usr)
       .then(async resp => {
-        Alert.alert("err", JSON.stringify(resp.data, null, 2));
+        // Alert.alert("err", JSON.stringify(resp.data, null, 2));
         clearInterval(authInterval);
         await setItem("acceptCodeTimer", "90");
         await setItem("AuthTimerDate", moment().toString());
@@ -108,7 +108,7 @@ export const signWithMob = usr => {
         return dispatch({ type: ACCEPT_PHONE, payload: resp.data });
       })
       .catch(err => {
-        Alert.alert("err", JSON.stringify(err, null, 2));
+        // Alert.alert("err", JSON.stringify(err, null, 2));
         return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
       });
   };
