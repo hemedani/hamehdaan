@@ -6,7 +6,7 @@
 // export const RU = "http://172.20.10.3:1367/api";
 
 /* Address remote */
-export const RU = "http://37.120.146.71:1367/api";
+// export const RU = "http://37.120.146.71:1367/api";
 // export const RU = process.env.NODE_ENV === "development" ? "http://localhost:1367/api" : "http://37.120.146.71:1367/api";
 
 export const API_KEY = "AIzaSyDHrAOj672WWAVKh9bHho2Cbh5obIaNgOE";
