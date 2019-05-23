@@ -3,8 +3,9 @@ import { TextInput, View, StyleSheet, Platform } from "react-native";
 import BaseModal from "./BaseModal";
 import { Button } from "react-native-elements";
 
-// TODO I'm not a big fan of this Toast --react-native-toast-native-- whenever i can must be replaced with another modules ==================
-import Toast from "react-native-toast-native";
+// TODO I'm not a big fan of this Toast --react-native-root-toast-- whenever i can must be replaced with another modules ==================
+import Toast from "react-native-root-toast";
+
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { ADD_REPORT } from "../../types";
 
@@ -45,7 +46,12 @@ class ReportModal extends React.PureComponent {
     this.props.addReport(reportDetail).then(resp => {
       if (resp.type === ADD_REPORT) {
         this.setState({ text: "" });
-        Toast.show("بازرسی با موفقیت ثبت شد", Toast.LONG, Toast.TOP, styles);
+        Toast.show("بازرسی با موفقیت ثبت شد", {
+          duration: Toast.durations.LONG,
+          position: 60,
+          shadow: true,
+          animation: true
+        });
         this.props.toggleModal();
       }
     });
