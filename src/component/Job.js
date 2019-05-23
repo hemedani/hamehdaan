@@ -13,7 +13,17 @@ export default ({ item, path, navigate }) => {
         source={{ uri: `${RU}/pic/240/${item.pics.length > 0 ? item.pics[0] : item.etPic}` }}
       />
       <View style={{ flex: 8, padding: 5, paddingLeft: 10 }}>
-        <Text style={{ marginBottom: 5, writingDirection: "rtl", fontFamily: "Shabnam-FD", fontSize: 18 }}>{item.name}</Text>
+        <Text
+          style={{
+            marginBottom: 5,
+            writingDirection: "rtl",
+            fontFamily: "Shabnam-FD",
+            fontSize: 18,
+            color: "rgb(0, 0, 0)"
+          }}
+        >
+          {item.name}
+        </Text>
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
           {item.expirationDate && (
             <View
