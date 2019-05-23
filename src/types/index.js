@@ -1,8 +1,8 @@
 const localPath = "http://localhost:1367/api";
 const serverPath = "http://37.120.146.71:1367/api";
 /* Address remote */
-export const RU = serverPath;
-// export const RU = process.env.NODE_ENV === "development" ? localPath : serverPath;
+// export const RU = serverPath;
+export const RU = process.env.NODE_ENV === "development" ? localPath : serverPath;
 
 export const API_KEY = "AIzaSyDHrAOj672WWAVKh9bHho2Cbh5obIaNgOE";
 export const DIRECTION_API_KEY = "AIzaSyCWN8u9CsZDhHZIh_r6quHh5C3pFrRFVXY";
@@ -378,6 +378,15 @@ export const CLEAR_SELECTED_PARISH = "CLEAR_SELECTED_PARISH";
 export const SET_NEARBY_QUERY = "SET_NEARBY_QUERY";
 export const SET_SEARCH_SORT = "SET_SEARCH_SORT";
 export const CLEAR_SEARCH_SORT = "CLEAR_SEARCH_SORT";
+
+/************  --SEARCH--  *************/
+export const GET_REPORTS = "GET_REPORTS",
+  REPORTS_LOAD = "REPORTS_LOAD",
+  SELECTED_REPORT = "SELECTED_REPORT",
+  GET_REPORTS_ERR = "GET_REPORTS_ERR",
+  CLEAN_REPORTS = "CLEAN_REPORTS",
+  ADD_REPORT_LOAD = "ADD_REPORT_LOAD",
+  ADD_REPORT = "ADD_REPORT";
 
 /************  --STATE--  *************/
 export const GET_STATES = "GET_STATES";

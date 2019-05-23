@@ -10,10 +10,13 @@ import {
   ScrollView,
   ActivityIndicator
 } from "react-native";
+import { connect } from "react-redux";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { Divider, Button } from "react-native-elements";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import moment from "moment-jalaali";
+
+import { addReport } from "../actions";
 
 import MapModal from "./modals/MapModal";
 import PhoneCallModal from "./modals/PhoneCallModal";
@@ -337,7 +340,14 @@ class DetailsScreen extends React.Component {
         </View>
         <View>
           <MapModal toggleModal={this.toggleMapModal} isModalVisible={this.state.mapModalVisible} job={job} />
-          <ReportModal toggleModal={this.toggleReportModal} isModalVisible={this.state.reportModalVisible} />
+          <ReportModal
+            toggleModal={this.toggleReportModal}
+            isModalVisible={this.state.reportModalVisible}
+            addReport={this.props.addReport}
+            reports={this.props.reports}
+            job={job}
+            addReport={this.props.addReport}
+          />
           <PhoneCallModal
             toggleModal={this.togglePhonesModal}
             isModalVisible={this.state.phonesModalVisible}
@@ -460,4 +470,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DetailsScreen;
+const msp = ({ reports }) => ({ reports });
+
+export default connect(
+  msp,
+  { addReport }
+)(DetailsScreen);

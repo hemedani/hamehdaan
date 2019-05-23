@@ -109,7 +109,7 @@ const headerBarStyle = StyleSheet.create({
   closeIconStyle: {}
 });
 
-const searchBarStyles = StyleSheet.create({
+export const searchBarStyles = StyleSheet.create({
   searchViewContainer: {
     flexDirection: "row",
     paddingHorizontal: 25,

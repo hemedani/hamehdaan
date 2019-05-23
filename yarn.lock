@@ -5375,6 +5375,11 @@ react-native-textinput-effects-pr@^0.5.1:
   resolved "https://registry.yarnpkg.com/react-native-textinput-effects-pr/-/react-native-textinput-effects-pr-0.5.1.tgz#935f883d285c33d11dde3d4948e5096e31eca53d"
   integrity sha512-dy7E0DNjV3WlF8+mdqd0T3Nn6oUcY8XRPUmr7JjvrmfW94AxLYbI2zUTVPmR0/oXltygj5aMC2ilXB0liSmlEQ==
 
+react-native-toast-native@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-toast-native/-/react-native-toast-native-1.2.1.tgz#ced3bb7cf26e63e670c881edc51bfa1087423c67"
+  integrity sha512-HRu/k+MBSwWk6AFH2OAJwBQBCRWaHC3S52zkA1TcLrUwwTeBbHQfW0Yy9oZBVupMtjlaGeo9bJ143e53vyepeQ==
+
 react-native-vector-icons@^6.4.2:
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.4.2.tgz#ee0b097e783387544ed160a3192a437c097e551d"

@@ -24,8 +24,7 @@ export const getCenters = query => {
         .catch(e => dispatch({ type: GET_CENTERS_ERR, payload: e }));
     } else {
       // TODO Create a Navigation Web Service url(https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html) and navigate to Auth and sign out user and clear AsyncStorage ==================
-      dispatch({ type: CLEAN_CENTERS });
-      return;
+      return dispatch({ type: CLEAN_CENTERS });
     }
   };
 };

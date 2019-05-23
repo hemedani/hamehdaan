@@ -21,6 +21,8 @@ import { teamcheColors } from "../../styles/MyStyles";
 const APPBAR_HEIGHT = LOCATION_HEIGHT + SEARCHBAR_HEIGHT;
 const STATUSBAR_HEIGHT = Platform.OS === "ios" ? 40 : 0;
 
+// TODO implement two btn for filter by raste and etehadiye in search bar ==================
+// TODO implement a ability for turn-on location for in android ==================
 class CustomHeader extends React.PureComponent {
   constructor(props) {
     super(props);

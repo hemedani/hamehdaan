@@ -111,7 +111,7 @@ class Location extends React.PureComponent {
                 { color: this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple, paddingTop: 3 }
               ]}
             >
-              نزدیکترین ها
+              اطراف من
             </Text>
           </View>
           {this.state.getNear ? (
