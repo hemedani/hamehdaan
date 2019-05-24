@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import AppContainer from "./src/screen/Navigator";
 import FlashMessage from "react-native-flash-message";
+import { useScreens } from "react-native-screens";
 
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -13,7 +14,7 @@ const store = createStore(reducer, applyMiddleware(thunk));
 // TODO Get implement react-native-screen for better performance in this link : https://github.com/kmagiera/react-native-screens ==================
 
 // const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
-
+useScreens();
 const App = () => (
   <Provider store={store}>
     <AppContainer />
