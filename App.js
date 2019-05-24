@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import AppContainer from "./src/screen/Navigator";
+import FlashMessage from "react-native-flash-message";
 
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -16,6 +17,11 @@ const store = createStore(reducer, applyMiddleware(thunk));
 const App = () => (
   <Provider store={store}>
     <AppContainer />
+    <FlashMessage
+      position="top"
+      titleStyle={{ fontFamily: "Shabnam-FD" }}
+      textStyle={{ fontSize: 12, fontFamily: "Shabnam-FD" }}
+    />
   </Provider>
 );
 

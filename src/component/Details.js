@@ -15,8 +15,9 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 import { Divider, Button } from "react-native-elements";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import moment from "moment-jalaali";
+import { showMessage } from "react-native-flash-message";
 
-import { addReport } from "../actions";
+import { addReport, getItem } from "../actions";
 
 import MapModal from "./modals/MapModal";
 import PhoneCallModal from "./modals/PhoneCallModal";
@@ -38,12 +39,14 @@ class DetailsScreen extends React.Component {
       job: null,
       mapModalVisible: false,
       phonesModalVisible: false,
-      reportModalVisible: false
+      reportModalVisible: false,
+      setLocation: false
     };
     this.backBtnPress = this.backBtnPress.bind(this);
     this.toggleMapModal = this.toggleMapModal.bind(this);
     this.togglePhonesModal = this.togglePhonesModal.bind(this);
     this.toggleReportModal = this.toggleReportModal.bind(this);
+    this.setLocationForJob = this.setLocationForJob.bind(this);
   }
   componentDidMount() {
     const job = this.props.navigation.getParam("job", {});
@@ -88,6 +91,48 @@ class DetailsScreen extends React.Component {
   }
   togglePhonesModal() {
     this.setState({ phonesModalVisible: !this.state.phonesModalVisible });
+  }
+  setLocationForJob() {
+    this.setState({ setLocation: true });
+    navigator.geolocation.getCurrentPosition(
+      async position => {
+        const { latitude, longitude } = position.coords;
+        const token = await getItem("token");
+
+        Axios.post(
+          `${RU}/center/set/location`,
+          { _id: this.state.job._id, lat: latitude, lng: longitude },
+          { headers: { sabti: token } }
+        )
+          .then(resp => {
+            showMessage({
+              message: "ثبت موقعیت",
+              description: "موقعیت با موفقیت ثبت شد",
+              type: "success",
+              backgroundColor: teamcheColors.seaFoam,
+              color: teamcheColors.lightPink,
+              icon: "success"
+            });
+            this.setState({
+              setLocation: false,
+              job: { ...this.state.job, location: resp.data.center.location, staticMap: resp.data.center.staticMap }
+            });
+          })
+          .catch(err => {
+            showMessage({
+              message: "ثبت موقعیت",
+              description: "متاسفانه مشکلی در ثبت موقعیت به وجود آمده لطفا دوباره تلاش کنید",
+              type: "danger",
+              backgroundColor: teamcheColors.dullRed,
+              color: teamcheColors.lightPink,
+              icon: "danger"
+            });
+            this.setState({ setLocation: false });
+          });
+      },
+      error => console.log(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
   render() {
@@ -304,37 +349,56 @@ class DetailsScreen extends React.Component {
 
         <View style={styles.reportBtnContainer}>
           <Button
-            icon={{ name: "report", color: "white" }}
+            icon={{
+              name: "exclamation",
+              type: "evilicon",
+              color: "white"
+            }}
             containerStyle={{
-              width: "50%"
+              flex: 1
             }}
             buttonStyle={{
               borderRadius: 0,
               height: 40,
               backgroundColor: teamcheColors.purple
             }}
-            titleStyle={{
-              fontFamily: "Shabnam-FD",
-              fontSize: 15
-            }}
-            title={"ثبت بازرسی"}
             onPress={this.toggleReportModal}
           />
           <Button
-            icon={{ name: "comment", color: "white" }}
+            icon={{ name: "location", type: "evilicon", color: "white" }}
             containerStyle={{
-              width: "50%"
+              flex: 1
+            }}
+            buttonStyle={{
+              borderRadius: 0,
+              height: 40,
+              backgroundColor: teamcheColors.royal
+            }}
+            loading={this.state.setLocation}
+            onPress={this.setLocationForJob}
+          />
+          <Button
+            icon={{ name: "camera", type: "evilicon", color: "white" }}
+            containerStyle={{
+              flex: 1
+            }}
+            buttonStyle={{
+              borderRadius: 0,
+              height: 40,
+              backgroundColor: teamcheColors.seaFoam
+            }}
+            onPress={this.toggleReportModal}
+          />
+          <Button
+            icon={{ name: "pencil", type: "evilicon", color: "white" }}
+            containerStyle={{
+              flex: 1
             }}
             buttonStyle={{
               borderRadius: 0,
               height: 40,
               backgroundColor: teamcheColors.cornFlowerBlue
             }}
-            titleStyle={{
-              fontFamily: "Shabnam-FD",
-              fontSize: 15
-            }}
-            title={"ثبت اطلاعات"}
             onPress={this.toggleReportModal}
           />
         </View>
@@ -462,11 +526,9 @@ const styles = StyleSheet.create({
   },
   reportBtnContainer: {
     position: "absolute",
-    bottom: 3,
+    bottom: 0,
     width: Dimensions.get("screen").width,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-around"
+    flexDirection: "row"
   }
 });
 

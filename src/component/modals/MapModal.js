@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { View, StyleSheet, Dimensions, Image, Alert } from "react-native";
 import Modal from "react-native-modal";
 import ProccessPolyline from "@mapbox/polyline";
@@ -10,7 +10,7 @@ import { Popup } from "react-native-map-link";
 
 import { DIRECTION_API_KEY } from "../../types";
 import { teamcheColors } from "../../styles/MyStyles";
-export default class MapModal extends Component {
+export default class MapModal extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,18 +32,37 @@ export default class MapModal extends Component {
   }
   componentDidMount() {
     this.findCoordinates();
-    const job = this.props.job;
+    const { job } = this.props;
     if (job) {
       this.setState({
         region: {
+          ...this.state.region,
           latitude: job.location.coordinates[1],
-          longitude: job.location.coordinates[0],
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
+          longitude: job.location.coordinates[0]
         }
       });
     }
   }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.job.location.coordinates[1] !== prevState.region.latitude) {
+  //     return {
+  //       region: {
+  //         ...prevState.region,
+  //         latitude: nextProps.job.location.coordinates[1],
+  //         longitude: nextProps.job.location.coordinates[0]
+  //       }
+  //     };
+  //   }
+  // }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.path !== this.state.path) {
+  //     let firebaseRef=firebase.database().ref(this.state.path);
+  //     this.setState({firebaseRef});
+  //     this.getData(firebaseRef);
+  //   }
+  // }
+
   async getDirections(startLoc, destinationLoc) {
     try {
       const getCoord = await axios.get(
@@ -73,7 +92,7 @@ export default class MapModal extends Component {
             longitudeDelta: 0.0421
           }
         });
-        const job = this.props.job;
+        const { job } = this.props;
 
         this.getDirections(
           `${position.coords.latitude},${position.coords.longitude}`,

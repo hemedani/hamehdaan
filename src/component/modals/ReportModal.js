@@ -4,7 +4,7 @@ import BaseModal from "./BaseModal";
 import { Button } from "react-native-elements";
 
 // TODO I'm not a big fan of this Toast --react-native-root-toast-- whenever i can must be replaced with another modules ==================
-import Toast from "react-native-root-toast";
+import { showMessage } from "react-native-flash-message";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { ADD_REPORT } from "../../types";
@@ -46,11 +46,13 @@ class ReportModal extends React.PureComponent {
     this.props.addReport(reportDetail).then(resp => {
       if (resp.type === ADD_REPORT) {
         this.setState({ text: "" });
-        Toast.show("بازرسی با موفقیت ثبت شد", {
-          duration: Toast.durations.LONG,
-          position: 60,
-          shadow: true,
-          animation: true
+        showMessage({
+          message: "ثبت بازرسی",
+          description: "بازرسی با موفقیت ثبت شد",
+          type: "success",
+          backgroundColor: teamcheColors.seaFoam,
+          color: teamcheColors.lightPink,
+          icon: "success"
         });
         this.props.toggleModal();
       }
