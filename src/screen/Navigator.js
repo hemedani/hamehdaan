@@ -10,6 +10,8 @@ import SettingsScreen from "../component/Setting";
 import AboutUsScreen from "../component/AboutUs";
 import CustomHeader from "./header/CustomHeader";
 import { teamcheColors } from "../styles/MyStyles";
+import CenterReportsScreen from "../component/CenterReports";
+import DetailReportModal from "../component/navigationModal/DetailReportModal";
 
 const Jobs = createStackNavigator(
   {
@@ -76,6 +78,17 @@ const TabNavigator = createBottomTabNavigator(
   }
 );
 
+const CenterReports = createStackNavigator(
+  {
+    CenterReports: CenterReportsScreen,
+    DetailReportModal
+  },
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
+
 const AppStack = createStackNavigator({
   Home: TabNavigator,
   Details: {
@@ -83,7 +96,8 @@ const AppStack = createStackNavigator({
     navigationOptions: {
       headerTintColor: teamcheColors.lightPink
     }
-  }
+  },
+  CenterReports
 });
 
 const AuthStack = createStackNavigator({
@@ -108,31 +122,3 @@ export default createAppContainer(
     }
   )
 );
-
-// const AppNavigator = createStackNavigator(
-//   {
-//     Home: HomeScreen,
-//     Login: {
-//       screen: LoginScreen,
-//       navigationOptions: {
-//         headerMode: "none",
-//         header: null
-//       }
-//     },
-//     Welcome: {
-//       screen: WelcomeScreen,
-//       navigationOptions: {
-//         headerMode: "none",
-//         header: null
-//       }
-//     },
-//     Details: DetailsScreen
-//   },
-//   {
-//     initialRouteName: "Welcome"
-//   }
-// );
-
-// const AppContainer = createAppContainer(AppNavigator);
-
-// export default AppContainer;

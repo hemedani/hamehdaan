@@ -21,13 +21,23 @@ export const getReports = query => {
       .catch(e => dispatch({ type: GET_REPORTS_ERR, payload: e }));
   };
 };
+export const getReportById = _id => {
+  return async dispatch => {
+    dispatch({ type: REPORTS_LOAD });
+    const token = await getItem("token");
+    return axios
+      .get(`${RU}/report`, { headers: { sabti: token }, params: { _id } })
+      .then(resp => dispatch({ type: SELECTED_REPORT, payload: resp.data.report }))
+      .catch(e => dispatch({ type: GET_REPORTS_ERR, payload: e }));
+  };
+};
 
 export const addReport = report => {
   return async dispatch => {
     dispatch({ type: ADD_REPORT_LOAD });
     const token = await getItem("token");
     return axios
-      .post(`${RU}/report/add`, { report }, { headers: { sabti: token } })
+      .post(`${RU}/report/add`, report, { headers: { sabti: token } })
       .then(resp => dispatch({ type: ADD_REPORT, payload: resp.data.report }))
       .catch(e => dispatch({ type: GET_REPORTS_ERR, payload: e }));
   };

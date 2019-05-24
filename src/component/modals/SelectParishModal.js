@@ -131,7 +131,7 @@ export const searchBarStyles = StyleSheet.create({
   iconContainer: {}
 });
 
-const bodyStyle = StyleSheet.create({
+export const bodyStyle = StyleSheet.create({
   bodyContainer: {
     flexDirection: "column"
   },

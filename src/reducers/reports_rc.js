@@ -11,7 +11,7 @@ import _ from "lodash";
 
 let defaultState = {
   reports: [],
-  selectedReports: {},
+  selectedReport: {},
   getReportsLoading: false,
   getReportErr: "",
   addReportLoading: false
@@ -28,7 +28,7 @@ export default (state = defaultState, action) => {
     case GET_REPORTS:
       return { ...state, getReportsLoading: false, reports: action.payload, getReportErr: "" };
     case SELECTED_REPORT:
-      return { ...state, selectedReports: action.payload };
+      return { ...state, getReportsLoading: false, selectedReport: action.payload };
     case GET_REPORTS_ERR:
       return { ...state, getReportErr: "مشکلی در دریافت گزارش ها به وجود آمده است لطفا دوباره تلاش کنید" };
     case CLEAN_REPORTS:

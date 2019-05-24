@@ -69,13 +69,13 @@ class DetailsScreen extends React.Component {
       // <SliderEntry data={item} even={(index + 1) % 2 === 0} />
       <TouchableOpacity
         activeOpacity={1}
-        style={styles.slideInnerContainer}
+        style={detailsStyles.slideInnerContainer}
         onPress={() => {
           alert(`You've clicked '${item}'`);
         }}
       >
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: `${RU}/pic/500/${item}` }} style={styles.image} />
+        <View style={detailsStyles.imageContainer}>
+          <Image source={{ uri: `${RU}/pic/500/${item}` }} style={detailsStyles.image} />
         </View>
       </TouchableOpacity>
     );
@@ -139,9 +139,9 @@ class DetailsScreen extends React.Component {
     const job = this.state.job ? this.state.job : this.props.navigation.getParam("job", {});
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView style={styles.pageContainer}>
+        <ScrollView style={detailsStyles.pageContainer}>
           <View style={{ alignItems: "center", paddingBottom: 60 }}>
-            <View style={styles.sliderContainer}>
+            <View style={detailsStyles.sliderContainer}>
               <Carousel
                 ref={c => (this._slider1Ref = c)}
                 data={job.pics}
@@ -153,16 +153,16 @@ class DetailsScreen extends React.Component {
                 inactiveSlideScale={0.94}
                 inactiveSlideOpacity={0.7}
                 inactiveSlideShift={2}
-                containerCustomStyle={styles.containerCustomStyle}
-                contentContainerCustomStyle={styles.contentContainerCustomStyle}
+                containerCustomStyle={detailsStyles.containerCustomStyle}
+                contentContainerCustomStyle={detailsStyles.contentContainerCustomStyle}
               />
               <Pagination
                 dotsLength={job.pics.length}
                 activeDotIndex={this.state.slider1ActiveSlide}
-                containerStyle={styles.paginationContainer}
+                containerStyle={detailsStyles.paginationContainer}
                 dotContainerStyle={CarouselStyle.paginationDotContainer}
                 dotColor={teamcheColors.purple}
-                dotStyle={styles.paginationDot}
+                dotStyle={detailsStyles.paginationDot}
                 inactiveDotColor={"white"}
                 inactiveDotOpacity={1}
                 inactiveDotScale={0.6}
@@ -170,12 +170,12 @@ class DetailsScreen extends React.Component {
                 tappableDots={!!this._slider1Ref}
               />
             </View>
-            <View style={styles.nameCotainer}>
-              <View style={styles.nameCotainerTitr}>
+            <View style={detailsStyles.nameContainer}>
+              <View style={detailsStyles.nameContainerTitr}>
                 <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>{job.name}</Text>
                 <Divider />
               </View>
-              <View style={styles.discountContainer}>
+              <View style={detailsStyles.discountContainer}>
                 <AnimatedCircularProgress
                   size={120}
                   width={7}
@@ -187,14 +187,14 @@ class DetailsScreen extends React.Component {
                   {fill => <Text style={teamcheStyles.textBase}>{Math.round(fill)} درصد تخفیف </Text>}
                 </AnimatedCircularProgress>
               </View>
-              <View style={styles.addressContainer}>
+              <View style={detailsStyles.addressContainer}>
                 <Text style={teamcheStyles.textBase}>
                   آدرس : {job.address.city} {job.address.parish} {job.address.text}
                 </Text>
               </View>
             </View>
-            <View style={styles.detailContainer}>
-              <View style={styles.detailsBtns}>
+            <View style={detailsStyles.detailContainer}>
+              <View style={detailsStyles.detailsBtns}>
                 <Button
                   icon={{ name: "phone", color: "white" }}
                   containerStyle={{
@@ -230,12 +230,12 @@ class DetailsScreen extends React.Component {
                   onPress={this.toggleMapModal}
                 />
               </View>
-              <TouchableOpacity style={styles.mapView} onPress={this.toggleMapModal}>
+              <TouchableOpacity style={detailsStyles.mapView} onPress={this.toggleMapModal}>
                 <Image style={{ flex: 1, borderRadius: 10 }} source={{ uri: `${RU}/pic/maps/${job.staticMap}` }} />
               </TouchableOpacity>
 
-              <View style={[styles.nameCotainer, { marginTop: 5 }]}>
-                <View style={styles.nameCotainerTitr}>
+              <View style={[detailsStyles.nameContainer, { marginTop: 5 }]}>
+                <View style={detailsStyles.nameContainerTitr}>
                   <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>اطلاعات پروانه</Text>
                   <Divider />
                 </View>
@@ -255,90 +255,112 @@ class DetailsScreen extends React.Component {
                   </View>
                 )}
                 {job.otaghBazargani && job.otaghBazargani.name && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتاق بازرگانی : {job.otaghBazargani.name}</Text>
                   </View>
                 )}
                 {job.otaghAsnaf.name && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتاق اصناف : {job.otaghAsnaf.name}</Text>
                   </View>
                 )}
 
                 {job.etehadiye.name && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتحادیه : {job.etehadiye.name}</Text>
                   </View>
                 )}
                 {job.raste.name && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>رسته : {job.raste.name}</Text>
                   </View>
                 )}
                 {job.guildId && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>شناسه صنفی : {job.guildId}</Text>
                   </View>
                 )}
                 {job.issueDate && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ صدور پروانه : {moment(job.issueDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
                 {job.expirationDate && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ انقضاء پروانه : {moment(job.expirationDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
-                <View style={styles.addressContainer}>
+                <View style={detailsStyles.addressContainer}>
                   <Text style={teamcheStyles.textBase}>مباشر : {job.steward ? "دارد" : "ندارد"}</Text>
                 </View>
                 {job.personType && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>نوع شخص : {job.personType}</Text>
                   </View>
                 )}
                 {job.activityType && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>نوع فعالیت : {job.activityType}</Text>
                   </View>
                 )}
                 {job.isicCode && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>کد آیسیک : {job.isicCode}</Text>
                   </View>
                 )}
                 {job.postalCode && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>کد پستی : {job.postalCode}</Text>
                   </View>
                 )}
               </View>
 
-              <View style={[styles.nameCotainer, { marginTop: 5 }]}>
-                <View style={styles.nameCotainerTitr}>
+              <View style={detailsStyles.detailsBtns}>
+                <Button
+                  containerStyle={{
+                    flex: 1
+                  }}
+                  icon={{
+                    name: "exclamation",
+                    type: "evilicon",
+                    color: "white"
+                  }}
+                  buttonStyle={{
+                    backgroundColor: teamcheColors.cornFlowerBlue
+                  }}
+                  titleStyle={{
+                    fontFamily: "Shabnam-FD",
+                    fontSize: 15
+                  }}
+                  title={"گزارش ها"}
+                  onPress={() => this.props.navigation.navigate("CenterReports", { _id: job._id })}
+                />
+              </View>
+
+              <View style={[detailsStyles.nameContainer, { marginTop: 5 }]}>
+                <View style={detailsStyles.nameContainerTitr}>
                   <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>اطلاعات</Text>
                   <Divider />
                 </View>
 
                 {job.workShift && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       ساعت کار : از ساعت {job.workShift[0]} تا {job.workShift[1]}
                     </Text>
                   </View>
                 )}
                 {job.phone.length > 0 && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>تلفن ها : {job.phone.map(ph => `${ph}, `)}</Text>
                   </View>
                 )}
                 {job.description && (
-                  <View style={styles.addressContainer}>
+                  <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>توضیحات : {job.description}</Text>
                   </View>
                 )}
@@ -347,7 +369,7 @@ class DetailsScreen extends React.Component {
           </View>
         </ScrollView>
 
-        <View style={styles.reportBtnContainer}>
+        <View style={detailsStyles.reportBtnContainer}>
           <Button
             icon={{
               name: "exclamation",
@@ -423,7 +445,7 @@ class DetailsScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+export const detailsStyles = StyleSheet.create({
   pageContainer: {
     backgroundColor: teamcheColors.gray,
     flex: 1
@@ -469,7 +491,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10
   },
-  nameCotainer: {
+  nameContainer: {
     width: Dimensions.get("screen").width - 50,
     marginTop: -50,
     borderRadius: 10,
@@ -484,7 +506,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  nameCotainerTitr: {
+  nameContainerTitr: {
     height: 40,
     marginBottom: 10
   },
