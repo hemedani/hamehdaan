@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Alert } from "react-native";
 import _ from "lodash";
-import { GET_CENTERS, CENTERS_LOAD, GET_CENTERS_ERR, CLEAN_CENTERS, RU } from "../types";
+import { GET_CENTERS, CENTERS_LOAD, GET_CENTERS_ERR, CLEAN_CENTERS, RU, SET_REACH_END_CENTERS } from "../types";
 import { getItem } from "./AsyncStorageAct";
 
 export const getCenters = query => {
@@ -20,7 +20,12 @@ export const getCenters = query => {
     if (isAccess) {
       return axios
         .get(`${RU}/protected/centers`, { headers: { sabti: token }, params: query })
-        .then(resp => dispatch({ type: GET_CENTERS, payload: resp.data.centers }))
+        .then(resp => {
+          if (resp.data.centers.length < 30) {
+            dispatch({ type: SET_REACH_END_CENTERS });
+          }
+          return dispatch({ type: GET_CENTERS, payload: resp.data.centers });
+        })
         .catch(e => dispatch({ type: GET_CENTERS_ERR, payload: e }));
     } else {
       // TODO Create a Navigation Web Service url(https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html) and navigate to Auth and sign out user and clear AsyncStorage ==================

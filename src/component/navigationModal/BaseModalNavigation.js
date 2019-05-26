@@ -14,7 +14,7 @@ const BaseModalNavigation = ({ headerTxt, goBack, children }) => {
             position: "absolute",
             height: Dimensions.get("screen").height,
             width: Dimensions.get("screen").width,
-            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
             zIndex: 0
           }}
         />

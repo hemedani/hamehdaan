@@ -63,8 +63,8 @@ class CustomHeader extends React.PureComponent {
     return (
       <View
         style={{
-          height: APPBAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 15,
-          paddingTop: STATUSBAR_HEIGHT + 15,
+          height: APPBAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 12,
+          paddingTop: STATUSBAR_HEIGHT + 12,
           paddingBottom: 5,
           justifyContent: "flex-end",
           backgroundColor: teamcheColors.purple

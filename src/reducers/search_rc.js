@@ -5,7 +5,9 @@ import {
   REMOVE_RASTE_FROM_QUERY,
   SET_GEO_SEARCH,
   CLEAR_SELECTED_PARISH,
+  INCREASE_QUERY_PAGE,
   SET_NEARBY_QUERY,
+  SET_REACH_END_CENTERS,
   SET_SEARCH_SORT,
   CLEAR_SEARCH_SORT
 } from "../types";
@@ -16,13 +18,18 @@ let defaultState = {
   nearSearch: false,
   sortName: "",
   rastes: [],
-  query: { text: "", geo: {}, near: null, sort: null, rastes: [] }
+  reachEnd: false,
+  query: { text: "", geo: {}, near: null, sort: null, rastes: [], page: 0 }
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
     case ON_SEARCH_TEXT_CHANGE:
       return { ...state, query: { ...state.query, text: action.payload } };
+    case INCREASE_QUERY_PAGE:
+      return { ...state, query: { ...state.query, page: state.query.page + 1 } };
+    case SET_REACH_END_CENTERS:
+      return { ...state, reachEnd: true };
     case SET_GEO_SEARCH:
       return { ...state, query: { ...state.query, geo: action.payload } };
     case SET_SEARCH_SORT:

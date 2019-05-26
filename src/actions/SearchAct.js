@@ -7,6 +7,7 @@ import {
   CLEAR_SELECTED_PARISH,
   SET_NEARBY_QUERY,
   SET_SEARCH_SORT,
+  INCREASE_QUERY_PAGE,
   CLEAR_SEARCH_SORT
 } from "../types";
 
@@ -17,6 +18,7 @@ export const removeRasteFromQuery = raste => ({ type: REMOVE_RASTE_FROM_QUERY, p
 export const setGeoSearch = geo => ({ type: SET_GEO_SEARCH, payload: geo });
 export const clearSelectedParish = () => ({ type: CLEAR_SELECTED_PARISH });
 export const setNearByQuery = location => ({ type: SET_NEARBY_QUERY, payload: location });
+export const increaseQueryPage = () => ({ type: INCREASE_QUERY_PAGE });
 
 export const setSortQuery = sort => ({ type: SET_SEARCH_SORT, payload: sort });
 export const cleanSortQuery = () => ({ type: CLEAR_SEARCH_SORT });

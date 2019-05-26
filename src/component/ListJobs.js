@@ -1,9 +1,9 @@
 import React from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, SafeAreaView, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
-import { getCenters, cleanCenters } from "../actions";
+import { getCenters, cleanCenters, increaseQueryPage } from "../actions";
 
 import { teamcheColors } from "../styles/MyStyles";
 import Job from "./Job";
@@ -15,6 +15,7 @@ class ListJobsScreen extends React.PureComponent {
       slider1ActiveSlide: 0
     };
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
+    this.continueGetCenter = this.continueGetCenter.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,15 @@ class ListJobsScreen extends React.PureComponent {
   handleCenterSearch() {
     this.props.cleanCenters();
     this.props.getCenters(this.props.searches.query);
+  }
+
+  async continueGetCenter() {
+    if (this.props.searches.reachEnd) {
+      return;
+    } else {
+      await this.props.increaseQueryPage();
+      this.props.getCenters(this.props.searches.query);
+    }
   }
 
   renderPlaceholder() {
@@ -53,7 +63,8 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <View>
+      <SafeAreaView>
+        <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
         <FlatList
           style={{ backgroundColor: teamcheColors.lightGray }}
           data={this.props.centers.centers}
@@ -62,9 +73,11 @@ class ListJobsScreen extends React.PureComponent {
           renderItem={({ item }) => <Job item={item} path="Details" navigate={this.props.navigation.navigate} />}
           refreshing={this.props.centers.centerLoading}
           onRefresh={this.handleCenterSearch}
+          onEndReached={this.continueGetCenter}
+          onEndReachedThreshold={60}
         />
         {this.renderPlaceholder()}
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -73,5 +86,5 @@ const msp = ({ auth, centers, searches }) => ({ auth, centers, searches });
 
 export default connect(
   msp,
-  { getCenters, cleanCenters }
+  { getCenters, cleanCenters, increaseQueryPage }
 )(ListJobsScreen);
