@@ -31,9 +31,9 @@ export default (state = defaultState, action) => {
     case INCREASE_QUERY_PAGE:
       return { ...state, query: { ...state.query, page: state.query.page + 1 } };
     case CLEAR_QUERY_PAGE:
-      return { ...state, query: { ...state.query, page: 0 } };
+      return { ...state, query: { ...state.query, page: 0 }, reachEnd: false };
     case CLEAN_CENTERS:
-      return { ...state, query: { ...state.query, page: 0 } };
+      return { ...state, query: { ...state.query, page: 0 }, reachEnd: false };
     case SET_REACH_END_CENTERS:
       return { ...state, reachEnd: true };
     case SET_GEO_SEARCH:
