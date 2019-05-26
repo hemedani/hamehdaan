@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, TouchableOpacity, FlatList, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, TextInput, Button } from "react-native";
 
 import { cleanCenters, getCenters, getRastes, addRasteToQuery } from "../../actions";
 
@@ -13,6 +13,10 @@ const colors = [teamcheColors.gray, teamcheColors.lightGray];
 
 const RenderRasteItem = ({ item, index, addRasteToQuery, handleCenterSearch, goBack }) => {
   const handleRasteSelect = async () => {
+    console.log("==================");
+    console.log("RenderRasteItem click ", item);
+    console.log("==================");
+
     await addRasteToQuery(item);
     handleCenterSearch();
     goBack();

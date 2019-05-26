@@ -3,8 +3,9 @@
  */
 
 import { I18nManager, AppRegistry } from "react-native";
+I18nManager.forceRTL(true);
+
 import App from "./App";
 import { name as appName } from "./app.json";
-I18nManager.forceRTL(true);
 
 AppRegistry.registerComponent(appName, () => App);

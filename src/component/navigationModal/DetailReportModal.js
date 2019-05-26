@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, ActivityIndicator, Text } from "react-native";
+import { View, ActivityIndicator, Text, ScrollView } from "react-native";
 
 import { getReportById } from "../../actions";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { detailsStyles } from "../Details";
 import { Divider } from "react-native-elements";
 import moment from "moment-jalaali";
+import BaseModalNavigation from "./BaseModalNavigation";
 
 class DetailReportModal extends React.PureComponent {
   componentDidMount() {
@@ -17,12 +18,8 @@ class DetailReportModal extends React.PureComponent {
   render() {
     const { selectedReport, getReportsLoading } = this.props.reports;
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <View style={[detailsStyles.nameContainer, { marginTop: 5 }]}>
-          <View style={detailsStyles.nameContainerTitr}>
-            <Text style={[teamcheStyle.textBase, teamcheStyle.textTitr]}>اطلاعات گزارش</Text>
-            <Divider />
-          </View>
+      <BaseModalNavigation headerTxt="جزئیات بازرسی" goBack={this.props.navigation.goBack}>
+        <ScrollView contentContainerStyle={{ padding: 10 }}>
           {getReportsLoading && (
             <View
               style={{
@@ -93,8 +90,8 @@ class DetailReportModal extends React.PureComponent {
               <Text style={teamcheStyle.textBase}>نام محله صنف : {selectedReport.parish.name}</Text>
             </View>
           )}
-        </View>
-      </View>
+        </ScrollView>
+      </BaseModalNavigation>
     );
   }
 }

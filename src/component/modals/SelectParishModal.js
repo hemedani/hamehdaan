@@ -115,7 +115,8 @@ export const searchBarStyles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 10,
     alignItems: "center",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    zIndex: 3
   },
   textInp: {
     height: 38,

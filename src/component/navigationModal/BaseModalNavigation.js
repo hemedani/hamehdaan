@@ -59,7 +59,8 @@ const bodyStyle = StyleSheet.create({
   bodyContainer: {
     flexDirection: "column",
     minHeight: 100,
-    maxHeight: 403
+    maxHeight: 403,
+    zIndex: 2
   }
 });
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Animated, Easing } from "react-native";
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -34,15 +35,35 @@ const JobsWithModals = createStackNavigator(
     SelectRasteModal
   },
   {
+    initialRouteName: "Jobs",
+    transparentCard: true,
     mode: "modal",
     headerMode: "none",
-    transparentCard: true,
     navigationOptions: {
+      gesturesEnabled: true,
       title: "اصناف",
       labelStyle: {
         fontFamily: "Shabnam-FD"
       }
-    }
+    },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 300,
+        easing: Easing.inOut(Easing.ease),
+        timing: Animated.timing
+      },
+      screenInterpolator: sceneProps => {
+        const { position, scene } = sceneProps;
+        const { index } = scene;
+
+        const opacity = position.interpolate({
+          inputRange: [index - 1, index],
+          outputRange: [0, 1]
+        });
+
+        return { opacity };
+      }
+    })
   }
 );
 
@@ -71,6 +92,7 @@ const TabNavigator = createBottomTabNavigator(
       }
     }),
     navigationOptions: {
+      gesturesEnabled: true,
       headerMode: "none",
       header: null,
       headerBackTitle: null,
@@ -93,8 +115,31 @@ const CenterReports = createStackNavigator(
     DetailReportModal
   },
   {
+    initialRouteName: "CenterReports",
+    transparentCard: true,
     mode: "modal",
-    headerMode: "none"
+    headerMode: "none",
+    navigationOptions: {
+      gesturesEnabled: true
+    },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 300,
+        easing: Easing.inOut(Easing.ease),
+        timing: Animated.timing
+      },
+      screenInterpolator: sceneProps => {
+        const { position, scene } = sceneProps;
+        const { index } = scene;
+
+        const opacity = position.interpolate({
+          inputRange: [index - 1, index],
+          outputRange: [0, 1]
+        });
+
+        return { opacity };
+      }
+    })
   }
 );
 
@@ -103,7 +148,8 @@ const AppStack = createStackNavigator({
   Details: {
     screen: DetailsScreen,
     navigationOptions: {
-      headerTintColor: teamcheColors.lightPink
+      headerTintColor: teamcheColors.lightPink,
+      gesturesEnabled: true
     }
   },
   CenterReports
@@ -113,6 +159,7 @@ const AuthStack = createStackNavigator({
   SignIn: {
     screen: LoginScreen,
     navigationOptions: {
+      gesturesEnabled: true,
       headerMode: "none",
       header: null
     }

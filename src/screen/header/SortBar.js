@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, I18nManager, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import MyStyles, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
@@ -69,7 +69,8 @@ class SortBar extends React.PureComponent {
           )}
         </View>
         <View style={{ borderStartWidth: 1, borderStartColor: teamcheColors.lightPink }} />
-        <ScrollView horizontal={true}>
+
+        <ScrollView horizontal directionalLockEnabled>
           <Button
             type="outline"
             icon={{
