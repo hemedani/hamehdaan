@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import MyStyles, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
@@ -27,6 +27,7 @@ class SortBar extends React.PureComponent {
     const {
       searches,
       handleCenterSearch,
+      removeRasteFromQuery,
 
       setSortQuery
     } = this.props;
@@ -68,6 +69,57 @@ class SortBar extends React.PureComponent {
           )}
         </View>
         <View style={{ borderStartWidth: 1, borderStartColor: teamcheColors.lightPink }} />
+        <ScrollView horizontal={true}>
+          <Button
+            type="outline"
+            icon={{
+              name: "plus",
+              type: "font-awesome",
+              color: "white",
+              size: 14
+            }}
+            buttonStyle={{
+              borderColor: teamcheColors.lightPink,
+              marginHorizontal: 5
+            }}
+            titleStyle={{
+              color: teamcheColors.lightPink,
+              fontFamily: "Shabnam-FD",
+              fontSize: 12,
+              padding: 0
+            }}
+            title="رسته"
+            onPress={() => this.props.navigate("SelectRasteModal")}
+          />
+          {searches.rastes.length > 0 &&
+            searches.rastes.map(raste => (
+              <Button
+                key={raste._id}
+                type="outline"
+                icon={{
+                  name: "minus",
+                  type: "font-awesome",
+                  color: teamcheColors.darkerGray,
+                  size: 14
+                }}
+                buttonStyle={{
+                  borderColor: teamcheColors.darkerGray,
+                  marginHorizontal: 5
+                }}
+                titleStyle={{
+                  color: teamcheColors.darkerGray,
+                  fontFamily: "Shabnam-FD",
+                  fontSize: 12,
+                  padding: 0
+                }}
+                title={raste.name}
+                onPress={async () => {
+                  await removeRasteFromQuery(raste);
+                  handleCenterSearch();
+                }}
+              />
+            ))}
+        </ScrollView>
 
         <SelectSortModal
           toggleModal={this.toggleSelectSortModal}

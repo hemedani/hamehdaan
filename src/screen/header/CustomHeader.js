@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform } from "react-native";
+import { View, Platform, Alert } from "react-native";
 import { connect } from "react-redux";
 import Location, { LOCATION_HEIGHT } from "./Location";
 import {
@@ -12,7 +12,8 @@ import {
   cleanParishes,
   setNearByQuery,
   setSortQuery,
-  cleanSortQuery
+  cleanSortQuery,
+  removeRasteFromQuery
 } from "../../actions";
 import SearchBar, { SEARCHBAR_HEIGHT } from "./SearchBar";
 import SortBar, { SORT_BAR_HEIGHT } from "./SortBar";
@@ -29,6 +30,12 @@ class CustomHeader extends React.PureComponent {
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
     this.setParish = this.setParish.bind(this);
   }
+
+  // componentDidMount() {
+  //   console.log("==================");
+  //   console.log("this.props", this.props);
+  //   console.log("==================");
+  // }
 
   setParish(parish) {
     this.props.setSelectedParish(parish);
@@ -48,6 +55,7 @@ class CustomHeader extends React.PureComponent {
       searches,
       getCenters,
       clearSelectedParish,
+      removeRasteFromQuery,
 
       setSortQuery,
       cleanSortQuery
@@ -55,8 +63,8 @@ class CustomHeader extends React.PureComponent {
     return (
       <View
         style={{
-          height: APPBAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 5,
-          paddingTop: STATUSBAR_HEIGHT + 5,
+          height: APPBAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 15,
+          paddingTop: STATUSBAR_HEIGHT + 15,
           paddingBottom: 5,
           justifyContent: "flex-end",
           backgroundColor: teamcheColors.purple
@@ -83,6 +91,8 @@ class CustomHeader extends React.PureComponent {
           cleanSortQuery={cleanSortQuery}
           searches={searches}
           handleCenterSearch={this.handleCenterSearch}
+          navigate={this.props.navigation.navigate}
+          removeRasteFromQuery={removeRasteFromQuery}
         />
       </View>
     );
@@ -102,6 +112,7 @@ export default connect(
     cleanParishes,
     clearSelectedParish,
     setNearByQuery,
+    removeRasteFromQuery,
 
     setSortQuery,
     cleanSortQuery

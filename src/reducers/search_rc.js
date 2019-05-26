@@ -1,18 +1,22 @@
 import {
   ON_SEARCH_TEXT_CHANGE,
   SET_SELECTED_PARISH,
+  ADD_RASTE_TO_QUERY,
+  REMOVE_RASTE_FROM_QUERY,
   SET_GEO_SEARCH,
   CLEAR_SELECTED_PARISH,
   SET_NEARBY_QUERY,
   SET_SEARCH_SORT,
   CLEAR_SEARCH_SORT
 } from "../types";
+import _ from "lodash";
 
 let defaultState = {
   selectedParish: {},
   nearSearch: false,
   sortName: "",
-  query: { text: "", geo: {}, near: null, sort: null }
+  rastes: [],
+  query: { text: "", geo: {}, near: null, sort: null, rastes: [] }
 };
 
 export default (state = defaultState, action) => {
@@ -31,6 +35,27 @@ export default (state = defaultState, action) => {
         query: { ...state.query, geo: action.payload.polygon, near: null },
         nearSearch: false,
         selectedParish: action.payload
+      };
+    case ADD_RASTE_TO_QUERY:
+      const findRaste = _.find(state.rastes, { _id: action.payload._id });
+      let rastes = state.rastes;
+      let rastesId = state.query.rastes;
+      if (findRaste) {
+        rastes = rastes.filter(raste => raste._id !== action.payload._id);
+        rastesId = rastesId.filter(rasteId => rasteId !== action.payload._id);
+      }
+      return {
+        ...state,
+        rastes: [action.payload, ...rastes],
+        query: { ...state.query, rastes: [action.payload._id, ...rastesId] }
+      };
+    case REMOVE_RASTE_FROM_QUERY:
+      const removedRastes = state.rastes.filter(raste => raste._id !== action.payload._id);
+      const removedRastesId = state.query.rastes.filter(rasteId => rasteId !== action.payload._id);
+      return {
+        ...state,
+        rastes: removedRastes,
+        query: { ...state.query, rastes: removedRastesId }
       };
     case CLEAR_SELECTED_PARISH:
       return { ...state, query: { ...state.query, geo: {} }, selectedParish: {} };

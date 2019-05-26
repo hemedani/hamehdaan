@@ -72,6 +72,13 @@ export const SELECTED_PATISH = "SELECTED_PATISH";
 export const CLEAN_PARISHES = "CLEAN_PARISHES";
 export const GET_PARISHES_ERR = "GET_PARISHES_ERR";
 
+/************  --RASTES--  *************/
+export const GET_RASTES = "GET_RASTES";
+export const RASTES_LOAD = "RASTES_LOAD";
+export const SELECTED_RASTE = "SELECTED_RASTE";
+export const CLEAN_RASTES = "CLEAN_RASTES";
+export const GET_RASTES_ERR = "GET_RASTES_ERR";
+
 /************  --CENTER--  *************/
 export const GET_CENTER = "GET_CENTER";
 export const GET_CENTER_ERR = "GET_CENTER_ERR";
@@ -135,21 +142,6 @@ export const UPDATE_CENTER_TYPE_ERR = "UPDATE_CENTER_TYPE_ERR";
 export const CENTER_TYPE_UPDATE_LOAD = "CENTER_TYPE_UPDATE_LOAD";
 export const SET_CENTER_LIKE_LOAD = "SET_CENTER_LIKE_LOAD";
 export const SET_CENTER_LIKE = "SET_CENTER_LIKE";
-
-/************  --RASTES--  *************/
-export const GET_RASTES = "GET_RASTES";
-export const GET_RASTES_ERR = "GET_RASTES_ERR";
-export const ADD_RASTE = "ADD_RASTE";
-export const REMOVE_RASTE = "REMOVE_RASTE";
-export const RASTE_LOAD = "RASTE_LOAD";
-export const YOUR_RASTE = "YOUR_RASTE";
-export const CLEAN_RASTE = "CLEAN_RASTE";
-export const ADD_RASTE_ERR = "ADD_RASTE_ERR";
-export const RASTE_PIC_LOAD = "RASTE_PIC_LOAD";
-export const RASTE_ADD_PIC = "RASTE_ADD_PIC";
-export const UPDATE_RASTE = "UPDATE_RASTE";
-export const UPDATE_RASTE_ERR = "UPDATE_RASTE_ERR";
-export const RASTE_UPDATE_LOAD = "RASTE_UPDATE_LOAD";
 
 /************  --ETEHADIYES--  *************/
 export const GET_ETEHADIYES = "GET_ETEHADIYES";
@@ -371,13 +363,15 @@ export const OPTION_PIC_LOAD = "OPTION_PIC_LOAD";
 export const OPTION_ADD_PIC = "OPTION_ADD_PIC";
 
 /************  --SEARCH--  *************/
-export const ON_SEARCH_TEXT_CHANGE = "ON_SEARCH_TEXT_CHANGE";
-export const SET_SELECTED_PARISH = "SET_SELECTED_PARISH";
-export const SET_GEO_SEARCH = "SET_GEO_SEARCH";
-export const CLEAR_SELECTED_PARISH = "CLEAR_SELECTED_PARISH";
-export const SET_NEARBY_QUERY = "SET_NEARBY_QUERY";
-export const SET_SEARCH_SORT = "SET_SEARCH_SORT";
-export const CLEAR_SEARCH_SORT = "CLEAR_SEARCH_SORT";
+export const ON_SEARCH_TEXT_CHANGE = "ON_SEARCH_TEXT_CHANGE",
+  SET_SELECTED_PARISH = "SET_SELECTED_PARISH",
+  ADD_RASTE_TO_QUERY = "ADD_RASTE_TO_QUERY",
+  REMOVE_RASTE_FROM_QUERY = "REMOVE_RASTE_FROM_QUERY",
+  SET_GEO_SEARCH = "SET_GEO_SEARCH",
+  CLEAR_SELECTED_PARISH = "CLEAR_SELECTED_PARISH",
+  SET_NEARBY_QUERY = "SET_NEARBY_QUERY",
+  SET_SEARCH_SORT = "SET_SEARCH_SORT",
+  CLEAR_SEARCH_SORT = "CLEAR_SEARCH_SORT";
 
 /************  --SEARCH--  *************/
 export const GET_REPORTS = "GET_REPORTS",

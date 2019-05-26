@@ -6,6 +6,7 @@ import { getReportById } from "../../actions";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { detailsStyles } from "../Details";
 import { Divider } from "react-native-elements";
+import moment from "moment-jalaali";
 
 class DetailReportModal extends React.PureComponent {
   componentDidMount() {
@@ -48,11 +49,19 @@ class DetailReportModal extends React.PureComponent {
               <Text style={teamcheStyle.textBase}>نام صنف : {selectedReport.center.name}</Text>
             </View>
           )}
+          {selectedReport.createdAt && (
+            <View style={detailsStyles.addressContainer}>
+              <Text style={teamcheStyle.textBase}>
+                تاریخ ثبت : {moment(selectedReport.createdAt).format("jYYYY/jM/jD -- HH:mm")}
+              </Text>
+            </View>
+          )}
           {selectedReport.raste && selectedReport.raste.name && (
             <View style={detailsStyles.addressContainer}>
               <Text style={teamcheStyle.textBase}>رسته : {selectedReport.raste.name}</Text>
             </View>
           )}
+
           {selectedReport.etehadiye && selectedReport.etehadiye.name && (
             <View style={detailsStyles.addressContainer}>
               <Text style={teamcheStyle.textBase}>اتحادیه : {selectedReport.etehadiye.name}</Text>

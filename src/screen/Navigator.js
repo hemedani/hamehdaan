@@ -12,22 +12,31 @@ import CustomHeader from "./header/CustomHeader";
 import { teamcheColors } from "../styles/MyStyles";
 import CenterReportsScreen from "../component/CenterReports";
 import DetailReportModal from "../component/navigationModal/DetailReportModal";
+import SelectRasteModal from "../component/navigationModal/SelectRasteModal";
 
-const Jobs = createStackNavigator(
-  {
-    Jobs: {
-      screen: ListJobsScreen,
-      navigationOptions: ({ navigation }) => {
-        return {
-          header: props => <CustomHeader {...props} />,
-          headerStyle: {
-            backgroundColor: "transparent"
-          }
-        };
-      }
+const Jobs = createStackNavigator({
+  Jobs: {
+    screen: ListJobsScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+        header: props => <CustomHeader {...props} />,
+        headerStyle: {
+          backgroundColor: "transparent"
+        }
+      };
     }
+  }
+});
+
+const JobsWithModals = createStackNavigator(
+  {
+    Jobs,
+    SelectRasteModal
   },
   {
+    mode: "modal",
+    headerMode: "none",
+    transparentCard: true,
     navigationOptions: {
       title: "اصناف",
       labelStyle: {
@@ -39,7 +48,7 @@ const Jobs = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Jobs,
+    JobsWithModals,
     Settings: SettingsScreen,
     AboutUs: AboutUsScreen
   },
@@ -49,7 +58,7 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
-        if (routeName === "Jobs") {
+        if (routeName === "JobsWithModals") {
           iconName = `ios-apps`;
         } else if (routeName === "Settings") {
           iconName = `ios-options`;
