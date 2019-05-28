@@ -66,7 +66,7 @@ class ListJobsScreen extends React.PureComponent {
       <SafeAreaView>
         <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
         <FlatList
-          style={{ backgroundColor: teamcheColors.lightGray }}
+          style={{ backgroundColor: teamcheColors.lightGray, minHeight: 500 }}
           data={this.props.centers.centers}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item._id}
@@ -74,7 +74,7 @@ class ListJobsScreen extends React.PureComponent {
           refreshing={this.props.centers.centerLoading}
           onRefresh={this.handleCenterSearch}
           onEndReached={this.continueGetCenter}
-          onEndReachedThreshold={60}
+          onEndReachedThreshold={250}
         />
         {this.renderPlaceholder()}
       </SafeAreaView>

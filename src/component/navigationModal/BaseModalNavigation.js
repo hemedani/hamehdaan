@@ -19,7 +19,7 @@ const BaseModalNavigation = ({ headerTxt, goBack, children }) => {
           }}
         />
       </TouchableWithoutFeedback>
-      <View style={{ backgroundColor: "#fff", zIndex: 1 }}>
+      <View style={{ backgroundColor: "#fff", zIndex: 1, width: Dimensions.get("screen").width - 50 }}>
         <View style={headerBarStyle.headerContainerStyle}>
           <Text style={[teamcheStyle.textBase, teamcheStyle.textTitr, { color: teamcheColors.lightPink, paddingTop: 10 }]}>
             {headerTxt}
@@ -59,8 +59,7 @@ const bodyStyle = StyleSheet.create({
   bodyContainer: {
     flexDirection: "column",
     minHeight: 100,
-    maxHeight: 403,
-    zIndex: 2
+    maxHeight: 403
   }
 });
 

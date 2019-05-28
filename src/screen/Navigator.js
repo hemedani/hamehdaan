@@ -14,6 +14,54 @@ import { teamcheColors } from "../styles/MyStyles";
 import CenterReportsScreen from "../component/CenterReports";
 import DetailReportModal from "../component/navigationModal/DetailReportModal";
 import SelectRasteModal from "../component/navigationModal/SelectRasteModal";
+import MapDirectionModal from "../component/navigationModal/MapDirectionModal";
+import PhoneCallModal from "../component/navigationModal/PhoneCallModal";
+
+const TransitionConfiguration = () => {
+  return {
+    transitionSpec: {
+      duration: 400,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
+      useNativeDriver: true
+    },
+    screenInterpolator: sceneProps => {
+      const { layout, position, scene } = sceneProps;
+      const { index } = scene;
+
+      const translateX = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: [-layout.initWidth, 0, 0]
+      });
+
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index - 0.99, index, index + 0.99, index + 1],
+        outputRange: [0, 1, 1, 0.3, 0]
+      });
+
+      return { opacity, transform: [{ translateX }] };
+    }
+  };
+};
+
+const ModalTransitionConfig = () => ({
+  transitionSpec: {
+    duration: 300,
+    easing: Easing.inOut(Easing.ease),
+    timing: Animated.timing
+  },
+  screenInterpolator: sceneProps => {
+    const { position, scene } = sceneProps;
+    const { index } = scene;
+
+    const opacity = position.interpolate({
+      inputRange: [index - 1, index],
+      outputRange: [0, 1]
+    });
+
+    return { opacity };
+  }
+});
 
 const Jobs = createStackNavigator({
   Jobs: {
@@ -122,38 +170,41 @@ const CenterReports = createStackNavigator(
     navigationOptions: {
       gesturesEnabled: true
     },
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 300,
-        easing: Easing.inOut(Easing.ease),
-        timing: Animated.timing
-      },
-      screenInterpolator: sceneProps => {
-        const { position, scene } = sceneProps;
-        const { index } = scene;
-
-        const opacity = position.interpolate({
-          inputRange: [index - 1, index],
-          outputRange: [0, 1]
-        });
-
-        return { opacity };
-      }
-    })
+    transitionConfig: () => ModalTransitionConfig()
   }
 );
 
-const AppStack = createStackNavigator({
-  Home: TabNavigator,
-  Details: {
-    screen: DetailsScreen,
+const DetailStack = createStackNavigator(
+  {
+    Details: DetailsScreen,
+    MapDirectionModal,
+    PhoneCallModal
+  },
+  {
+    initialRouteName: "Details",
+    transparentCard: true,
+    mode: "modal",
+    headerMode: "none",
     navigationOptions: {
       headerTintColor: teamcheColors.lightPink,
-      gesturesEnabled: true
-    }
+      gesturesEnabled: true,
+      headerTransparent: true,
+      headerStyle: { borderBottomWidth: 0 }
+    },
+    transitionConfig: ModalTransitionConfig
+  }
+);
+
+const AppStack = createStackNavigator(
+  {
+    Home: TabNavigator,
+    Details: DetailStack,
+    CenterReports
   },
-  CenterReports
-});
+  {
+    transitionConfig: () => TransitionConfiguration()
+  }
+);
 
 const AuthStack = createStackNavigator({
   SignIn: {

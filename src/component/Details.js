@@ -19,7 +19,6 @@ import { showMessage } from "react-native-flash-message";
 
 import { addReport, getItem } from "../actions";
 
-import MapModal from "./modals/MapModal";
 import PhoneCallModal from "./modals/PhoneCallModal";
 import ReportModal from "./modals/ReportModal";
 
@@ -37,14 +36,12 @@ class DetailsScreen extends React.Component {
       slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
       getJob: false,
       job: null,
-      mapModalVisible: false,
-      phonesModalVisible: false,
       reportModalVisible: false,
       setLocation: false
     };
     this.backBtnPress = this.backBtnPress.bind(this);
-    this.toggleMapModal = this.toggleMapModal.bind(this);
-    this.togglePhonesModal = this.togglePhonesModal.bind(this);
+    this.getMapDirection = this.getMapDirection.bind(this);
+    this.getPhoneCallModal = this.getPhoneCallModal.bind(this);
     this.toggleReportModal = this.toggleReportModal.bind(this);
     this.setLocationForJob = this.setLocationForJob.bind(this);
   }
@@ -83,15 +80,18 @@ class DetailsScreen extends React.Component {
   backBtnPress() {
     this.props.navigation.goBack();
   }
-  toggleMapModal() {
-    this.setState({ mapModalVisible: !this.state.mapModalVisible });
+  getMapDirection() {
+    const { job } = this.state;
+    this.props.navigation.navigate("MapDirectionModal", { job });
+  }
+  getPhoneCallModal() {
+    const { job } = this.state;
+    this.props.navigation.navigate("PhoneCallModal", { phone: job.phone });
   }
   toggleReportModal() {
     this.setState({ reportModalVisible: !this.state.reportModalVisible });
   }
-  togglePhonesModal() {
-    this.setState({ phonesModalVisible: !this.state.phonesModalVisible });
-  }
+
   setLocationForJob() {
     this.setState({ setLocation: true });
     navigator.geolocation.getCurrentPosition(
@@ -210,7 +210,7 @@ class DetailsScreen extends React.Component {
                     fontSize: 15
                   }}
                   title={"تماس سریع"}
-                  onPress={this.togglePhonesModal}
+                  onPress={this.getPhoneCallModal}
                 />
                 <Button
                   containerStyle={{
@@ -227,10 +227,10 @@ class DetailsScreen extends React.Component {
                     fontSize: 15
                   }}
                   title={"مسیریابی"}
-                  onPress={this.toggleMapModal}
+                  onPress={this.getMapDirection}
                 />
               </View>
-              <TouchableOpacity style={detailsStyles.mapView} onPress={this.toggleMapModal}>
+              <TouchableOpacity style={detailsStyles.mapView} onPress={this.getMapDirection}>
                 <Image style={{ flex: 1, borderRadius: 10 }} source={{ uri: `${RU}/pic/maps/${job.staticMap}` }} />
               </TouchableOpacity>
 
@@ -425,7 +425,6 @@ class DetailsScreen extends React.Component {
           />
         </View>
         <View>
-          <MapModal toggleModal={this.toggleMapModal} isModalVisible={this.state.mapModalVisible} job={job} />
           <ReportModal
             toggleModal={this.toggleReportModal}
             isModalVisible={this.state.reportModalVisible}
@@ -433,11 +432,6 @@ class DetailsScreen extends React.Component {
             reports={this.props.reports}
             job={job}
             addReport={this.props.addReport}
-          />
-          <PhoneCallModal
-            toggleModal={this.togglePhonesModal}
-            isModalVisible={this.state.phonesModalVisible}
-            phone={job.phone}
           />
         </View>
       </View>
