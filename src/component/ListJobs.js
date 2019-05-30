@@ -3,7 +3,7 @@ import { View, FlatList, SafeAreaView, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
-import { getCenters, cleanCenters, increaseQueryPage } from "../actions";
+import { getCenters, cleanCenters, increaseQueryPage, setCenter } from "../actions";
 
 import { teamcheColors } from "../styles/MyStyles";
 import Job from "./Job";
@@ -70,7 +70,9 @@ class ListJobsScreen extends React.PureComponent {
           data={this.props.centers.centers}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item._id}
-          renderItem={({ item }) => <Job item={item} path="Details" navigate={this.props.navigation.navigate} />}
+          renderItem={({ item }) => (
+            <Job item={item} path="Details" navigate={this.props.navigation.navigate} setCenter={this.props.setCenter} />
+          )}
           refreshing={this.props.centers.centerLoading}
           onRefresh={this.handleCenterSearch}
           onEndReached={this.continueGetCenter}
@@ -86,5 +88,5 @@ const msp = ({ auth, centers, searches }) => ({ auth, centers, searches });
 
 export default connect(
   msp,
-  { getCenters, cleanCenters, increaseQueryPage }
+  { getCenters, cleanCenters, increaseQueryPage, setCenter }
 )(ListJobsScreen);

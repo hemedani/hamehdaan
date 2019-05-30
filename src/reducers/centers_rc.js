@@ -4,7 +4,6 @@ import {
   ADD_CENTER,
   REMOVE_CENTER,
   CENTERS_LOAD,
-  YOUR_CENTER,
   CLEAN_CENTERS,
   GET_CENTERS_COUNT_LOAD,
   GET_CENTERS_COUNT,
@@ -27,7 +26,6 @@ let defaultState = {
   picLoading: false,
   error: "",
   centers: [],
-  yourCenter: {},
   formPic: { _id: null, name: null },
   reachEnd: false,
   picUpPercent: [],
@@ -78,8 +76,6 @@ export default (state = defaultState, action) => {
     case REMOVE_CENTER:
       let centers = state.centers.filter(center => center._id !== action.payload);
       return { ...state, centerLoading: false, centers: centers };
-    case YOUR_CENTER:
-      return { ...state, centerLoading: false, yourCenter: { ...action.payload } };
     case CENTER_UPDATE:
       let index = _.findIndex(state.centers, { _id: action.payload._id });
       const imutcenters = immutableSplice(state.centers, index, 1, action.payload);

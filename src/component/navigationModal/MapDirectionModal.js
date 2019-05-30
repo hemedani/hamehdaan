@@ -34,13 +34,13 @@ export default class MapDirectionModal extends PureComponent {
   }
   componentDidMount() {
     this.findCoordinates();
-    const job = this.props.navigation.getParam("job", {});
-    if (job) {
+    const center = this.props.navigation.getParam("center", {});
+    if (center) {
       this.setState({
         region: {
           ...this.state.region,
-          latitude: job.location.coordinates[1],
-          longitude: job.location.coordinates[0]
+          latitude: center.location.coordinates[1],
+          longitude: center.location.coordinates[0]
         }
       });
     }
@@ -80,11 +80,11 @@ export default class MapDirectionModal extends PureComponent {
           getDirections: false
         });
 
-        const job = this.props.navigation.getParam("job", {});
+        const center = this.props.navigation.getParam("center", {});
 
         this.getDirections(
           `${position.coords.latitude},${position.coords.longitude}`,
-          `${job.location.coordinates[1]},${job.location.coordinates[0]}`
+          `${center.location.coordinates[1]},${center.location.coordinates[0]}`
         );
       },
       error => console.log(error.message),
@@ -113,7 +113,7 @@ export default class MapDirectionModal extends PureComponent {
     );
   }
   render() {
-    const job = this.props.navigation.getParam("job", {});
+    const center = this.props.navigation.getParam("center", {});
     return (
       <BaseModalNavigation headerTxt="مسیریابی" goBack={this.props.navigation.goBack}>
         <View style={styles.parentContainer}>
@@ -132,8 +132,8 @@ export default class MapDirectionModal extends PureComponent {
                 >
                   <Marker
                     coordinate={this.state.region}
-                    title={job.name}
-                    description={`آدرس : ${job.address.city} ${job.address.parish} ${job.address.text}`}
+                    title={center.name}
+                    description={`آدرس : ${center.address.city} ${center.address.parish} ${center.address.text}`}
                     centerOffset={{ x: 0, y: -20 }}
                   >
                     <Image source={require("../../img/marker/marker-destination.png")} style={{ width: 27, height: 40 }} />
@@ -153,20 +153,20 @@ export default class MapDirectionModal extends PureComponent {
                   this.renderActivityIndicator("در حال دریافت مسیر")
                 ) : (
                   <Button
-                    icon={{ name: "clear", color: "white" }}
+                    icon={{ name: "map", color: "white" }}
                     containerStyle={{
                       flex: 1
                     }}
                     buttonStyle={{
                       borderRadius: 0,
-                      backgroundColor: teamcheColors.dullRed
+                      backgroundColor: teamcheColors.royal
                     }}
                     titleStyle={{
                       fontFamily: "Shabnam-FD",
                       fontSize: 15
                     }}
-                    title={"بازگشت"}
-                    onPress={() => this.props.navigation.goBack()}
+                    title={"دریافت مسیر"}
+                    onPress={this.findCoordinates}
                   />
                 )}
 
@@ -199,8 +199,8 @@ export default class MapDirectionModal extends PureComponent {
               animationIn: "slideInUp"
             }}
             options={{
-              latitude: job.location.coordinates[1],
-              longitude: job.location.coordinates[0],
+              latitude: center.location.coordinates[1],
+              longitude: center.location.coordinates[0],
               sourceLatitude: this.state.location.latitude,
               sourceLongitude: this.state.location.longitude,
               alwaysIncludeGoogle: true,

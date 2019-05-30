@@ -1,7 +1,18 @@
 import axios from "axios";
 import { Alert } from "react-native";
 import _ from "lodash";
-import { GET_CENTERS, CENTERS_LOAD, GET_CENTERS_ERR, CLEAN_CENTERS, RU, SET_REACH_END_CENTERS } from "../types";
+import {
+  GET_CENTERS,
+  CENTERS_LOAD,
+  GET_CENTERS_ERR,
+  CLEAN_CENTERS,
+  RU,
+  SET_REACH_END_CENTERS,
+  SET_SELECTED_CENTER,
+  GET_SELECTED_CENTER,
+  GET_SELECTED_CENTER_ERR,
+  GET_SELECTED_CENTER_LOAD
+} from "../types";
 import { getItem } from "./AsyncStorageAct";
 
 export const getCenters = query => {

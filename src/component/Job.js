@@ -4,8 +4,12 @@ import { teamcheColors } from "../styles/MyStyles";
 import { RU } from "../types";
 import moment from "moment-jalaali";
 
-export default ({ item, path, navigate }) => {
-  const handleOnPress = () => navigate(path, { job: item });
+export default ({ item, path, navigate, setCenter }) => {
+  // const handleOnPress = () => navigate(path, { job: item });
+  const handleOnPress = async () => {
+    await setCenter(item);
+    return navigate(path);
+  };
   return (
     <TouchableOpacity style={styles.touchableOpacityContainer} onPress={handleOnPress}>
       <Image

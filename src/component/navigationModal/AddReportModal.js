@@ -1,25 +1,17 @@
 import React from "react";
-import { TextInput, View, StyleSheet, Platform } from "react-native";
-import BaseModal from "./BaseModal";
+import { TextInput, View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 import { Button } from "react-native-elements";
 
-// TODO I'm not a big fan of this Toast --react-native-root-toast-- whenever i can must be replaced with another modules ==================
 import { showMessage } from "react-native-flash-message";
+
+import { addReport } from "../../actions";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { ADD_REPORT } from "../../types";
+import BaseModalNavigation from "./BaseModalNavigation";
 
-const styles = {
-  backgroundColor: teamcheColors.seaFoam,
-  width: 300,
-  height: Platform.OS === "ios" ? 50 : 100,
-  color: teamcheColors.lightPink,
-  fontSize: 15,
-  borderRadius: 15,
-  fontWeight: "bold",
-  yOffset: 40
-};
-class ReportModal extends React.PureComponent {
+class AddReportModal extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,16 +24,17 @@ class ReportModal extends React.PureComponent {
     this.setState({ text });
   }
   handleSubmitReport() {
+    const { center } = this.props.center;
     const reportDetail = {
       text: this.state.text,
-      raste: this.props.job.raste._id ? this.props.job.raste._id : this.props.job.raste,
-      etehadiye: this.props.job.etehadiye._id ? this.props.job.etehadiye._id : this.props.job.etehadiye,
-      otaghAsnaf: this.props.job.otaghAsnaf._id ? this.props.job.otaghAsnaf._id : this.props.job.otaghAsnaf,
-      otaghBazargani: this.props.job.otaghBazargani._id ? this.props.job.otaghBazargani._id : this.props.job.otaghBazargani,
-      state: this.props.job.state._id ? this.props.job.state._id : this.props.job.state,
-      city: this.props.job.city._id ? this.props.job.city._id : this.props.job.city,
-      parish: this.props.job.parish._id ? this.props.job.parish._id : this.props.job.parish,
-      center: this.props.job._id
+      raste: center.raste._id ? center.raste._id : center.raste,
+      etehadiye: center.etehadiye._id ? center.etehadiye._id : center.etehadiye,
+      otaghAsnaf: center.otaghAsnaf._id ? center.otaghAsnaf._id : center.otaghAsnaf,
+      otaghBazargani: center.otaghBazargani._id ? center.otaghBazargani._id : center.otaghBazargani,
+      state: center.state._id ? center.state._id : center.state,
+      city: center.city._id ? center.city._id : center.city,
+      parish: center.parish._id ? center.parish._id : center.parish,
+      center: center._id
     };
     this.props.addReport(reportDetail).then(resp => {
       if (resp.type === ADD_REPORT) {
@@ -54,16 +47,16 @@ class ReportModal extends React.PureComponent {
           color: teamcheColors.lightPink,
           icon: "success"
         });
-        this.props.toggleModal();
+        this.props.navigation.goBack();
       }
     });
   }
   render() {
-    const { isModalVisible, toggleModal, reports } = this.props;
+    const { reports } = this.props;
     const { text } = this.state;
     const { handleSubmitReport, handleInpText } = this;
     return (
-      <BaseModal isModalVisible={isModalVisible} header="ثبت بازرسی" toggleModal={toggleModal}>
+      <BaseModalNavigation headerTxt="ثبت بازرسی" goBack={this.props.navigation.goBack}>
         <View style={reportStyle.container}>
           <TextInput
             multiline
@@ -92,7 +85,7 @@ class ReportModal extends React.PureComponent {
             title="ثبت بازرسی"
           />
         </View>
-      </BaseModal>
+      </BaseModalNavigation>
     );
   }
 }
@@ -107,4 +100,9 @@ const reportStyle = StyleSheet.create({
   }
 });
 
-export default ReportModal;
+const msp = ({ center, reports }) => ({ center, reports });
+
+export default connect(
+  msp,
+  { addReport }
+)(AddReportModal);
