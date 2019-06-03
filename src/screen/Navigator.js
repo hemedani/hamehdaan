@@ -120,8 +120,8 @@ const JobsWithModals = createStackNavigator(
 const TabNavigator = createBottomTabNavigator(
   {
     JobsWithModals,
-    Settings: SettingsScreen,
-    AboutUs: AboutUsScreen
+    Settings: SettingsScreen
+    // AboutUs: AboutUsScreen
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

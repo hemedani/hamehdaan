@@ -27,7 +27,7 @@ class AddPhotoToCenter extends PureComponent {
     const options = {
       noData: true
     };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.showImagePicker(options, response => {
       if (response.uri) {
         this.setState({ photo: response });
       }

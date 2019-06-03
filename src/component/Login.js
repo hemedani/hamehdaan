@@ -11,6 +11,7 @@ import CodeInput from "react-native-confirmation-code-field";
 import { getItem, removeItem, signWithMob, stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer, sendCode } from "../actions";
 
 import { AUTH_USER } from "../types";
+import { teamcheColors } from "../styles/MyStyles";
 
 const backImg = require("../img/back.png");
 class LoginScreen extends React.PureComponent {
@@ -68,7 +69,7 @@ class LoginScreen extends React.PureComponent {
             fontFamily: "Shabnam-FD",
             textAlign: "center",
             marginBottom: 15,
-            color: "rgb(112, 26, 146)"
+            color: teamcheColors.purple
           }}
         >
           شماره شما : {this.props.auth.user.phone}
@@ -120,12 +121,12 @@ class LoginScreen extends React.PureComponent {
               minHeight: 200
             }}
             dividerStyle={{
-              backgroundColor: "rgb(112, 26, 146)"
+              backgroundColor: teamcheColors.purple
             }}
             titleStyle={{
               fontSize: 16,
               fontFamily: "Shabnam-Bold-FD",
-              color: "rgb(112, 26, 146)"
+              color: teamcheColors.purple
               // textShadowOffset: { width: 2, height: 2 },
               // textShadowColor: "#fff",
               // textShadowRadius: 10
@@ -138,7 +139,7 @@ class LoginScreen extends React.PureComponent {
                 direction: "rtl",
                 textAlign: "center",
                 marginBottom: 15,
-                color: "rgb(112, 26, 146)"
+                color: teamcheColors.purple
                 // textShadowOffset: { width: 2, height: 2 },
                 // textShadowColor: "#fff",
                 // textShadowRadius: 10
@@ -184,10 +185,10 @@ class LoginScreen extends React.PureComponent {
                       // borderBottomRightRadius: 20,
                       borderWidth: 0.5,
                       borderStartWidth: 0,
-                      borderColor: "rgb(112, 26, 146)"
+                      borderColor: teamcheColors.purple
                     }}
                     labelStyle={{
-                      backgroundColor: "rgb(112, 26, 146)"
+                      backgroundColor: teamcheColors.purple
                       // borderTopLeftRadius: 20,
                       // borderBottomLeftRadius: 20,
                       // borderWidth: 1,
@@ -215,7 +216,7 @@ class LoginScreen extends React.PureComponent {
                     marginLeft: 0,
                     marginRight: 0,
                     marginBottom: 0,
-                    backgroundColor: "rgb(112, 26, 146)"
+                    backgroundColor: teamcheColors.purple
                   }}
                   titleStyle={{
                     fontFamily: "Shabnam-FD"
