@@ -42,9 +42,17 @@ const SelectSortModal = ({ toggleModal, isModalVisible, handleCenterSearch, setS
 
         <View style={bodyStyle.bodyContainer}>
           <RenderSortItem
-            sort={{ expirationDate: 1 }}
-            sortName="تاریخ انقضاء"
+            sort={{ membershipFeeDate: 1 }}
+            sortName="تاریخ اتمام حق عضویت"
             index={0}
+            setSortQuery={setSortQuery}
+            handleCenterSearch={handleCenterSearch}
+            toggleModal={toggleModal}
+          />
+          <RenderSortItem
+            sort={{ expirationDate: 1 }}
+            sortName="تاریخ انقضاء پروانه کسب"
+            index={1}
             setSortQuery={setSortQuery}
             handleCenterSearch={handleCenterSearch}
             toggleModal={toggleModal}
@@ -52,7 +60,7 @@ const SelectSortModal = ({ toggleModal, isModalVisible, handleCenterSearch, setS
           <RenderSortItem
             sort={{ name: 1 }}
             sortName="حروف الفبا"
-            index={1}
+            index={2}
             setSortQuery={setSortQuery}
             handleCenterSearch={handleCenterSearch}
             toggleModal={toggleModal}

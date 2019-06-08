@@ -47,7 +47,30 @@ export default ({ item, path, navigate, setCenter }) => {
                   color: "white"
                 }}
               >
-                تاریخ انقضا : {moment(item.expirationDate).format("jYYYY/jM/jD")}
+                تاریخ انقضاء : {moment(item.expirationDate).format("jYYYY/jM/jD")}
+              </Text>
+            </View>
+          )}
+          {item.membershipFeeDate && (
+            <View
+              style={{
+                backgroundColor: teamcheColors.royal,
+                marginBottom: 2,
+                marginLeft: 10,
+                color: "white",
+                padding: 5,
+                borderRadius: 4
+              }}
+            >
+              <Text
+                style={{
+                  writingDirection: "rtl",
+                  fontFamily: "Shabnam-Light-FD",
+                  fontSize: 10,
+                  color: "white"
+                }}
+              >
+                حق عضویت : {moment(item.membershipFeeDate).format("jYYYY/jM/jD")}
               </Text>
             </View>
           )}
