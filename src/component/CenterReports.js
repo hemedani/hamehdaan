@@ -11,7 +11,7 @@ class CenterReports extends React.PureComponent {
     title: "گزارش های صنف"
   };
   componentDidMount() {
-    const _id = this.props.navigation.getParam("_id", "");
+    const _id = this.props.navigation.getParam("_id", null);
     this.props.getReports({ center: _id });
   }
 

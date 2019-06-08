@@ -44,6 +44,24 @@ class SettingsScreen extends React.PureComponent {
             buttonStyle={{
               marginLeft: 0,
               marginRight: 0,
+              marginBottom: 15
+            }}
+            icon={{
+              name: "close",
+              size: 15,
+              type: "antdesign",
+              color: "white"
+            }}
+            title="بازرسی ها‍"
+            onPress={() => this.props.navigation.navigate("CenterReports")}
+          />
+          <Button
+            titleStyle={{
+              fontFamily: "Shabnam-FD"
+            }}
+            buttonStyle={{
+              marginLeft: 0,
+              marginRight: 0,
               marginBottom: 0
             }}
             icon={{

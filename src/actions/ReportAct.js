@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 import {
   GET_REPORTS,
   REPORTS_LOAD,
@@ -15,6 +16,13 @@ export const getReports = query => {
   return async dispatch => {
     dispatch({ type: REPORTS_LOAD });
     const token = await getItem("token");
+    let user = await getItem("user");
+    user = JSON.stringify(user);
+    if (_.includes(user.level, "organic.boss")) {
+      query.etehadiye = user.bossEt;
+    } else if (_.includes(user.level, "organic.officer")) {
+      query.creator = user._id;
+    }
     return axios
       .get(`${RU}/reports`, { headers: { sabti: token }, params: query })
       .then(resp => dispatch({ type: GET_REPORTS, payload: resp.data.reports }))
