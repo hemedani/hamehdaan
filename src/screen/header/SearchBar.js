@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, StyleSheet, Dimensions, Alert } from "react-native";
+import { View, TextInput, StyleSheet, Dimensions } from "react-native";
 import { Icon } from "react-native-elements";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 

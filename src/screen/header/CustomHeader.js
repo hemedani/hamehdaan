@@ -41,8 +41,8 @@ class CustomHeader extends React.PureComponent {
     this.props.setSelectedParish(parish);
   }
 
-  handleCenterSearch() {
-    this.props.cleanCenters();
+  async handleCenterSearch() {
+    await this.props.cleanCenters();
     this.props.getCenters(this.props.searches.query);
   }
 
