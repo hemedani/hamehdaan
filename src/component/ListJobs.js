@@ -22,8 +22,8 @@ class ListJobsScreen extends React.PureComponent {
     this.handleCenterSearch();
   }
 
-  handleCenterSearch() {
-    this.props.cleanCenters();
+  async handleCenterSearch() {
+    await this.props.cleanCenters();
     this.props.getCenters(this.props.searches.query);
   }
 
@@ -63,7 +63,7 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <SafeAreaView>
+      <View>
         <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
         <FlatList
           style={{ backgroundColor: teamcheColors.lightGray, minHeight: 500 }}
@@ -76,10 +76,10 @@ class ListJobsScreen extends React.PureComponent {
           refreshing={this.props.centers.centerLoading}
           onRefresh={this.handleCenterSearch}
           onEndReached={this.continueGetCenter}
-          onEndReachedThreshold={250}
+          progressViewOffset={250}
         />
         {this.renderPlaceholder()}
-      </SafeAreaView>
+      </View>
     );
   }
 }

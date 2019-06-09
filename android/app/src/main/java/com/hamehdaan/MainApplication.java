@@ -3,6 +3,7 @@ package com.hamehdaan;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.beefe.picker.PickerViewPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new PickerViewPackage(),
             new ImagePickerPackage(), new ReactNativeRestartPackage(),
           new RNGestureHandlerPackage(), new MapsPackage(), new SvgPackage(), new AsyncStoragePackage(),
           new LottiePackage(), new VectorIconsPackage());

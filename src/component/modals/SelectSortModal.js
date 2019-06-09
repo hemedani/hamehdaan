@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions, FlatList, Alert } from "react-native";
+import { Text, TouchableOpacity, View, StyleSheet, Dimensions } from "react-native";
 import Modal from "react-native-modal";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";

@@ -5320,6 +5320,11 @@ react-native-phone-call@^1.0.9:
   resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.9.tgz#4468ec6f95856557fbff9bd69a0db04b54c35e1d"
   integrity sha512-OPWYg8qeWNG/U4bWGMAKcQTH/ifqJnsvUPCH4lOkvWFHbQS3fbH5M8rFhXCzcfS0GVNzHhZX9ZByMM368TFAUQ==
 
+react-native-picker@^4.3.7:
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/react-native-picker/-/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"
+  integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
+
 react-native-progress-circle-rtl@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-native-progress-circle-rtl/-/react-native-progress-circle-rtl-2.0.1.tgz#ba7dd3615d3f7d3de6430279dced4702576acd4f"
@@ -5834,6 +5839,14 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-persian-date-picker@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/rn-persian-date-picker/-/rn-persian-date-picker-1.0.4.tgz#53407b6f0bb4b852a11192f236849ebf6db34cfe"
+  integrity sha512-pj3p1U36XwqNKcuCDcgKkrDx5y/uGQs4P8vjpAkUbApUus62y7ZseHMH0VQmn4KhhWjbSq7Wi7Xn1jgBxRP3mw==
+  dependencies:
+    moment-jalaali "^0.8.3"
+    react-native-picker "^4.3.7"
 
 rn-placeholder@^2.0.0:
   version "2.0.0"

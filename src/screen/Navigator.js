@@ -18,6 +18,7 @@ import MapDirectionModal from "../component/navigationModal/MapDirectionModal";
 import PhoneCallModal from "../component/navigationModal/PhoneCallModal";
 import AddPhotoToCenter from "../component/navigationModal/AddPhotoToCenter";
 import AddReportModal from "../component/navigationModal/AddReportModal";
+import AddDetailForCenterModal from "../component/navigationModal/AddDetailForCenterModal";
 
 const TransitionConfiguration = () => {
   return {
@@ -182,7 +183,8 @@ const DetailStack = createStackNavigator(
     MapDirectionModal,
     PhoneCallModal,
     AddPhotoToCenter,
-    AddReportModal
+    AddReportModal,
+    AddDetailForCenterModal
   },
   {
     initialRouteName: "Details",

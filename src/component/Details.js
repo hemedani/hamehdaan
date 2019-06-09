@@ -39,6 +39,7 @@ class DetailsScreen extends React.Component {
     this.getPhoneCallModal = this.getPhoneCallModal.bind(this);
     this.addPhotoModal = this.addPhotoModal.bind(this);
     this.addReportModal = this.addReportModal.bind(this);
+    this.addDetailForCenter = this.addDetailForCenter.bind(this);
     this.setLocationForJob = this.setLocationForJob.bind(this);
   }
   componentDidMount() {
@@ -90,6 +91,9 @@ class DetailsScreen extends React.Component {
   }
   addReportModal() {
     this.props.navigation.navigate("AddReportModal");
+  }
+  addDetailForCenter() {
+    this.props.navigation.navigate("AddDetailForCenterModal");
   }
 
   setLocationForJob() {
@@ -390,7 +394,7 @@ class DetailsScreen extends React.Component {
               height: 40,
               backgroundColor: teamcheColors.cornFlowerBlue
             }}
-            onPress={this.addReportModal}
+            onPress={this.addDetailForCenter}
           />
         </View>
       </View>
