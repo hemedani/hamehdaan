@@ -31,12 +31,6 @@ class CustomHeader extends React.PureComponent {
     this.setParish = this.setParish.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log("==================");
-  //   console.log("this.props", this.props);
-  //   console.log("==================");
-  // }
-
   setParish(parish) {
     this.props.setSelectedParish(parish);
   }

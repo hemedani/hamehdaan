@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, ActivityIndicator, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 
 import { getReports } from "../actions";
 import { teamcheColors } from "../styles/MyStyles";
@@ -22,21 +22,9 @@ class CenterReports extends React.PureComponent {
           style={{ backgroundColor: teamcheColors.lightGray, width: "100%" }}
           data={this.props.reports.reports}
           keyExtractor={item => item._id}
+          refreshing={this.props.reports.getReportsLoading}
           renderItem={({ item, index }) => <Report item={item} index={index} navigate={this.props.navigation.navigate} />}
         />
-        {this.props.reports.getReportsLoading && (
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              backgroundColor: teamcheColors.lightPink,
-              borderRadius: 40,
-              justifyContent: "center"
-            }}
-          >
-            <ActivityIndicator size="small" color={teamcheColors.purple} />
-          </View>
-        )}
       </View>
     );
   }

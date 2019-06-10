@@ -10,6 +10,9 @@ import {
   ADD_PIC_CENTER,
   ADD_PIC_CENTER_LOAD,
   ADD_PIC_CENTER_ERR,
+  UPDATE_PROTECTED_CENTER_LOAD,
+  UPDATE_PROTECTED_CENTER,
+  UPDATE_PROTECTED_CENTER_ERR,
   RU
 } from "../types";
 import { showMessage } from "react-native-flash-message";
@@ -81,6 +84,38 @@ export const setLocation = LocId => {
         });
 
         return dispatch({ type: SET_LOCATION_CENTER_ERR, payload: err.response.data });
+      });
+  };
+};
+
+export const updateProtectedCenter = center => {
+  return async dispatch => {
+    dispatch({ type: UPDATE_PROTECTED_CENTER_LOAD });
+    const token = await getItem("token");
+    return axios
+      .post(`${RU}/center/update/protected`, center, { headers: { sabti: token } })
+      .then(resp => {
+        showMessage({
+          message: "بروزرسانی صنف",
+          description: "بروزرسانی صنف با موفقیت انجام شد",
+          type: "success",
+          backgroundColor: teamcheColors.seaFoam,
+          color: teamcheColors.lightPink,
+          icon: "success"
+        });
+        return dispatch({ type: UPDATE_PROTECTED_CENTER, payload: resp.data.center });
+      })
+      .catch(err => {
+        showMessage({
+          message: "بروزرسانی صنف",
+          description: "متاسفانه مشکلی در بروزرسانی صنف به وجود آمده لطفا دوباره تلاش کنید",
+          type: "danger",
+          backgroundColor: teamcheColors.dullRed,
+          color: teamcheColors.lightPink,
+          icon: "danger"
+        });
+
+        return dispatch({ type: UPDATE_PROTECTED_CENTER_ERR, payload: err.response.data });
       });
   };
 };

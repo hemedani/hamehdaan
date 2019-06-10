@@ -248,7 +248,8 @@ class DetailsScreen extends React.Component {
                     <Text style={teamcheStyles.textBase}>رسته : {center.raste.name}</Text>
                   </View>
                 )}
-                {center.guildId && (
+
+                {!!center.guildId && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>شناسه صنفی : {center.guildId}</Text>
                   </View>
@@ -270,24 +271,71 @@ class DetailsScreen extends React.Component {
                 <View style={detailsStyles.addressContainer}>
                   <Text style={teamcheStyles.textBase}>مباشر : {center.steward ? "دارد" : "ندارد"}</Text>
                 </View>
-                {center.personType && (
+                {!!center.personType && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>نوع شخص : {center.personType}</Text>
                   </View>
                 )}
-                {center.activityType && (
+                {!!center.activityType && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>نوع فعالیت : {center.activityType}</Text>
                   </View>
                 )}
-                {center.isicCode && (
+                {!!center.isicCode && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>کد آیسیک : {center.isicCode}</Text>
                   </View>
                 )}
-                {center.postalCode && (
+                {!!center.postalCode && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>کد پستی : {center.postalCode}</Text>
+                  </View>
+                )}
+
+                {!!center.guildOwnerName && !!center.guildOwnerFamily && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>
+                      نام صاحب پروانه : {center.guildOwnerName} {center.guildOwnerFamily}
+                    </Text>
+                  </View>
+                )}
+                {!!center.identificationCode && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>شماره شناسنامه صاحب پروانه : {center.identificationCode}</Text>
+                  </View>
+                )}
+                {!!center.nationalCode && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>کد ملی صاحب پروانه : {center.nationalCode}</Text>
+                  </View>
+                )}
+                {!!center.ownerFatherName && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>نام پدر صاحب پروانه : {center.ownerFatherName}</Text>
+                  </View>
+                )}
+                {center.ownerBirthDate && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>
+                      تاریخ تولد صاحب پروانه : {moment(center.ownerBirthDate).format("jYYYY/jM/jD")}
+                    </Text>
+                  </View>
+                )}
+                {!!center.waterPlaque && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>پلاک آبی : {center.waterPlaque}</Text>
+                  </View>
+                )}
+                {!!center.registrationPlaque && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>پلاک ثبتی : {center.registrationPlaque}</Text>
+                  </View>
+                )}
+                {center.membershipFeeDate && (
+                  <View style={detailsStyles.addressContainer}>
+                    <Text style={teamcheStyles.textBase}>
+                      تاریخ آخرین پرداخت حق عضویت : {moment(center.membershipFeeDate).format("jYYYY/jM/jD")}
+                    </Text>
                   </View>
                 )}
               </View>

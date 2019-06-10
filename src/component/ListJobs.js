@@ -63,10 +63,10 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <View>
+      <SafeAreaView>
         <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
         <FlatList
-          style={{ backgroundColor: teamcheColors.lightGray, minHeight: 500 }}
+          style={{ backgroundColor: teamcheColors.lightGray }}
           data={this.props.centers.centers}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item._id}
@@ -79,7 +79,7 @@ class ListJobsScreen extends React.PureComponent {
           progressViewOffset={250}
         />
         {this.renderPlaceholder()}
-      </View>
+      </SafeAreaView>
     );
   }
 }

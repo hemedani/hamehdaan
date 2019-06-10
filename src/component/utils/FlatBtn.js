@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "react-native-elements";
+import { teamcheColors } from "../../styles/MyStyles";
 
 const FlatBtn = ({ job, navigate, path, title, icon, onPress, bgColor, loading }) => {
   const handleOnPress = () => (navigate ? navigate(path, { job }) : onPress());
@@ -12,14 +13,14 @@ const FlatBtn = ({ job, navigate, path, title, icon, onPress, bgColor, loading }
       buttonStyle={{
         borderRadius: 0,
         height: 40,
-        backgroundColor: bgColor
+        backgroundColor: bgColor ? bgColor : teamcheColors.purple
       }}
       titleStyle={{
         fontFamily: "Shabnam-FD",
         fontSize: 13
       }}
       title={title}
-      loading={loading}
+      loading={loading ? loading : null}
       onPress={handleOnPress}
     />
   );

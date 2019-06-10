@@ -8,11 +8,15 @@ import {
   SET_LOCATION_CENTER_ERR,
   ADD_PIC_CENTER,
   ADD_PIC_CENTER_LOAD,
+  UPDATE_PROTECTED_CENTER_LOAD,
+  UPDATE_PROTECTED_CENTER,
+  UPDATE_PROTECTED_CENTER_ERR,
   ADD_PIC_CENTER_ERR
 } from "../types";
 
 let defaultState = {
   centerLoading: false,
+  updateProtectedLoading: false,
   picLoading: false,
   locationLoad: false,
   error: "",
@@ -57,6 +61,76 @@ export default (state = defaultState, action) => {
         center: {
           ...state.center,
           pics: action.payload.pics
+        },
+        error: ""
+      };
+
+    case UPDATE_PROTECTED_CENTER_ERR:
+      return { ...state, picLoading: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
+    case UPDATE_PROTECTED_CENTER_LOAD:
+      return { ...state, updateProtectedLoading: true, error: "" };
+    case UPDATE_PROTECTED_CENTER:
+      const {
+        name,
+        discount,
+        description,
+        telegram,
+        instagram,
+        email,
+        website,
+
+        guildId,
+        issueDate,
+        expirationDate,
+        personType,
+        activityType,
+        isicCode,
+        postalCode,
+
+        guildOwnerName,
+        guildOwnerFamily,
+        identificationCode,
+        nationalCode,
+        ownerFatherName,
+        ownerBirthDate,
+
+        waterPlaque,
+        registrationPlaque,
+
+        membershipFeeDate
+      } = action.payload;
+      return {
+        ...state,
+        updateProtectedLoading: false,
+        center: {
+          ...state.center,
+          name,
+          discount,
+          description,
+          telegram,
+          instagram,
+          email,
+          website,
+
+          guildId,
+          issueDate,
+          expirationDate,
+          personType,
+          activityType,
+          isicCode,
+          postalCode,
+
+          guildOwnerName,
+          guildOwnerFamily,
+          identificationCode,
+          nationalCode,
+          ownerFatherName,
+          ownerBirthDate,
+
+          waterPlaque,
+          registrationPlaque,
+
+          membershipFeeDate
         },
         error: ""
       };
