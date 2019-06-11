@@ -5,8 +5,8 @@ import moment from "moment-jalaali";
 import teamcheStyle from "../../styles/MyStyles";
 import { myInputStyles } from "./MyInput";
 
-const MyDateInput = ({ value, label, setFieldValue, name, minDate }) => {
-  const handleChangeDate = value => setFieldValue(name, value);
+const MyDateInput = ({ value, label, onChange, name, minDate }) => {
+  const handleChangeDate = value => onChange(name, value);
   let picker = null;
   return (
     <View style={myInputStyles.root}>
