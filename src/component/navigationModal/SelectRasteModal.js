@@ -7,16 +7,12 @@ import { cleanCenters, getCenters, getRastes, addRasteToQuery } from "../../acti
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
 import BaseModalNavigation from "./BaseModalNavigation";
-import { bodyStyle, searchBarStyles } from "../modals/SelectParishModal";
+import { bodyStyle, searchBarStyles } from "./SelectParishModal";
 
 const colors = [teamcheColors.gray, teamcheColors.lightGray];
 
 const RenderRasteItem = ({ item, index, addRasteToQuery, handleCenterSearch, goBack }) => {
   const handleRasteSelect = async () => {
-    console.log("==================");
-    console.log("RenderRasteItem click ", item);
-    console.log("==================");
-
     await addRasteToQuery(item);
     handleCenterSearch();
     goBack();

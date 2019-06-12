@@ -19,6 +19,7 @@ import PhoneCallModal from "../component/navigationModal/PhoneCallModal";
 import AddPhotoToCenter from "../component/navigationModal/AddPhotoToCenter";
 import AddReportModal from "../component/navigationModal/AddReportModal";
 import AddDetailForCenterModal from "../component/navigationModal/AddDetailForCenterModal";
+import SelectParishModal from "../component/navigationModal/SelectParishModal";
 
 const TransitionConfiguration = () => {
   return {
@@ -83,7 +84,8 @@ const Jobs = createStackNavigator({
 const JobsWithModals = createStackNavigator(
   {
     Jobs,
-    SelectRasteModal
+    SelectRasteModal,
+    SelectParishModal
   },
   {
     initialRouteName: "Jobs",

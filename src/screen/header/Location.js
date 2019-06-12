@@ -1,66 +1,27 @@
 import React from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
-import MyStyles, { teamcheColors } from "../../styles/MyStyles";
-import SelectParishModal from "../../component/modals/SelectParishModal";
+import { View, StyleSheet } from "react-native";
+import { teamcheColors } from "../../styles/MyStyles";
 import { Button, Icon } from "react-native-elements";
 
 export const LOCATION_HEIGHT = 40;
-
 class Location extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      getNear: false,
-      selectParishModalVisible: false,
-      path: ""
-    };
-    this.setNearByQuery = this.setNearByQuery.bind(this);
-    this.toggleSelectParishModal = this.toggleSelectParishModal.bind(this);
-    this.handleInpText = this.handleInpText.bind(this);
-    this.handleParishSearch = this.handleParishSearch.bind(this);
     this.clearSelectedParish = this.clearSelectedParish.bind(this);
-  }
-  componentDidMount() {
-    this.props.getParishes();
-  }
-  setNearByQuery() {
-    this.setState({ getNear: true });
-    navigator.geolocation.getCurrentPosition(
-      async position => {
-        await this.props.setNearByQuery(
-          this.props.searches.nearSearch
-            ? null
-            : {
-                type: "Point",
-                coordinates: [position.coords.longitude, position.coords.latitude]
-              }
-        );
-        this.setState({ getNear: false });
-        this.props.handleCenterSearch();
-      },
-      error => console.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+    this.navigateToParishModal = this.navigateToParishModal.bind(this);
   }
 
-  toggleSelectParishModal() {
-    this.props.cleanParishes();
-    this.setState({ selectParishModalVisible: !this.state.selectParishModalVisible });
-  }
-  handleParishSearch() {
-    const { path } = this.state;
-    this.props.getParishes({ path });
-  }
-  handleInpText(path) {
-    this.setState({ path });
-  }
   async clearSelectedParish() {
     await this.props.clearSelectedParish();
     this.props.handleCenterSearch();
   }
 
+  navigateToParishModal() {
+    this.props.navigation.navigate("SelectParishModal");
+  }
+
   render() {
-    const { getParishes, setSelectedParish, parishes, setParish, handleCenterSearch } = this.props;
+    const { fullPath } = this.props;
     return (
       <View style={locationStyle.locationContainer}>
         <Button
@@ -76,14 +37,10 @@ class Location extends React.PureComponent {
             fontSize: 12,
             padding: 0
           }}
-          title={
-            this.props.searches.selectedParish.fullPath
-              ? this.props.searches.selectedParish.fullPath
-              : "یک موقعیت انتخاب کنید"
-          }
-          onPress={this.toggleSelectParishModal}
+          title={fullPath ? fullPath : "یک موقعیت انتخاب کنید"}
+          onPress={this.navigateToParishModal}
         />
-        {this.props.searches.selectedParish.fullPath && (
+        {fullPath && (
           <Icon
             reverse
             name="close"
@@ -94,65 +51,6 @@ class Location extends React.PureComponent {
           />
         )}
         <View style={locationStyle.selectedParishContainer} />
-        <View style={locationStyle.iconNearByContainer}>
-          <View
-            style={{
-              backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink,
-              height: 25,
-              borderRadius: 5,
-              paddingHorizontal: 5,
-              paddingEnd: 15,
-              marginEnd: -15
-            }}
-          >
-            <Text
-              style={[
-                MyStyles.textBase,
-                { color: this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple, paddingTop: 3 }
-              ]}
-            >
-              اطراف من
-            </Text>
-          </View>
-          {this.state.getNear ? (
-            <View
-              style={{
-                width: 40,
-                height: 40,
-                backgroundColor: teamcheColors.lightPink,
-                borderRadius: 40,
-                justifyContent: "center"
-              }}
-            >
-              <ActivityIndicator size="small" color={teamcheColors.purple} />
-            </View>
-          ) : (
-            <Icon
-              reverse
-              raised
-              name="location"
-              type="evilicon"
-              size={18}
-              iconStyle={{ fontSize: 22 }}
-              color={this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink}
-              reverseColor={this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple}
-              onPress={this.setNearByQuery}
-            />
-          )}
-        </View>
-
-        <SelectParishModal
-          toggleModal={this.toggleSelectParishModal}
-          isModalVisible={this.state.selectParishModalVisible}
-          getParishes={getParishes}
-          setSelectedParish={setSelectedParish}
-          parishes={parishes}
-          inpValue={this.state.path}
-          handleInpText={this.handleInpText}
-          handleParishSearch={this.handleParishSearch}
-          handleCenterSearch={handleCenterSearch}
-          setParish={setParish}
-        />
       </View>
     );
   }
@@ -174,13 +72,7 @@ const locationStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  selectedParishText: { marginStart: 6, marginEnd: 30, color: teamcheColors.lightPink },
-  iconNearByContainer: {
-    position: "absolute",
-    end: 5,
-    flexDirection: "row",
-    alignItems: "center"
-  }
+  selectedParishText: { marginStart: 6, marginEnd: 30, color: teamcheColors.lightPink }
 });
 
 export default Location;

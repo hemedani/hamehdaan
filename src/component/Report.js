@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { bodyStyle } from "./modals/SelectParishModal";
+import { bodyStyle } from "./navigationModal/SelectParishModal";
 import teamcheStyle, { teamcheColors } from "../styles/MyStyles";
 
 const colors = [teamcheColors.gray, teamcheColors.lightGray];

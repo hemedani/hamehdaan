@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, Alert } from "react-native";
+import { View, Platform } from "react-native";
 import { connect } from "react-redux";
 import Location, { LOCATION_HEIGHT } from "./Location";
 import {
@@ -9,8 +9,6 @@ import {
   handleSearchTextChange,
   getCenters,
   clearSelectedParish,
-  cleanParishes,
-  setNearByQuery,
   setSortQuery,
   cleanSortQuery,
   removeRasteFromQuery
@@ -28,11 +26,6 @@ class CustomHeader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
-    this.setParish = this.setParish.bind(this);
-  }
-
-  setParish(parish) {
-    this.props.setSelectedParish(parish);
   }
 
   async handleCenterSearch() {
@@ -42,9 +35,6 @@ class CustomHeader extends React.PureComponent {
 
   render() {
     const {
-      getParishes,
-      cleanParishes,
-      parishes,
       handleSearchTextChange,
       searches,
       getCenters,
@@ -65,14 +55,10 @@ class CustomHeader extends React.PureComponent {
         }}
       >
         <Location
-          getParishes={getParishes}
+          fullPath={this.props.searches.selectedParish.fullPath}
           handleCenterSearch={this.handleCenterSearch}
-          cleanParishes={cleanParishes}
-          setParish={this.setParish}
-          setNearByQuery={this.props.setNearByQuery}
-          parishes={parishes}
-          searches={searches}
           clearSelectedParish={clearSelectedParish}
+          navigation={this.props.navigation}
         />
         <SearchBar
           handleSearchTextChange={handleSearchTextChange}
@@ -93,7 +79,7 @@ class CustomHeader extends React.PureComponent {
   }
 }
 
-const msp = ({ parishes, searches }) => ({ parishes, searches });
+const msp = ({ searches }) => ({ searches });
 
 export default connect(
   msp,
@@ -103,12 +89,9 @@ export default connect(
     setSelectedParish,
     handleSearchTextChange,
     getCenters,
-    cleanParishes,
     clearSelectedParish,
-    setNearByQuery,
-    removeRasteFromQuery,
-
     setSortQuery,
-    cleanSortQuery
+    cleanSortQuery,
+    removeRasteFromQuery
   }
 )(CustomHeader);

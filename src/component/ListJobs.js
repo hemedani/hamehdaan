@@ -3,10 +3,11 @@ import { View, FlatList, SafeAreaView, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
-import { getCenters, cleanCenters, increaseQueryPage, setCenter } from "../actions";
+import { getCenters, cleanCenters, increaseQueryPage, setCenter, setNearByQuery } from "../actions";
 
 import { teamcheColors } from "../styles/MyStyles";
 import Job from "./Job";
+import IconNearBy from "./utils/IconNearBy";
 
 class ListJobsScreen extends React.PureComponent {
   constructor(props) {
@@ -79,6 +80,11 @@ class ListJobsScreen extends React.PureComponent {
           progressViewOffset={250}
         />
         {this.renderPlaceholder()}
+        <IconNearBy
+          handleCenterSearch={this.handleCenterSearch}
+          searches={this.props.searches}
+          setNearByQuery={this.props.setNearByQuery}
+        />
       </SafeAreaView>
     );
   }
@@ -88,5 +94,5 @@ const msp = ({ auth, centers, searches }) => ({ auth, centers, searches });
 
 export default connect(
   msp,
-  { getCenters, cleanCenters, increaseQueryPage, setCenter }
+  { getCenters, cleanCenters, increaseQueryPage, setCenter, setNearByQuery }
 )(ListJobsScreen);
