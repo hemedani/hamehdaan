@@ -3,13 +3,13 @@ package com.hamehdaan;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.beefe.picker.PickerViewPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.horcrux.svg.SvgPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -31,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new AsyncStoragePackage(),
             new PickerViewPackage(),
             new ImagePickerPackage(), new ReactNativeRestartPackage(),
           new RNGestureHandlerPackage(), new MapsPackage(), new SvgPackage(), new AsyncStoragePackage(),
