@@ -37,7 +37,7 @@ class IconNearBy extends React.PureComponent {
         {this.props.searches.nearSearch && (
           <View
             style={{
-              backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink,
+              backgroundColor: teamcheColors.royal,
               height: 25,
               borderRadius: 5,
               paddingHorizontal: 8,
@@ -45,14 +45,7 @@ class IconNearBy extends React.PureComponent {
               marginEnd: -10
             }}
           >
-            <Text
-              style={[
-                teamcheStyle.textBase,
-                { color: this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple, paddingTop: 3 }
-              ]}
-            >
-              اطراف من
-            </Text>
+            <Text style={[teamcheStyle.textBase, { color: teamcheColors.lightPink, paddingTop: 3 }]}>اطراف من</Text>
           </View>
         )}
 
@@ -60,11 +53,11 @@ class IconNearBy extends React.PureComponent {
           style={{
             width: 43,
             height: 43,
-            backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.lightPink,
+            backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.purple,
             borderRadius: 43,
             justifyContent: "center",
             borderWidth: 1,
-            borderColor: this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple,
+            borderColor: teamcheColors.lightPink,
 
             shadowColor: "#000",
             shadowOffset: {
@@ -77,14 +70,14 @@ class IconNearBy extends React.PureComponent {
           }}
         >
           {this.state.getNear ? (
-            <ActivityIndicator size="small" color={teamcheColors.purple} />
+            <ActivityIndicator size="small" color={teamcheColors.lightPink} />
           ) : (
             <Icon
               name="location"
               type="evilicon"
               size={18}
               iconStyle={{ fontSize: 22 }}
-              color={this.props.searches.nearSearch ? teamcheColors.lightPink : teamcheColors.purple}
+              color={teamcheColors.lightPink}
               onPress={this.setNearByQuery}
             />
           )}

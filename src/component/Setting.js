@@ -3,8 +3,10 @@ import { View, Text } from "react-native";
 import { connect } from "react-redux";
 import { singoutUser } from "../actions";
 import { Avatar, Button, Divider } from "react-native-elements";
-import { teamcheColors } from "../styles/MyStyles";
+import teamcheStyle, { teamcheColors } from "../styles/MyStyles";
+import { RU } from "../types";
 
+const defaultUser = require("../img/default-user.jpg");
 class SettingsScreen extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -21,19 +23,24 @@ class SettingsScreen extends React.PureComponent {
     await this.props.singoutUser();
     this.props.navigation.navigate("Auth");
   }
+  // user.pic ? `${RU}/pic/500/${user.pic}` : defaultUser
   render() {
+    const { user } = this.props.auth;
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: 60 }}>
         <View style={{ flex: 2, justifyContent: "space-between", width: "100%", alignItems: "center" }}>
           <Avatar
             size="xlarge"
-            title="CR"
+            title={"HM"}
             rounded
-            source={{
-              uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"
-            }}
+            source={user.pic ? { uri: `${RU}/pic/500/${user.pic}` } : defaultUser}
             showEditButton
           />
+          {user.familyName && (
+            <Text style={[teamcheStyle.textBase, teamcheStyle.textTitr]}>
+              {user.name} {user.familyName}
+            </Text>
+          )}
           <Divider style={{ width: "100%" }} />
         </View>
         <View style={{ flex: 3, padding: 15, width: "100%" }}>
@@ -47,7 +54,7 @@ class SettingsScreen extends React.PureComponent {
               marginBottom: 15
             }}
             icon={{
-              name: "close",
+              name: "book",
               size: 15,
               type: "antdesign",
               color: "white"
@@ -64,6 +71,9 @@ class SettingsScreen extends React.PureComponent {
               marginRight: 0,
               marginBottom: 0
             }}
+            buttonStyle={{
+              backgroundColor: teamcheColors.dullRed
+            }}
             icon={{
               name: "close",
               size: 15,
@@ -78,7 +88,9 @@ class SettingsScreen extends React.PureComponent {
     );
   }
 }
+
+const msp = ({ auth }) => ({ auth });
 export default connect(
-  null,
+  msp,
   { singoutUser }
 )(SettingsScreen);

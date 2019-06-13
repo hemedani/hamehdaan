@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, SafeAreaView, StatusBar } from "react-native";
+import { View, FlatList, SafeAreaView, StatusBar, Dimensions, Platform } from "react-native";
 import { connect } from "react-redux";
 import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
@@ -8,6 +8,14 @@ import { getCenters, cleanCenters, increaseQueryPage, setCenter, setNearByQuery 
 import { teamcheColors } from "../styles/MyStyles";
 import Job from "./Job";
 import IconNearBy from "./utils/IconNearBy";
+import { CUSTOM_HEADER_HEIGHT } from "../screen/header/CustomHeader";
+
+const DEFAULT_HEIGHT = 49;
+const COMPACT_HEIGHT = 29;
+
+const TAB_BAR_HEIGHT = Platform.isPad ? DEFAULT_HEIGHT : COMPACT_HEIGHT;
+
+const REAL_HEIGHT = TAB_BAR_HEIGHT + CUSTOM_HEADER_HEIGHT;
 
 class ListJobsScreen extends React.PureComponent {
   constructor(props) {
@@ -64,7 +72,7 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ minHeight: Dimensions.get("window").height - REAL_HEIGHT - 54 }}>
         <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
         <FlatList
           style={{ backgroundColor: teamcheColors.lightGray }}

@@ -17,8 +17,10 @@ import SearchBar, { SEARCHBAR_HEIGHT } from "./SearchBar";
 import SortBar, { SORT_BAR_HEIGHT } from "./SortBar";
 import { teamcheColors } from "../../styles/MyStyles";
 
-const APPBAR_HEIGHT = LOCATION_HEIGHT + SEARCHBAR_HEIGHT;
+const APP_BAR_HEIGHT = LOCATION_HEIGHT + SEARCHBAR_HEIGHT;
 const STATUSBAR_HEIGHT = Platform.OS === "ios" ? 40 : 0;
+
+export const CUSTOM_HEADER_HEIGHT = APP_BAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 12;
 
 // TODO implement two btn for filter by raste and etehadiye in search bar ==================
 // TODO implement a ability for turn-on location for in android ==================
@@ -47,7 +49,7 @@ class CustomHeader extends React.PureComponent {
     return (
       <View
         style={{
-          height: APPBAR_HEIGHT + STATUSBAR_HEIGHT + SORT_BAR_HEIGHT + 12,
+          height: CUSTOM_HEADER_HEIGHT,
           paddingTop: STATUSBAR_HEIGHT + 12,
           paddingBottom: 5,
           justifyContent: "flex-end",

@@ -19,6 +19,8 @@ import PhoneCallModal from "../component/navigationModal/PhoneCallModal";
 import AddPhotoToCenter from "../component/navigationModal/AddPhotoToCenter";
 import AddReportModal from "../component/navigationModal/AddReportModal";
 import AddDetailForCenterModal from "../component/navigationModal/AddDetailForCenterModal";
+import AddBusinessesDetailForCenterModal from "../component/navigationModal/AddBusinessesDetailForCenterModal";
+import AddDateDetailForCenterModal from "../component/navigationModal/AddDateDetailForCenterModal";
 import SelectParishModal from "../component/navigationModal/SelectParishModal";
 
 const TransitionConfiguration = () => {
@@ -186,7 +188,9 @@ const DetailStack = createStackNavigator(
     PhoneCallModal,
     AddPhotoToCenter,
     AddReportModal,
-    AddDetailForCenterModal
+    AddDetailForCenterModal,
+    AddBusinessesDetailForCenterModal,
+    AddDateDetailForCenterModal
   },
   {
     initialRouteName: "Details",

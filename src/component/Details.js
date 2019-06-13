@@ -40,6 +40,8 @@ class DetailsScreen extends React.Component {
     this.addPhotoModal = this.addPhotoModal.bind(this);
     this.addReportModal = this.addReportModal.bind(this);
     this.addDetailForCenter = this.addDetailForCenter.bind(this);
+    this.addBusinessesDetailForCenter = this.addBusinessesDetailForCenter.bind(this);
+    this.addDateDetailForCenter = this.addDateDetailForCenter.bind(this);
     this.setLocationForJob = this.setLocationForJob.bind(this);
   }
   componentDidMount() {
@@ -94,6 +96,12 @@ class DetailsScreen extends React.Component {
   }
   addDetailForCenter() {
     this.props.navigation.navigate("AddDetailForCenterModal");
+  }
+  addBusinessesDetailForCenter() {
+    this.props.navigation.navigate("AddBusinessesDetailForCenterModal");
+  }
+  addDateDetailForCenter() {
+    this.props.navigation.navigate("AddDateDetailForCenterModal");
   }
 
   setLocationForJob() {
@@ -227,23 +235,23 @@ class DetailsScreen extends React.Component {
                     <ActivityIndicator size="small" color={teamcheColors.lightPink} />
                   </View>
                 )}
-                {center.otaghBazargani && center.otaghBazargani.name && (
+                {!!center.otaghBazargani && !!center.otaghBazargani.name && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتاق بازرگانی : {center.otaghBazargani.name}</Text>
                   </View>
                 )}
-                {center.otaghAsnaf.name && (
+                {!!center.otaghAsnaf.name && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتاق اصناف : {center.otaghAsnaf.name}</Text>
                   </View>
                 )}
 
-                {center.etehadiye.name && (
+                {!!center.etehadiye.name && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>اتحادیه : {center.etehadiye.name}</Text>
                   </View>
                 )}
-                {center.raste.name && (
+                {!!center.raste.name && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>رسته : {center.raste.name}</Text>
                   </View>
@@ -254,14 +262,14 @@ class DetailsScreen extends React.Component {
                     <Text style={teamcheStyles.textBase}>شناسه صنفی : {center.guildId}</Text>
                   </View>
                 )}
-                {center.issueDate && (
+                {!!center.issueDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ صدور پروانه : {moment(center.issueDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
-                {center.expirationDate && (
+                {!!center.expirationDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ انقضاء پروانه : {moment(center.expirationDate).format("jYYYY/jM/jD")}
@@ -314,7 +322,7 @@ class DetailsScreen extends React.Component {
                     <Text style={teamcheStyles.textBase}>نام پدر صاحب پروانه : {center.ownerFatherName}</Text>
                   </View>
                 )}
-                {center.ownerBirthDate && (
+                {!!center.ownerBirthDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ تولد صاحب پروانه : {moment(center.ownerBirthDate).format("jYYYY/jM/jD")}
@@ -331,7 +339,7 @@ class DetailsScreen extends React.Component {
                     <Text style={teamcheStyles.textBase}>پلاک ثبتی : {center.registrationPlaque}</Text>
                   </View>
                 )}
-                {center.membershipFeeDate && (
+                {!!center.membershipFeeDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       تاریخ آخرین پرداخت حق عضویت : {moment(center.membershipFeeDate).format("jYYYY/jM/jD")}
@@ -368,7 +376,7 @@ class DetailsScreen extends React.Component {
                   <Divider />
                 </View>
 
-                {center.workShift && (
+                {center.workShift.length > 0 && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
                       ساعت کار : از ساعت {center.workShift[0]} تا {center.workShift[1]}
@@ -380,7 +388,7 @@ class DetailsScreen extends React.Component {
                     <Text style={teamcheStyles.textBase}>تلفن ها : {center.phone.map(ph => `${ph}, `)}</Text>
                   </View>
                 )}
-                {center.description && (
+                {!!center.description && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>توضیحات : {center.description}</Text>
                   </View>
@@ -392,57 +400,41 @@ class DetailsScreen extends React.Component {
 
         <View style={detailsStyles.reportBtnContainer}>
           <Button
-            icon={{
-              name: "exclamation",
-              type: "evilicon",
-              color: "white"
-            }}
-            containerStyle={{
-              flex: 1
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              height: 40,
-              backgroundColor: teamcheColors.purple
-            }}
+            icon={{ name: "info", type: "ionicons", color: "white", size: 12 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.purple }}
             onPress={this.addReportModal}
           />
           <Button
-            icon={{ name: "location", type: "evilicon", color: "white" }}
-            containerStyle={{
-              flex: 1
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              height: 40,
-              backgroundColor: teamcheColors.royal
-            }}
+            icon={{ name: "map", type: "ionicons", color: "white", size: 14 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.cornFlowerBlue }}
             loading={locationLoad}
             onPress={this.setLocationForJob}
           />
           <Button
-            icon={{ name: "camera", type: "evilicon", color: "white" }}
-            containerStyle={{
-              flex: 1
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              height: 40,
-              backgroundColor: teamcheColors.seaFoam
-            }}
+            icon={{ name: "image", type: "ionicons", color: "white", size: 14 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.royal }}
             onPress={this.addPhotoModal}
           />
           <Button
-            icon={{ name: "pencil", type: "evilicon", color: "white" }}
-            containerStyle={{
-              flex: 1
-            }}
-            buttonStyle={{
-              borderRadius: 0,
-              height: 40,
-              backgroundColor: teamcheColors.cornFlowerBlue
-            }}
+            icon={{ name: "edit", type: "ionicons", color: "white", size: 14 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.seaFoam }}
             onPress={this.addDetailForCenter}
+          />
+          <Button
+            icon={{ name: "brush", type: "ionicons", color: "white", size: 14 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.dullRed }}
+            onPress={this.addBusinessesDetailForCenter}
+          />
+          <Button
+            icon={{ name: "timer", type: "ionicons", color: "white", size: 14 }}
+            containerStyle={{ flex: 1 }}
+            buttonStyle={{ borderRadius: 0, height: 40, backgroundColor: teamcheColors.cornFlowerBlue }}
+            onPress={this.addDateDetailForCenter}
           />
         </View>
       </View>

@@ -66,7 +66,7 @@ export default (state = defaultState, action) => {
       };
 
     case UPDATE_PROTECTED_CENTER_ERR:
-      return { ...state, picLoading: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
+      return { ...state, updateProtectedLoading: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
     case UPDATE_PROTECTED_CENTER_LOAD:
       return { ...state, updateProtectedLoading: true, error: "" };
     case UPDATE_PROTECTED_CENTER:
