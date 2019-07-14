@@ -12,9 +12,9 @@ import {
   GET_OWN_USER_LOAD,
   SET_AUTH_MSG,
   GET_OWN_USER_FAIL
-} from "../types/index";
+} from "./AuthTypes";
 
-import { phoneMsg } from "../actions/AuthAct";
+import { phoneMsg } from "./AuthAct";
 
 let authDef = {
   error: "",
@@ -58,14 +58,23 @@ export default (state = authDef, action) => {
     case GET_OWN_USER_LOAD:
       return { ...state, getOwnLoading: true };
     case GET_OWN_USER_FAIL:
-      return { ...state, getOwnLoading: false, error: "can not get your information" };
+      return {
+        ...state,
+        getOwnLoading: false,
+        error: "can not get your information"
+      };
     case DECREASE_AUTH_TIMER:
       return { ...state, authTimer: action.payload };
     case STOP_AUTH_TIMER:
       return { ...state, authTimer: 0 };
 
     case GET_OWN_USER:
-      return { ...state, loginLoading: false, loading: false, user: { ...state.user, ...action.payload } };
+      return {
+        ...state,
+        loginLoading: false,
+        loading: false,
+        user: { ...state.user, ...action.payload }
+      };
 
     case USER_LOAD:
       return { ...state, error: "", loading: true };
@@ -74,7 +83,12 @@ export default (state = authDef, action) => {
     case UNAUTH_USER:
       return authDef;
     case AUTH_ERROR:
-      return { ...state, error: action.payload, loading: false, loginLoading: false };
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        loginLoading: false
+      };
     default:
       return state;
   }

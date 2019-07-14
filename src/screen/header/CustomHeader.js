@@ -9,6 +9,7 @@ import {
   handleSearchTextChange,
   getCenters,
   clearSelectedParish,
+  clearGuildStatusFromQuery,
   setSortQuery,
   cleanSortQuery,
   removeRasteFromQuery
@@ -42,6 +43,7 @@ class CustomHeader extends React.PureComponent {
       getCenters,
       clearSelectedParish,
       removeRasteFromQuery,
+      clearGuildStatusFromQuery,
 
       setSortQuery,
       cleanSortQuery
@@ -58,6 +60,8 @@ class CustomHeader extends React.PureComponent {
       >
         <Location
           fullPath={this.props.searches.selectedParish.fullPath}
+          guildStatus={this.props.searches.query.guildStatus}
+          clearGuildStatusFromQuery={clearGuildStatusFromQuery}
           handleCenterSearch={this.handleCenterSearch}
           clearSelectedParish={clearSelectedParish}
           navigation={this.props.navigation}
@@ -92,6 +96,7 @@ export default connect(
     handleSearchTextChange,
     getCenters,
     clearSelectedParish,
+    clearGuildStatusFromQuery,
     setSortQuery,
     cleanSortQuery,
     removeRasteFromQuery

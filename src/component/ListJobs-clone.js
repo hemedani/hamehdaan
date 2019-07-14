@@ -1,12 +1,22 @@
 import React from "react";
-import { View, StyleSheet, Text, FlatList, Alert, ScrollView, Dimensions, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  Alert,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  Image
+} from "react-native";
 import { connect } from "react-redux";
 import MyCarousel from "./carousel/MyCarousel";
 
 import { getCenters, cleanCenters } from "../actions";
 
 import ButtonPerple from "./utils/ButtonPerple";
-import { RU } from "../types";
+import { RU } from "../actions/RootTypes";
 import { teamcheColors } from "../styles/MyStyles";
 
 class ListJobsScreen extends React.PureComponent {
@@ -25,12 +35,19 @@ class ListJobsScreen extends React.PureComponent {
 
   componentDidMount() {
     this.props.cleanCenters();
-    this.props.getCenters({ etehadiye: this.props.auth.user.officerEt });
+    this.props.getCenters({ etehadiye: this.props.auth.user.etOrganization });
   }
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#d8d8d8" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#d8d8d8"
+        }}
+      >
         {/* {this.props.centers.centerLoading ? (
           <Text>Sallam</Text>
         ) : (
@@ -78,9 +95,19 @@ class ListJobsScreen extends React.PureComponent {
             data={this.props.centers.centers}
             renderItem={({ item }) => (
               <TouchableOpacity style={styles.touchableOpacityContainer}>
-                <Image style={{ width: 50, height: 50 }} source={{ uri: `${RU}/pic/800/${item.pics[0]}` }} />
+                <Image
+                  style={{ width: 50, height: 50 }}
+                  source={{ uri: `${RU}/pic/800/${item.pics[0]}` }}
+                />
                 <View>
-                  <Text style={{ marginBottom: 2, writingDirection: "rtl", fontFamily: "Shabnam-FD", fontSize: 18 }}>
+                  <Text
+                    style={{
+                      marginBottom: 2,
+                      writingDirection: "rtl",
+                      fontFamily: "Shabnam-FD",
+                      fontSize: 18
+                    }}
+                  >
                     {item.name}
                   </Text>
                   <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
@@ -107,7 +134,8 @@ class ListJobsScreen extends React.PureComponent {
                       color: "rgb(145, 151, 158)"
                     }}
                   >
-                    آدرس : {item.address.city} {item.address.parish} {item.address.text}
+                    آدرس : {item.address.city} {item.address.parish}{" "}
+                    {item.address.text}
                   </Text>
                 </View>
               </TouchableOpacity>

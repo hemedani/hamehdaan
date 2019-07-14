@@ -9,7 +9,7 @@ import FlashMessage from "react-native-flash-message";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import reducer from "./src/reducers/index";
+import reducer from "./src/actions/RootReducers";
 
 const store = createStore(reducer, applyMiddleware(thunk));
 

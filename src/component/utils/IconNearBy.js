@@ -50,24 +50,10 @@ class IconNearBy extends React.PureComponent {
         )}
 
         <View
-          style={{
-            width: 43,
-            height: 43,
-            backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.purple,
-            borderRadius: 43,
-            justifyContent: "center",
-            borderWidth: 1,
-            borderColor: teamcheColors.lightPink,
-
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 3
-            },
-            shadowOpacity: 0.27,
-            shadowRadius: 4.65,
-            elevation: 6
-          }}
+          style={[
+            iconNearByStyles.circleStyle,
+            { backgroundColor: this.props.searches.nearSearch ? teamcheColors.royal : teamcheColors.purple }
+          ]}
         >
           {this.state.getNear ? (
             <ActivityIndicator size="small" color={teamcheColors.lightPink} />
@@ -87,13 +73,30 @@ class IconNearBy extends React.PureComponent {
   }
 }
 
-const iconNearByStyles = StyleSheet.create({
+export const iconNearByStyles = StyleSheet.create({
   iconNearByContainer: {
     position: "absolute",
     bottom: 25,
     end: 18,
     flexDirection: "row",
     alignItems: "center"
+  },
+  circleStyle: {
+    width: 43,
+    height: 43,
+    backgroundColor: teamcheColors.royal,
+    borderRadius: 43,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: teamcheColors.lightPink,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6
   }
 });
 

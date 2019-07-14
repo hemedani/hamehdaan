@@ -1,5 +1,12 @@
 import React from "react";
-import { View, ImageBackground, Text, AppState, Alert, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  ImageBackground,
+  Text,
+  AppState,
+  Alert,
+  KeyboardAvoidingView
+} from "react-native";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Card, Button } from "react-native-elements";
@@ -8,9 +15,17 @@ import moment from "moment";
 import { Hideo } from "react-native-textinput-effects-pr";
 import CodeInput from "react-native-confirmation-code-field";
 
-import { getItem, removeItem, signWithMob, stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer, sendCode } from "../actions";
+import {
+  getItem,
+  removeItem,
+  signWithMob,
+  stopAuthTimer,
+  setAuthTimerLeft,
+  coutDownAuthTimer,
+  sendCode
+} from "../actions";
 
-import { AUTH_USER } from "../types";
+import { AUTH_USER } from "../actions/auth/AuthTypes";
 import { teamcheColors } from "../styles/MyStyles";
 
 const backImg = require("../img/back.png");
@@ -36,7 +51,10 @@ class LoginScreen extends React.PureComponent {
   }
 
   _handleAppStateChange = async nextAppState => {
-    if (this.state.appState.match(/inactive|background/) && nextAppState === "active") {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
       const { stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer } = this.props;
 
       const codeTimer = await getItem("acceptCodeTimer");
@@ -100,7 +118,10 @@ class LoginScreen extends React.PureComponent {
   }
   async handlerOnFulfill(code) {
     // Alert.alert("code", code);
-    const sended = await this.props.sendCode({ phone: this.props.auth.user.phone, code });
+    const sended = await this.props.sendCode({
+      phone: this.props.auth.user.phone,
+      code
+    });
 
     if (sended.type === AUTH_USER) {
       this.props.navigation.navigate("App");
@@ -111,8 +132,15 @@ class LoginScreen extends React.PureComponent {
 
   render() {
     return (
-      <ImageBackground source={backImg} style={{ width: "100%", height: "100%" }}>
-        <KeyboardAvoidingView style={{ flex: 3, justifyContent: "center" }} behavior="padding" enabled>
+      <ImageBackground
+        source={backImg}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <KeyboardAvoidingView
+          style={{ flex: 3, justifyContent: "center" }}
+          behavior="padding"
+          enabled
+        >
           <Card
             title="ورود"
             containerStyle={{
@@ -166,7 +194,9 @@ class LoginScreen extends React.PureComponent {
                     shadowColor="rgba(255, 110, 124, 1)"
                     bgColor="rgba(255, 255, 255, 0.9)"
                   >
-                    <Text style={{ fontSize: 12, fontFamily: "Shabnam-FD" }}>{this.props.auth.authTimer} ثانیه</Text>
+                    <Text style={{ fontSize: 12, fontFamily: "Shabnam-FD" }}>
+                      {this.props.auth.authTimer} ثانیه
+                    </Text>
                   </ProgressCircle>
                 </View>
               </View>

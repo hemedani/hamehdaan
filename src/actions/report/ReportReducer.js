@@ -6,7 +6,7 @@ import {
   CLEAN_REPORTS,
   ADD_REPORT_LOAD,
   ADD_REPORT
-} from "../types";
+} from "./ReportTypes";
 import _ from "lodash";
 
 let defaultState = {
@@ -24,13 +24,30 @@ export default (state = defaultState, action) => {
     case ADD_REPORT_LOAD:
       return { ...state, addReportLoading: true };
     case ADD_REPORT:
-      return { ...state, addReportLoading: false, reports: [...state.reports, action.payload] };
+      return {
+        ...state,
+        addReportLoading: false,
+        reports: [...state.reports, action.payload]
+      };
     case GET_REPORTS:
-      return { ...state, getReportsLoading: false, reports: action.payload, getReportErr: "" };
+      return {
+        ...state,
+        getReportsLoading: false,
+        reports: action.payload,
+        getReportErr: ""
+      };
     case SELECTED_REPORT:
-      return { ...state, getReportsLoading: false, selectedReport: action.payload };
+      return {
+        ...state,
+        getReportsLoading: false,
+        selectedReport: action.payload
+      };
     case GET_REPORTS_ERR:
-      return { ...state, getReportErr: "مشکلی در دریافت گزارش ها به وجود آمده است لطفا دوباره تلاش کنید" };
+      return {
+        ...state,
+        getReportErr:
+          "مشکلی در دریافت گزارش ها به وجود آمده است لطفا دوباره تلاش کنید"
+      };
     case CLEAN_REPORTS:
       return { ...state, reports: [] };
     default:

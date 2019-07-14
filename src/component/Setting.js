@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { singoutUser } from "../actions";
 import { Avatar, Button, Divider } from "react-native-elements";
 import teamcheStyle, { teamcheColors } from "../styles/MyStyles";
-import { RU } from "../types";
+import { RU } from "../actions/RootTypes";
 
 const defaultUser = require("../img/default-user.jpg");
 class SettingsScreen extends React.PureComponent {
@@ -27,13 +27,29 @@ class SettingsScreen extends React.PureComponent {
   render() {
     const { user } = this.props.auth;
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: 60 }}>
-        <View style={{ flex: 2, justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 60
+        }}
+      >
+        <View
+          style={{
+            flex: 2,
+            justifyContent: "space-between",
+            width: "100%",
+            alignItems: "center"
+          }}
+        >
           <Avatar
             size="xlarge"
             title={"HM"}
             rounded
-            source={user.pic ? { uri: `${RU}/pic/500/${user.pic}` } : defaultUser}
+            source={
+              user.pic ? { uri: `${RU}/pic/500/${user.pic}` } : defaultUser
+            }
             showEditButton
           />
           {user.familyName && (

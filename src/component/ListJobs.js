@@ -1,15 +1,29 @@
 import React from "react";
-import { View, FlatList, SafeAreaView, StatusBar, Dimensions, Platform } from "react-native";
+import {
+  View,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  Dimensions,
+  Platform
+} from "react-native";
 import { connect } from "react-redux";
 import Placeholder, { Line, Media, ImageContent } from "rn-placeholder";
 
-import { getCenters, cleanCenters, increaseQueryPage, setCenter, setNearByQuery } from "../actions";
+import {
+  getCenters,
+  cleanCenters,
+  increaseQueryPage,
+  setCenter,
+  setNearByQuery
+} from "../actions";
 
 import { teamcheColors } from "../styles/MyStyles";
 import Job from "./Job";
 import IconNearBy from "./utils/IconNearBy";
 import { CUSTOM_HEADER_HEIGHT } from "../screen/header/CustomHeader";
 
+// TODO most be create a good rn-placeholder ==================
 const DEFAULT_HEIGHT = 49;
 const COMPACT_HEIGHT = 29;
 
@@ -48,7 +62,11 @@ class ListJobsScreen extends React.PureComponent {
   renderPlaceholder() {
     const { centerLoading } = this.props.centers;
     return (
-      <Placeholder isReady={!centerLoading} animation="fade" renderLeft={() => <Media />}>
+      <Placeholder
+        isReady={!centerLoading}
+        animation="fade"
+        renderLeft={() => <Media />}
+      >
         <Line width="70%" />
         <Line />
         <Line />
@@ -72,15 +90,27 @@ class ListJobsScreen extends React.PureComponent {
 
   render() {
     return (
-      <SafeAreaView style={{ minHeight: Dimensions.get("window").height - REAL_HEIGHT - 54 }}>
-        <StatusBar barStyle="light-content" backgroundColor={teamcheColors.purple} />
+      <SafeAreaView
+        style={{
+          minHeight: Dimensions.get("window").height - REAL_HEIGHT - 54
+        }}
+      >
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={teamcheColors.purple}
+        />
         <FlatList
           style={{ backgroundColor: teamcheColors.lightGray }}
           data={this.props.centers.centers}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item._id}
           renderItem={({ item }) => (
-            <Job item={item} path="Details" navigate={this.props.navigation.navigate} setCenter={this.props.setCenter} />
+            <Job
+              item={item}
+              path="Details"
+              navigate={this.props.navigation.navigate}
+              setCenter={this.props.setCenter}
+            />
           )}
           refreshing={this.props.centers.centerLoading}
           onRefresh={this.handleCenterSearch}

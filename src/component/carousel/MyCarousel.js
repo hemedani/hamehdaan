@@ -3,7 +3,7 @@ import { View, Dimensions, StyleSheet, Image } from "react-native";
 
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselStyle, { colors } from "../../styles/CarouselStyle";
-import { RU } from "../../types";
+import { RU } from "../../actions/RootReducers";
 
 export default class MyCarousel extends React.PureComponent {
   constructor(props) {

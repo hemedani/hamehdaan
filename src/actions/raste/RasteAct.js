@@ -1,6 +1,12 @@
 import axios from "axios";
-import { GET_RASTES, RASTES_LOAD, GET_RASTES_ERR, CLEAN_RASTES, RU } from "../types";
-import { getItem } from "./AsyncStorageAct";
+import {
+  GET_RASTES,
+  RASTES_LOAD,
+  GET_RASTES_ERR,
+  CLEAN_RASTES
+} from "./RasteTypes";
+import { RU } from "../RootTypes";
+import { getItem } from "../utils/AsyncStorageAct";
 
 export const getRastes = query => {
   return async dispatch => {

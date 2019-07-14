@@ -1,5 +1,12 @@
 import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, Dimensions, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ActivityIndicator
+} from "react-native";
 import ProcessPolyline from "@mapbox/polyline";
 import axios from "axios";
 
@@ -7,7 +14,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import { Button } from "react-native-elements";
 import { Popup } from "react-native-map-link";
 
-import { DIRECTION_API_KEY } from "../../types";
+import { DIRECTION_API_KEY } from "../../actions/RootReducers";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import BaseModalNavigation from "./BaseModalNavigation";
 export default class MapDirectionModal extends PureComponent {
@@ -52,7 +59,9 @@ export default class MapDirectionModal extends PureComponent {
       const getCoords = await axios.get(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}&key=${DIRECTION_API_KEY}`
       );
-      const points = ProcessPolyline.decode(getCoords.data.routes[0].overview_polyline.points);
+      const points = ProcessPolyline.decode(
+        getCoords.data.routes[0].overview_polyline.points
+      );
       const coords = points.map((point, index) => {
         return {
           latitude: point[0],
@@ -96,7 +105,15 @@ export default class MapDirectionModal extends PureComponent {
   }
   renderActivityIndicator(txt) {
     return (
-      <View style={{ flex: 1, height: 40, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          height: 40,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
         <View
           style={{
             width: 40,
@@ -108,14 +125,19 @@ export default class MapDirectionModal extends PureComponent {
         >
           <ActivityIndicator size="small" color={teamcheColors.purple} />
         </View>
-        {txt && <Text style={[teamcheStyle.textBase, { marginStart: 5 }]}>{txt}</Text>}
+        {txt && (
+          <Text style={[teamcheStyle.textBase, { marginStart: 5 }]}>{txt}</Text>
+        )}
       </View>
     );
   }
   render() {
     const center = this.props.navigation.getParam("center", {});
     return (
-      <BaseModalNavigation headerTxt="مسیریابی" goBack={this.props.navigation.goBack}>
+      <BaseModalNavigation
+        headerTxt="مسیریابی"
+        goBack={this.props.navigation.goBack}
+      >
         <View style={styles.parentContainer}>
           {this.state.getDirections ? (
             this.renderActivityIndicator("در حال دریافت موقعیت")
@@ -133,18 +155,34 @@ export default class MapDirectionModal extends PureComponent {
                   <Marker
                     coordinate={this.state.region}
                     title={center.name}
-                    description={`آدرس : ${center.address.city} ${center.address.parish} ${center.address.text}`}
+                    description={`آدرس : ${center.address.city} ${
+                      center.address.parish
+                    } ${center.address.text}`}
                     centerOffset={{ x: 0, y: -20 }}
                   >
-                    <Image source={require("../../img/marker/marker-destination.png")} style={{ width: 27, height: 40 }} />
+                    <Image
+                      source={require("../../img/marker/marker-destination.png")}
+                      style={{ width: 27, height: 40 }}
+                    />
                   </Marker>
                   {this.state.location && (
-                    <Marker coordinate={this.state.location} title={"موقعیت شما"} centerOffset={{ x: 0, y: -20 }}>
-                      <Image source={require("../../img/marker/marker-origin.png")} style={{ width: 27, height: 40 }} />
+                    <Marker
+                      coordinate={this.state.location}
+                      title={"موقعیت شما"}
+                      centerOffset={{ x: 0, y: -20 }}
+                    >
+                      <Image
+                        source={require("../../img/marker/marker-origin.png")}
+                        style={{ width: 27, height: 40 }}
+                      />
                     </Marker>
                   )}
                   {this.state.coords.length > 0 && (
-                    <Polyline coordinates={this.state.coords} strokeWidth={2} strokeColor="red" />
+                    <Polyline
+                      coordinates={this.state.coords}
+                      strokeWidth={2}
+                      strokeColor="red"
+                    />
                   )}
                 </MapView>
               </View>
@@ -205,7 +243,8 @@ export default class MapDirectionModal extends PureComponent {
               sourceLongitude: this.state.location.longitude,
               alwaysIncludeGoogle: true,
               dialogTitle: "مسیریابی از نقشه های زیر", // optional (default: 'Open in Maps')
-              dialogMessage: "میتوانید با کلیک بر روی این برنامه ها در صورت نصب مسیریابی را در آنها ادامه دهید",
+              dialogMessage:
+                "میتوانید با کلیک بر روی این برنامه ها در صورت نصب مسیریابی را در آنها ادامه دهید",
               cancelText: "بازگشت"
             }}
           />

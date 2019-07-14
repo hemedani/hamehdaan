@@ -1,8 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, TouchableOpacity, FlatList, TextInput, Button } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  TextInput
+} from "react-native";
 
-import { cleanCenters, getCenters, getRastes, addRasteToQuery } from "../../actions";
+import {
+  cleanCenters,
+  getCenters,
+  getRastes,
+  addRasteToQuery,
+  setSelectedRasteForAddCenter
+} from "../../actions";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
@@ -11,18 +23,33 @@ import { bodyStyle, searchBarStyles } from "./SelectParishModal";
 
 const colors = [teamcheColors.gray, teamcheColors.lightGray];
 
-const RenderRasteItem = ({ item, index, addRasteToQuery, handleCenterSearch, goBack }) => {
+const RenderRasteItem = ({
+  item,
+  index,
+  setAddCenterForm,
+  setSelectedRasteForAddCenter,
+  addRasteToQuery,
+  handleCenterSearch,
+  goBack
+}) => {
   const handleRasteSelect = async () => {
-    await addRasteToQuery(item);
+    setAddCenterForm
+      ? await setSelectedRasteForAddCenter(item)
+      : await addRasteToQuery(item);
     handleCenterSearch();
     goBack();
   };
   return (
     <TouchableOpacity
       onPress={handleRasteSelect}
-      style={[bodyStyle.flatItemContainer, { backgroundColor: colors[index % colors.length] }]}
+      style={[
+        bodyStyle.flatItemContainer,
+        { backgroundColor: colors[index % colors.length] }
+      ]}
     >
-      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>{item.name}</Text>
+      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>
+        {item.name}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -31,7 +58,8 @@ class SelectRasteModal extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      inpValue: ""
+      inpValue: "",
+      setAddCenterForm: false
     };
     this.handleInpText = this.handleInpText.bind(this);
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
@@ -39,6 +67,12 @@ class SelectRasteModal extends React.PureComponent {
   }
   componentDidMount() {
     this.props.getRastes();
+    this.setState({
+      setAddCenterForm: this.props.navigation.getParam(
+        "setAddCenterForm",
+        false
+      )
+    });
   }
   handleInpText(inpValue) {
     this.setState({ inpValue });
@@ -48,15 +82,26 @@ class SelectRasteModal extends React.PureComponent {
     this.props.getRastes({ name: this.state.inpValue });
   }
 
-  handleCenterSearch() {
-    this.props.cleanCenters();
-    this.props.getCenters(this.props.searches.query);
+  async handleCenterSearch() {
+    if (this.state.setAddCenterForm) {
+      return;
+    } else {
+      await this.props.cleanCenters();
+      this.props.getCenters(this.props.searches.query);
+    }
   }
 
   render() {
-    const { rastes } = this.props.rastes;
+    const {
+      rastes: { rastes },
+      setSelectedRasteForAddCenter
+    } = this.props;
+    const { setAddCenterForm } = this.state;
     return (
-      <BaseModalNavigation headerTxt="انتخاب رسته" goBack={this.props.navigation.goBack}>
+      <BaseModalNavigation
+        headerTxt="انتخاب رسته"
+        goBack={this.props.navigation.goBack}
+      >
         <View style={searchBarStyles.searchViewContainer}>
           <TextInput
             style={[teamcheStyle.textBase, searchBarStyles.textInp]}
@@ -81,6 +126,8 @@ class SelectRasteModal extends React.PureComponent {
             <RenderRasteItem
               item={item}
               index={index}
+              setAddCenterForm={setAddCenterForm}
+              setSelectedRasteForAddCenter={setSelectedRasteForAddCenter}
               addRasteToQuery={this.props.addRasteToQuery}
               handleCenterSearch={this.handleCenterSearch}
               goBack={this.props.navigation.goBack}
@@ -96,5 +143,11 @@ const msp = ({ rastes, searches }) => ({ rastes, searches });
 
 export default connect(
   msp,
-  { getRastes, addRasteToQuery, cleanCenters, getCenters }
+  {
+    getRastes,
+    addRasteToQuery,
+    cleanCenters,
+    getCenters,
+    setSelectedRasteForAddCenter
+  }
 )(SelectRasteModal);

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ImageBackground, Image, Alert, Dimensions, Animated, Easing } from "react-native";
+import { View, ImageBackground, Image, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import { Card } from "react-native-elements";
 import LottieView from "lottie-react-native";
@@ -13,20 +13,12 @@ import {
   stopAuthTimer,
   setAuthTimerLeft,
   setCacheUser
-} from "../actions/index";
+} from "../actions";
 import moment from "moment";
 
 const backImg = require("../img/back-02.jpg");
 const hamedanLogo = require("../img/hamedan-logo.png");
-const sailsAnimation = require("../img/animations/sails.json");
-const dotAmimation = require("../img/animations/dotAnimation2.json");
-const circleAnimation = require("../img/animations/circle.json");
 const wordLocation = require("../img/animations/world-animation2.json");
-const happyDostAnimation = require("../img/animations/happy-dots.json");
-const LiquiedLogo = require("../img/animations/liquid-logo-animation.json");
-// const isometricMall = require("../img/animations/isometric-mall.json");
-// const yAnimate = require("../img/animations/bienvenida-boceto.json");
-// const fishAnimation = require("../img/animations/fish-animation.json");
 
 class WelcomeScreen extends React.PureComponent {
   constructor(props) {
@@ -45,7 +37,14 @@ class WelcomeScreen extends React.PureComponent {
     //   easing: Easing.linear
     // }).start();
 
-    const { navigation, getOwn, stopAuthTimer, setAuthTimerLeft, coutDownAuthTimer, setCacheUser } = this.props;
+    const {
+      navigation,
+      getOwn,
+      stopAuthTimer,
+      setAuthTimerLeft,
+      coutDownAuthTimer,
+      setCacheUser
+    } = this.props;
     this.timer = path => setTimeout(() => navigation.navigate(path), 1950);
     const token = await getToken();
     // Alert.alert("token", JSON.stringify(token, null, 2));
@@ -80,9 +79,14 @@ class WelcomeScreen extends React.PureComponent {
     return (
       <ImageBackground
         source={backImg}
-        style={{ width: Dimensions.get("window").width, height: Dimensions.get("window").height }}
+        style={{
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height
+        }}
       >
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           {/* <Card
             title="خوش آمدید"
             containerStyle={{
@@ -121,7 +125,10 @@ class WelcomeScreen extends React.PureComponent {
             marginBottom: 5
           }}
         >
-          <Image source={hamedanLogo} style={{ width: 90, height: 110, position: "absolute", bottom: 0 }} />
+          <Image
+            source={hamedanLogo}
+            style={{ width: 90, height: 110, position: "absolute", bottom: 0 }}
+          />
         </View>
       </ImageBackground>
     );

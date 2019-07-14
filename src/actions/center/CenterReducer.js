@@ -12,7 +12,7 @@ import {
   UPDATE_PROTECTED_CENTER,
   UPDATE_PROTECTED_CENTER_ERR,
   ADD_PIC_CENTER_ERR
-} from "../types";
+} from "./CenterTypes";
 
 let defaultState = {
   centerLoading: false,
@@ -28,14 +28,32 @@ export default (state = defaultState, action) => {
     case CENTER_LOAD:
       return { ...state, centerLoading: true, error: "" };
     case GET_CENTER_ERR:
-      return { ...state, centerLoading: false, error: "مشکلی در دریافت صنف به وجود آمده است" };
+      return {
+        ...state,
+        centerLoading: false,
+        error: "مشکلی در دریافت صنف به وجود آمده است"
+      };
     case GET_CENTER:
-      return { ...state, centerLoading: false, center: action.payload, error: "" };
+      return {
+        ...state,
+        centerLoading: false,
+        center: action.payload,
+        error: ""
+      };
     case CLEAN_CENTER:
-      return { ...state, centerLoading: false, center: defaultState.center, error: "" };
+      return {
+        ...state,
+        centerLoading: false,
+        center: defaultState.center,
+        error: ""
+      };
 
     case SET_LOCATION_CENTER_ERR:
-      return { ...state, locationLoad: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
+      return {
+        ...state,
+        locationLoad: false,
+        error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید"
+      };
     case SET_LOCATION_CENTER_LOAD:
       return { ...state, locationLoad: true, error: "" };
     case SET_LOCATION_CENTER:
@@ -51,7 +69,11 @@ export default (state = defaultState, action) => {
       };
 
     case ADD_PIC_CENTER_ERR:
-      return { ...state, picLoading: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
+      return {
+        ...state,
+        picLoading: false,
+        error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید"
+      };
     case ADD_PIC_CENTER_LOAD:
       return { ...state, picLoading: true, error: "" };
     case ADD_PIC_CENTER:
@@ -66,7 +88,11 @@ export default (state = defaultState, action) => {
       };
 
     case UPDATE_PROTECTED_CENTER_ERR:
-      return { ...state, updateProtectedLoading: false, error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید" };
+      return {
+        ...state,
+        updateProtectedLoading: false,
+        error: "مشکلی به وجود آمده لطفا دوباره تلاش کنید"
+      };
     case UPDATE_PROTECTED_CENTER_LOAD:
       return { ...state, updateProtectedLoading: true, error: "" };
     case UPDATE_PROTECTED_CENTER:

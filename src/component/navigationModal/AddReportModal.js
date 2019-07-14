@@ -8,7 +8,7 @@ import { showMessage } from "react-native-flash-message";
 import { addReport } from "../../actions";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
-import { ADD_REPORT } from "../../types";
+import { ADD_REPORT } from "../../actions/report/ReportTypes";
 import BaseModalNavigation from "./BaseModalNavigation";
 
 class AddReportModal extends React.PureComponent {
@@ -29,8 +29,12 @@ class AddReportModal extends React.PureComponent {
       text: this.state.text,
       raste: center.raste._id ? center.raste._id : center.raste,
       etehadiye: center.etehadiye._id ? center.etehadiye._id : center.etehadiye,
-      otaghAsnaf: center.otaghAsnaf._id ? center.otaghAsnaf._id : center.otaghAsnaf,
-      otaghBazargani: center.otaghBazargani._id ? center.otaghBazargani._id : center.otaghBazargani,
+      otaghAsnaf: center.otaghAsnaf._id
+        ? center.otaghAsnaf._id
+        : center.otaghAsnaf,
+      otaghBazargani: center.otaghBazargani._id
+        ? center.otaghBazargani._id
+        : center.otaghBazargani,
       state: center.state._id ? center.state._id : center.state,
       city: center.city._id ? center.city._id : center.city,
       parish: center.parish._id ? center.parish._id : center.parish,
@@ -56,7 +60,10 @@ class AddReportModal extends React.PureComponent {
     const { text } = this.state;
     const { handleSubmitReport, handleInpText } = this;
     return (
-      <BaseModalNavigation headerTxt="ثبت بازرسی" goBack={this.props.navigation.goBack}>
+      <BaseModalNavigation
+        headerTxt="ثبت بازرسی"
+        goBack={this.props.navigation.goBack}
+      >
         <View style={reportStyle.container}>
           <TextInput
             multiline

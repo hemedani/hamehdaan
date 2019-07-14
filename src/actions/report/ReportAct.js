@@ -7,10 +7,10 @@ import {
   GET_REPORTS_ERR,
   CLEAN_REPORTS,
   ADD_REPORT_LOAD,
-  ADD_REPORT,
-  RU
-} from "../types";
-import { getItem } from "./AsyncStorageAct";
+  ADD_REPORT
+} from "./ReportTypes";
+import { RU } from "../RootTypes";
+import { getItem } from "../utils/AsyncStorageAct";
 
 export const getReports = query => {
   return async dispatch => {
@@ -20,7 +20,7 @@ export const getReports = query => {
     user = JSON.stringify(user);
     if (_.includes(user.level, "organic.boss")) {
       query.etehadiye = user.bossEt;
-    } else if (_.includes(user.level, "organic.officer")) {
+    } else if (_.includes(user.level, "organic.officerEt")) {
       query.creator = user._id;
     }
     return axios
@@ -35,7 +35,9 @@ export const getReportById = _id => {
     const token = await getItem("token");
     return axios
       .get(`${RU}/report`, { headers: { sabti: token }, params: { _id } })
-      .then(resp => dispatch({ type: SELECTED_REPORT, payload: resp.data.report }))
+      .then(resp =>
+        dispatch({ type: SELECTED_REPORT, payload: resp.data.report })
+      )
       .catch(e => dispatch({ type: GET_REPORTS_ERR, payload: e }));
   };
 };

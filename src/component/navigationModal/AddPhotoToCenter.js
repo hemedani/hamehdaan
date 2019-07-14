@@ -6,7 +6,6 @@ import ImagePicker from "react-native-image-picker";
 import BaseModalNavigation from "./BaseModalNavigation";
 import { teamcheColors } from "../../styles/MyStyles";
 import FlatBtn from "../utils/FlatBtn";
-import { getItem } from "../../actions";
 
 import { addPicToCenter } from "../../actions";
 
@@ -39,10 +38,16 @@ class AddPhotoToCenter extends PureComponent {
       const file = {
         name: photo.fileName,
         type: photo.type,
-        uri: Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+        uri:
+          Platform.OS === "android"
+            ? photo.uri
+            : photo.uri.replace("file://", "")
       };
 
-      await this.props.addPicToCenter(file, (_id = this.props.center.center._id));
+      await this.props.addPicToCenter(
+        file,
+        (_id = this.props.center.center._id)
+      );
       this.props.navigation.goBack();
     } else {
       return;
@@ -51,11 +56,23 @@ class AddPhotoToCenter extends PureComponent {
   render() {
     const { photo } = this.state;
     return (
-      <BaseModalNavigation headerTxt="افزودن عکس به صنف" goBack={this.props.navigation.goBack}>
+      <BaseModalNavigation
+        headerTxt="افزودن عکس به صنف"
+        goBack={this.props.navigation.goBack}
+      >
         <View style={styles.parentContainer}>
-          {photo && <Image source={{ uri: photo.uri }} style={{ width: 300, height: 300, alignSelf: "center" }} />}
+          {photo && (
+            <Image
+              source={{ uri: photo.uri }}
+              style={{ width: 300, height: 300, alignSelf: "center" }}
+            />
+          )}
           <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-            <FlatBtn title="انتخاب عکس" onPress={this.handleChoosePhoto} bgColor={teamcheColors.purple} />
+            <FlatBtn
+              title="انتخاب عکس"
+              onPress={this.handleChoosePhoto}
+              bgColor={teamcheColors.purple}
+            />
             <FlatBtn
               title="بارگزاری عکس"
               onPress={this.handleUpload}

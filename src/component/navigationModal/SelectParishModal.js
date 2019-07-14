@@ -1,5 +1,13 @@
 import React from "react";
-import { Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions, FlatList } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  StyleSheet,
+  Dimensions,
+  FlatList
+} from "react-native";
 import { connect } from "react-redux";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
@@ -11,7 +19,8 @@ import {
   handleCenterSearch,
   handleSearchTextChange,
   clearSelectedParish,
-  cleanParishes
+  cleanParishes,
+  setSelectedParishForAddCenter
 } from "../../actions";
 import BaseModalNavigation from "./BaseModalNavigation";
 
@@ -26,18 +35,33 @@ const renderSeparator = () => (
   />
 );
 
-const RenderParishItem = ({ item, index, setParish, handleCenterSearch, goBack }) => {
+const RenderParishItem = ({
+  item,
+  index,
+  setParish,
+  setAddCenterForm,
+  setSelectedParishForAddCenter,
+  handleCenterSearch,
+  goBack
+}) => {
   const handleParishSelect = async () => {
-    await setParish(item);
+    setAddCenterForm
+      ? await setSelectedParishForAddCenter(item)
+      : await setParish(item);
     handleCenterSearch();
     goBack();
   };
   return (
     <TouchableOpacity
       onPress={handleParishSelect}
-      style={[bodyStyle.flatItemContainer, { backgroundColor: colors[index % colors.length] }]}
+      style={[
+        bodyStyle.flatItemContainer,
+        { backgroundColor: colors[index % colors.length] }
+      ]}
     >
-      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>{item.name}</Text>
+      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>
+        {item.name}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -46,7 +70,8 @@ class SelectParishModal extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      path: ""
+      path: "",
+      setAddCenterForm: false
     };
     this.handleCenterSearch = this.handleCenterSearch.bind(this);
     this.handleInpText = this.handleInpText.bind(this);
@@ -57,6 +82,12 @@ class SelectParishModal extends React.PureComponent {
   async componentDidMount() {
     await this.props.cleanParishes();
     this.props.getParishes();
+    this.setState({
+      setAddCenterForm: this.props.navigation.getParam(
+        "setAddCenterForm",
+        false
+      )
+    });
   }
 
   handleInpText(path) {
@@ -64,8 +95,12 @@ class SelectParishModal extends React.PureComponent {
   }
 
   async handleCenterSearch() {
-    await this.props.cleanCenters();
-    this.props.getCenters(this.props.searches.query);
+    if (this.state.setAddCenterForm) {
+      return;
+    } else {
+      await this.props.cleanCenters();
+      this.props.getCenters(this.props.searches.query);
+    }
   }
 
   async handleParishSearch() {
@@ -78,9 +113,13 @@ class SelectParishModal extends React.PureComponent {
     this.props.setSelectedParish(parish);
   }
   render() {
-    const { parishes } = this.props;
+    const { parishes, setSelectedParishForAddCenter } = this.props;
+    const { setAddCenterForm } = this.state;
     return (
-      <BaseModalNavigation headerTxt="انتخاب محله" goBack={this.props.navigation.goBack}>
+      <BaseModalNavigation
+        headerTxt="انتخاب محله"
+        goBack={this.props.navigation.goBack}
+      >
         <View style={{ backgroundColor: "#fff" }}>
           <View style={bodyStyle.bodyContainer}>
             <View style={searchBarStyles.searchViewContainer}>
@@ -108,6 +147,8 @@ class SelectParishModal extends React.PureComponent {
                 <RenderParishItem
                   item={item}
                   index={index}
+                  setAddCenterForm={setAddCenterForm}
+                  setSelectedParishForAddCenter={setSelectedParishForAddCenter}
                   setParish={this.setParish}
                   handleCenterSearch={this.handleCenterSearch}
                   goBack={this.props.navigation.goBack}
@@ -175,6 +216,7 @@ export default connect(
     handleCenterSearch,
     handleSearchTextChange,
     clearSelectedParish,
-    cleanParishes
+    cleanParishes,
+    setSelectedParishForAddCenter
   }
 )(SelectParishModal);

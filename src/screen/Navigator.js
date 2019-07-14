@@ -14,6 +14,8 @@ import { teamcheColors } from "../styles/MyStyles";
 import CenterReportsScreen from "../component/CenterReports";
 import DetailReportModal from "../component/navigationModal/DetailReportModal";
 import SelectRasteModal from "../component/navigationModal/SelectRasteModal";
+import SelectGuildStatusModal from "../component/navigationModal/SelectGuildStatusModal";
+import AddCenterModal from "../component/navigationModal/AddCenterModal";
 import MapDirectionModal from "../component/navigationModal/MapDirectionModal";
 import PhoneCallModal from "../component/navigationModal/PhoneCallModal";
 import AddPhotoToCenter from "../component/navigationModal/AddPhotoToCenter";
@@ -87,7 +89,9 @@ const JobsWithModals = createStackNavigator(
   {
     Jobs,
     SelectRasteModal,
-    SelectParishModal
+    AddCenterModal,
+    SelectParishModal,
+    SelectGuildStatusModal
   },
   {
     initialRouteName: "Jobs",

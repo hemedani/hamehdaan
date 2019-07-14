@@ -1,6 +1,5 @@
 import axios from "axios";
 import moment from "moment";
-import { Alert } from "react-native";
 import {
   AUTH_USER,
   GET_OWN_USER_LOAD,
@@ -16,11 +15,15 @@ import {
   USER_PIC_LOAD,
   USER_SIGNIN_LOAD,
   CLEAN_CART,
-  SET_AUTH_MSG,
-  RU
-} from "../types";
-
-import { getToken, setItem, getItem, removeItem } from "./AsyncStorageAct";
+  SET_AUTH_MSG
+} from "./AuthTypes";
+import { RU } from "../RootTypes";
+import {
+  getToken,
+  setItem,
+  getItem,
+  removeItem
+} from "../utils/AsyncStorageAct";
 
 export const phoneMsg = "لطفا شمــــاره تلفن همراه خود را وارد کنید";
 export const codeMsg = "لطفا کد پیامک شده را وارد کنید";
@@ -46,7 +49,9 @@ export const signinUser = ({ email, password }) => {
         return dispatch({ type: AUTH_USER, payload: resp.data });
       })
       .catch(e => {
-        return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
+        return dispatch(
+          authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید")
+        );
       });
   };
 };
@@ -109,7 +114,9 @@ export const signWithMob = usr => {
       })
       .catch(err => {
         // Alert.alert("err", JSON.stringify(err, null, 2));
-        return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
+        return dispatch(
+          authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید")
+        );
       });
   };
 };
@@ -131,11 +138,15 @@ export const sendCode = usr => {
           return dispatch({ type: AUTH_USER, payload: resp.data });
         } else {
           dispatch({ type: SET_AUTH_MSG, payload: invalidCode });
-          return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
+          return dispatch(
+            authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید")
+          );
         }
       })
       .catch(e => {
-        return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
+        return dispatch(
+          authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید")
+        );
       });
   };
 };
@@ -151,16 +162,32 @@ export const editOwn = usr => {
         return dispatch({ type: GET_OWN_USER, payload: resp.data.user });
       })
       .catch(e => {
-        return dispatch(authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید"));
+        return dispatch(
+          authError("مشکلی بوجود آمده است لطفا دوباره تلاش کنید")
+        );
       });
   };
 };
 
-export const register = ({ email, password, address, name, familyName, phone }) => {
+export const register = ({
+  email,
+  password,
+  address,
+  name,
+  familyName,
+  phone
+}) => {
   return dispatch => {
     dispatch({ type: USER_SIGNIN_LOAD });
     return axios
-      .post(`${RU}/register`, { email, password, address, name, familyName, phone })
+      .post(`${RU}/register`, {
+        email,
+        password,
+        address,
+        name,
+        familyName,
+        phone
+      })
       .then(async resp => {
         await setItem("user", JSON.stringify(resp.data.user));
         await setItem("token", resp.data.token);
@@ -173,14 +200,20 @@ export const register = ({ email, password, address, name, familyName, phone }) 
           error.response.data.error &&
           error.response.data.error === "Email e has"
         ) {
-          return dispatch(authError("این ایمیل در دسترس نیست لطفا ایمیل دیگری را امتحان کنید"));
+          return dispatch(
+            authError("این ایمیل در دسترس نیست لطفا ایمیل دیگری را امتحان کنید")
+          );
         } else if (
           error.response &&
           error.response.data &&
           error.response.data.error &&
           error.response.data.error === "Shomare e has"
         ) {
-          return dispatch(authError("این شماره قبلا ثبت نام کرده است - لطفا شماره دیگری را امتحان کنید"));
+          return dispatch(
+            authError(
+              "این شماره قبلا ثبت نام کرده است - لطفا شماره دیگری را امتحان کنید"
+            )
+          );
         } else {
           return dispatch(authError("ثبت نام انجام نشد لطفا دوباره تلاش کنید"));
         }
@@ -207,7 +240,9 @@ export const changePic = ({ _id, file }) => {
     data.append("file", file);
     let config = {
       onUploadProgress: progressEvent => {
-        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        let percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
         // console.log( percentCompleted )
       },
       headers: { sabti: token }
@@ -225,6 +260,7 @@ export const getOwn = () => {
   return async dispatch => {
     dispatch({ type: GET_OWN_USER_LOAD });
     const token = await getToken();
+
     if (token) {
       return axios
         .get(`${RU}/user/getown`, { headers: { sabti: token } })
@@ -232,7 +268,7 @@ export const getOwn = () => {
           await setItem("user", JSON.stringify(resp.data.user));
           return dispatch({ type: GET_OWN_USER, payload: resp.data.user });
         })
-        .catch(e => dispatch({ type: GET_OWN_USER_FAIL }));
+        .catch(err => dispatch({ type: GET_OWN_USER_FAIL, payload: err }));
     } else {
       return dispatch({ type: GET_OWN_USER_FAIL });
     }

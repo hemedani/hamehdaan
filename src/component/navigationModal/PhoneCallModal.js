@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import call from "react-native-phone-call";
 
@@ -10,7 +10,12 @@ const PhoneCallModal = ({ navigation }) => {
     <BaseModalNavigation headerTxt="تماس سریع" goBack={navigation.goBack}>
       <View style={styles.parentContainer}>
         {phone.map(p => (
-          <TouchableOpacity key={p} onPress={() => call({ number: `${p}`, prompt: false }).catch(console.error)}>
+          <TouchableOpacity
+            key={p}
+            onPress={() =>
+              call({ number: `${p}`, prompt: false }).catch(console.error)
+            }
+          >
             <Text>{p}</Text>
           </TouchableOpacity>
         ))}
