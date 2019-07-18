@@ -1,6 +1,11 @@
 import React from "react";
 import { Animated, Easing } from "react-native";
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import ListJobsScreen from "../component/ListJobs";
@@ -12,7 +17,9 @@ import AboutUsScreen from "../component/AboutUs";
 import CustomHeader from "./header/CustomHeader";
 import { teamcheColors } from "../styles/MyStyles";
 import CenterReportsScreen from "../component/CenterReports";
+import CenterDocs from "../component/CenterDocs";
 import DetailReportModal from "../component/navigationModal/DetailReportModal";
+import DetailAlertModal from "../component/navigationModal/DetailAlertModal";
 import SelectRasteModal from "../component/navigationModal/SelectRasteModal";
 import SelectGuildStatusModal from "../component/navigationModal/SelectGuildStatusModal";
 import AddCenterModal from "../component/navigationModal/AddCenterModal";
@@ -91,6 +98,7 @@ const JobsWithModals = createStackNavigator(
     SelectRasteModal,
     AddCenterModal,
     SelectParishModal,
+    DetailAlertModal,
     SelectGuildStatusModal
   },
   {
@@ -205,9 +213,28 @@ const DetailStack = createStackNavigator(
       headerTintColor: teamcheColors.lightPink,
       gesturesEnabled: true,
       headerTransparent: true,
+      headerBackTitle: null,
       headerStyle: { borderBottomWidth: 0 }
     },
     transitionConfig: ModalTransitionConfig
+  }
+);
+
+const CenterDocsModals = createStackNavigator(
+  {
+    CenterDocs,
+    AddPhotoToCenter
+  },
+  {
+    initialRouteName: "CenterDocs",
+    transparentCard: true,
+    mode: "modal",
+    navigationOptions: {
+      headerTintColor: teamcheColors.lightPink,
+      gesturesEnabled: true,
+      headerTransparent: true
+    },
+    transitionConfig: () => ModalTransitionConfig()
   }
 );
 
@@ -215,9 +242,13 @@ const AppStack = createStackNavigator(
   {
     Home: TabNavigator,
     Details: DetailStack,
+    CenterDocs: CenterDocsModals,
     CenterReports
   },
   {
+    navigationOptions: {
+      headerBackTitle: null
+    },
     transitionConfig: () => TransitionConfiguration()
   }
 );

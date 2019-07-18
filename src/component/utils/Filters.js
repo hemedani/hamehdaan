@@ -25,6 +25,27 @@ export const guildStatusEnToFa = guildStatus => {
     case "plump":
       return "پلمپ";
 
+    case "name":
+      return "نام";
+    case "personType":
+      return "نوع شخص";
+    case "activityType":
+      return "نوع فعالیت";
+    case "postalCode":
+      return "کد پستی";
+    case "guildOwnerName":
+      return "نام صاحب پروانه";
+    case "guildOwnerFamily":
+      return "نام خانوادگی صاحب پروانه";
+    case "ownerFatherName":
+      return "نام پدر صاحب پروانه";
+    case "nationalCode":
+      return "کد ملی صاحب پروانه";
+    case "guildOwnerPhoneNumber":
+      return "شماره تلفن همراه";
+    case "text":
+      return "آدرس";
+
     default:
       return "";
   }

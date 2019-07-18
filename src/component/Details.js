@@ -15,13 +15,7 @@ import { Divider, Button } from "react-native-elements";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import moment from "moment-jalaali";
 
-import {
-  addReport,
-  getCenter,
-  cleanCenter,
-  setLocation,
-  setLocationLoad
-} from "../actions";
+import { addReport, getCenter, cleanCenter, setLocation, setLocationLoad } from "../actions";
 
 import CarouselStyle from "../styles/CarouselStyle";
 import teamcheStyles, { teamcheColors } from "../styles/MyStyles";
@@ -45,9 +39,7 @@ class DetailsScreen extends React.Component {
     this.addPhotoModal = this.addPhotoModal.bind(this);
     this.addReportModal = this.addReportModal.bind(this);
     this.addDetailForCenter = this.addDetailForCenter.bind(this);
-    this.addBusinessesDetailForCenter = this.addBusinessesDetailForCenter.bind(
-      this
-    );
+    this.addBusinessesDetailForCenter = this.addBusinessesDetailForCenter.bind(this);
     this.addDateDetailForCenter = this.addDateDetailForCenter.bind(this);
     this.setLocationForJob = this.setLocationForJob.bind(this);
   }
@@ -78,10 +70,7 @@ class DetailsScreen extends React.Component {
         }}
       >
         <View style={detailsStyles.imageContainer}>
-          <Image
-            source={{ uri: `${RU}/pic/500/${item}` }}
-            style={detailsStyles.image}
-          />
+          <Image source={{ uri: `${RU}/pic/500/${item}` }} style={detailsStyles.image} />
         </View>
       </TouchableOpacity>
     );
@@ -99,7 +88,7 @@ class DetailsScreen extends React.Component {
   }
   addPhotoModal() {
     const { center } = this.props.center;
-    this.props.navigation.navigate("AddPhotoToCenter", { center: center });
+    this.props.navigation.navigate("AddPhotoToCenter", { center: center, whichPic: "centerPics" });
   }
   addReportModal() {
     this.props.navigation.navigate("AddReportModal");
@@ -141,9 +130,7 @@ class DetailsScreen extends React.Component {
                 ref={c => (this._slider1Ref = c)}
                 data={center.pics}
                 renderItem={this._renderItem}
-                onSnapToItem={index =>
-                  this.setState({ slider1ActiveSlide: index })
-                }
+                onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
                 sliderWidth={Dimensions.get("screen").width}
                 itemWidth={Dimensions.get("screen").width}
                 firstItem={SLIDER_1_FIRST_ITEM}
@@ -151,9 +138,7 @@ class DetailsScreen extends React.Component {
                 inactiveSlideOpacity={0.7}
                 inactiveSlideShift={2}
                 containerCustomStyle={detailsStyles.containerCustomStyle}
-                contentContainerCustomStyle={
-                  detailsStyles.contentContainerCustomStyle
-                }
+                contentContainerCustomStyle={detailsStyles.contentContainerCustomStyle}
               />
               <Pagination
                 dotsLength={center.pics.length}
@@ -171,9 +156,7 @@ class DetailsScreen extends React.Component {
             </View>
             <View style={detailsStyles.nameContainer}>
               <View style={detailsStyles.nameContainerTitr}>
-                <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>
-                  {center.name}
-                </Text>
+                <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>{center.name}</Text>
                 <Divider />
               </View>
               <View style={detailsStyles.discountContainer}>
@@ -185,17 +168,12 @@ class DetailsScreen extends React.Component {
                   backgroundColor="#00e0ff"
                   duration={1000}
                 >
-                  {fill => (
-                    <Text style={teamcheStyles.textBase}>
-                      {Math.round(fill)} درصد تخفیف{" "}
-                    </Text>
-                  )}
+                  {fill => <Text style={teamcheStyles.textBase}>{Math.round(fill)} درصد تخفیف </Text>}
                 </AnimatedCircularProgress>
               </View>
               <View style={detailsStyles.addressContainer}>
                 <Text style={teamcheStyles.textBase}>
-                  آدرس : {center.address.city} {center.address.parish}{" "}
-                  {center.address.text}
+                  آدرس : {center.address.city} {center.address.parish} {center.address.text}
                 </Text>
               </View>
             </View>
@@ -236,23 +214,13 @@ class DetailsScreen extends React.Component {
                   onPress={this.getMapDirection}
                 />
               </View>
-              <TouchableOpacity
-                style={detailsStyles.mapView}
-                onPress={this.getMapDirection}
-              >
-                <Image
-                  style={{ flex: 1, borderRadius: 10 }}
-                  source={{ uri: `${RU}/pic/maps/${center.staticMap}` }}
-                />
+              <TouchableOpacity style={detailsStyles.mapView} onPress={this.getMapDirection}>
+                <Image style={{ flex: 1, borderRadius: 10 }} source={{ uri: `${RU}/pic/maps/${center.staticMap}` }} />
               </TouchableOpacity>
 
               <View style={[detailsStyles.nameContainer, { marginTop: 5 }]}>
                 <View style={detailsStyles.nameContainerTitr}>
-                  <Text
-                    style={[teamcheStyles.textBase, teamcheStyles.textTitr]}
-                  >
-                    اطلاعات پروانه
-                  </Text>
+                  <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>اطلاعات پروانه</Text>
                   <Divider />
                 </View>
 
@@ -267,155 +235,117 @@ class DetailsScreen extends React.Component {
                       alignSelf: "center"
                     }}
                   >
-                    <ActivityIndicator
-                      size="small"
-                      color={teamcheColors.lightPink}
-                    />
+                    <ActivityIndicator size="small" color={teamcheColors.lightPink} />
                   </View>
                 )}
                 {!!center.otaghBazargani && !!center.otaghBazargani.name && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      اتاق بازرگانی : {center.otaghBazargani.name}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>اتاق بازرگانی : {center.otaghBazargani.name}</Text>
                   </View>
                 )}
                 {!!center.otaghAsnaf.name && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      اتاق اصناف : {center.otaghAsnaf.name}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>اتاق اصناف : {center.otaghAsnaf.name}</Text>
                   </View>
                 )}
 
                 {!!center.etehadiye.name && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      اتحادیه : {center.etehadiye.name}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>اتحادیه : {center.etehadiye.name}</Text>
                   </View>
                 )}
                 {!!center.raste.name && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      رسته : {center.raste.name}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>رسته : {center.raste.name}</Text>
                   </View>
                 )}
 
                 {!!center.guildId && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      شناسه صنفی : {center.guildId}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>شناسه صنفی : {center.guildId}</Text>
                   </View>
                 )}
                 {!!center.issueDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      تاریخ صدور پروانه :{" "}
-                      {moment(center.issueDate).format("jYYYY/jM/jD")}
+                      تاریخ صدور پروانه : {moment(center.issueDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
                 {!!center.expirationDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      تاریخ انقضاء پروانه :{" "}
-                      {moment(center.expirationDate).format("jYYYY/jM/jD")}
+                      تاریخ انقضاء پروانه : {moment(center.expirationDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
                 <View style={detailsStyles.addressContainer}>
-                  <Text style={teamcheStyles.textBase}>
-                    مباشر : {center.steward ? "دارد" : "ندارد"}
-                  </Text>
+                  <Text style={teamcheStyles.textBase}>مباشر : {center.steward ? "دارد" : "ندارد"}</Text>
                 </View>
                 {!!center.personType && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      نوع شخص : {center.personType}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>نوع شخص : {center.personType}</Text>
                   </View>
                 )}
                 {!!center.activityType && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      نوع فعالیت : {center.activityType}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>نوع فعالیت : {center.activityType}</Text>
                   </View>
                 )}
                 {!!center.isicCode && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      کد آیسیک : {center.isicCode}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>کد آیسیک : {center.isicCode}</Text>
                   </View>
                 )}
                 {!!center.postalCode && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      کد پستی : {center.postalCode}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>کد پستی : {center.postalCode}</Text>
                   </View>
                 )}
 
                 {!!center.guildOwnerName && !!center.guildOwnerFamily && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      نام صاحب پروانه : {center.guildOwnerName}{" "}
-                      {center.guildOwnerFamily}
+                      نام صاحب پروانه : {center.guildOwnerName} {center.guildOwnerFamily}
                     </Text>
                   </View>
                 )}
                 {!!center.identificationCode && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      شماره شناسنامه صاحب پروانه : {center.identificationCode}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>شماره شناسنامه صاحب پروانه : {center.identificationCode}</Text>
                   </View>
                 )}
                 {!!center.nationalCode && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      کد ملی صاحب پروانه : {center.nationalCode}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>کد ملی صاحب پروانه : {center.nationalCode}</Text>
                   </View>
                 )}
                 {!!center.ownerFatherName && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      نام پدر صاحب پروانه : {center.ownerFatherName}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>نام پدر صاحب پروانه : {center.ownerFatherName}</Text>
                   </View>
                 )}
                 {!!center.ownerBirthDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      تاریخ تولد صاحب پروانه :{" "}
-                      {moment(center.ownerBirthDate).format("jYYYY/jM/jD")}
+                      تاریخ تولد صاحب پروانه : {moment(center.ownerBirthDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
                 {!!center.waterPlaque && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      پلاک آبی : {center.waterPlaque}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>پلاک آبی : {center.waterPlaque}</Text>
                   </View>
                 )}
                 {!!center.registrationPlaque && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      پلاک ثبتی : {center.registrationPlaque}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>پلاک ثبتی : {center.registrationPlaque}</Text>
                   </View>
                 )}
                 {!!center.membershipFeeDate && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      تاریخ آخرین پرداخت حق عضویت :{" "}
-                      {moment(center.membershipFeeDate).format("jYYYY/jM/jD")}
+                      تاریخ آخرین پرداخت حق عضویت : {moment(center.membershipFeeDate).format("jYYYY/jM/jD")}
                     </Text>
                   </View>
                 )}
@@ -446,37 +376,78 @@ class DetailsScreen extends React.Component {
                   }
                 />
               </View>
+              <View style={detailsStyles.detailsBtns}>
+                <Button
+                  containerStyle={{
+                    flex: 1
+                  }}
+                  icon={{
+                    name: "archive",
+                    type: "evilicon",
+                    color: "white"
+                  }}
+                  buttonStyle={{
+                    backgroundColor: teamcheColors.dullRed
+                  }}
+                  titleStyle={{
+                    fontFamily: "Shabnam-FD",
+                    fontSize: 15
+                  }}
+                  title="مدارک ارائه شده"
+                  onPress={() =>
+                    this.props.navigation.navigate("CenterDocs", {
+                      whichDoc: "offerDocs"
+                    })
+                  }
+                />
+              </View>
+              <View style={detailsStyles.detailsBtns}>
+                <Button
+                  containerStyle={{
+                    flex: 1
+                  }}
+                  icon={{
+                    name: "envelope",
+                    type: "evilicon",
+                    color: "white"
+                  }}
+                  buttonStyle={{
+                    backgroundColor: teamcheColors.royal
+                  }}
+                  titleStyle={{
+                    fontFamily: "Shabnam-FD",
+                    fontSize: 15
+                  }}
+                  title="مدارک استعلام شده"
+                  onPress={() =>
+                    this.props.navigation.navigate("CenterDocs", {
+                      whichDoc: "inquiryDocs"
+                    })
+                  }
+                />
+              </View>
 
               <View style={[detailsStyles.nameContainer, { marginTop: 5 }]}>
                 <View style={detailsStyles.nameContainerTitr}>
-                  <Text
-                    style={[teamcheStyles.textBase, teamcheStyles.textTitr]}
-                  >
-                    اطلاعات
-                  </Text>
+                  <Text style={[teamcheStyles.textBase, teamcheStyles.textTitr]}>اطلاعات</Text>
                   <Divider />
                 </View>
 
                 {center.workShift.length > 0 && (
                   <View style={detailsStyles.addressContainer}>
                     <Text style={teamcheStyles.textBase}>
-                      ساعت کار : از ساعت {center.workShift[0]} تا{" "}
-                      {center.workShift[1]}
+                      ساعت کار : از ساعت {center.workShift[0]} تا {center.workShift[1]}
                     </Text>
                   </View>
                 )}
                 {center.phone.length > 0 && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      تلفن ها : {center.phone.map(ph => `${ph}, `)}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>تلفن ها : {center.phone.map(ph => `${ph}, `)}</Text>
                   </View>
                 )}
                 {!!center.description && (
                   <View style={detailsStyles.addressContainer}>
-                    <Text style={teamcheStyles.textBase}>
-                      توضیحات : {center.description}
-                    </Text>
+                    <Text style={teamcheStyles.textBase}>توضیحات : {center.description}</Text>
                   </View>
                 )}
               </View>

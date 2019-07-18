@@ -82,7 +82,9 @@ export default (state = defaultState, action) => {
         picLoading: false,
         center: {
           ...state.center,
-          pics: action.payload.pics
+          pics: action.payload.pics,
+          offerDocs: action.payload.offerDocs,
+          inquiryDocs: action.payload.inquiryDocs
         },
         error: ""
       };

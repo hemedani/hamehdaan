@@ -80,7 +80,7 @@ export const myInputStyles = StyleSheet.create({
   },
   textInp: {
     height: 38,
-    width: "100%",
+    width: "90%",
     borderColor: teamcheColors.lightPink,
     backgroundColor: teamcheColors.lightGray,
     borderWidth: 0.6,
