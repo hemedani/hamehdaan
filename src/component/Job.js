@@ -19,7 +19,21 @@ export default ({ item, path, navigate, setCenter }) => {
       if (diff > validDate) isShow = true;
     };
     if (item.membershipFeeDate) renderDiff(item.membershipFeeDate, 365);
-    if (item.guildStatus === "warning27" && item.warning27Date) renderDiff(item.warning27Date, 2);
+    if (item.expirationDate) renderDiff(item.expirationDate, 1);
+
+    if (item.guildStatus === "warning27" && item.warning27Date) renderDiff(item.warning27Date, 10);
+    if (item.guildStatus === "shutdownPromise" && item.shutdownPromiseDate) renderDiff(item.shutdownPromiseDate, 20);
+    if (item.guildStatus === "applicant" && item.applicantDate) renderDiff(item.applicantDate, 15);
+    if (item.guildStatus === "offerDoc" && item.offerDocDate) renderDiff(item.offerDocDate, 15);
+    if (item.guildStatus === "commissionConfirm" && item.commissionConfirmDate)
+      renderDiff(item.commissionConfirmDate, 15);
+    if (item.guildStatus === "directorAccept" && item.directorAcceptDate) renderDiff(item.directorAcceptDate, 15);
+    if (item.guildStatus === "docInquiry" && item.docInquiryDate) renderDiff(item.docInquiryDate, 15);
+    if (item.guildStatus === "paySettle" && item.paySettleDate) renderDiff(item.paySettleDate, 15);
+    if (item.guildStatus === "issueLicense" && item.issueLicenseDate) renderDiff(item.issueLicenseDate, 15);
+    if (item.guildStatus === "plump" && item.plumpDate) renderDiff(item.plumpDate, 10);
+
+    if (item.guildStatus !== "receiveLicense" && item.guildStatus !== "issueLicense") renderDiff(item.createdAt, 45);
     return isShow;
   };
   pressAlertFunc = () => {
@@ -128,7 +142,7 @@ export default ({ item, path, navigate, setCenter }) => {
         </Text>
       </View>
 
-      {isShowAlert(item) && <RenderAlert pressFunc={pressAlertFunc} />}
+      <RenderAlert pressFunc={pressAlertFunc} tick={isShowAlert(item) ? false : true} top={true} />
     </TouchableOpacity>
   );
 };

@@ -58,7 +58,13 @@ export const addCenter = center => {
       .post(`${RU}/add/center/by/officer`, center, {
         headers: { sabti: token }
       })
-      .then(resp => dispatch({ type: ADD_CENTER, payload: resp.data.center }))
+      .then(resp => {
+        console.log("==================");
+        console.log("resp.data", resp.data);
+        console.log("==================");
+
+        dispatch({ type: ADD_CENTER, payload: resp.data.center });
+      })
       .catch(err => dispatch({ type: ADD_CENTER_ERR, payload: err }));
   };
 };

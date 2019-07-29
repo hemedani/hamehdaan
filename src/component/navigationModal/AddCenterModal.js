@@ -62,6 +62,7 @@ class AddCenterModal extends PureComponent {
     super(props);
     this.state = {
       getDirections: false,
+      getDirectionsErr: "",
       lat: null,
       lng: null
     };
@@ -87,7 +88,12 @@ class AddCenterModal extends PureComponent {
           getDirections: false
         });
       },
-      error => console.log(error.message),
+      error => {
+        this.setState({
+          getDirections: false,
+          getDirectionsErr: "در دریافت موقعیت مشکلی بوجود آمده است لطفا دوباره تلاش کنید"
+        });
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
   }
@@ -143,9 +149,15 @@ class AddCenterModal extends PureComponent {
               <View style={styles.inputWrapper}>
                 <FormGenerator onMount={this.setForm} fieldConfig={fieldConfig} />
               </View>
-              <View style={{ justifyContent: "space-evenly", alignItems: "center", flexDirection: "row", marginBottom: 15 }}>
+              <View
+                style={{ justifyContent: "space-evenly", alignItems: "center", flexDirection: "row", marginBottom: 15 }}
+              >
                 <Text style={teamcheStyle.textBase}>
-                  {this.state.getDirections ? "در حال دریافت موقعیت شما" : "موقعیت شما دریافت شد"}
+                  {this.state.getDirectionsErr
+                    ? this.state.getDirectionsErr
+                    : this.state.getDirections
+                    ? "در حال دریافت موقعیت شما"
+                    : "موقعیت شما دریافت شد"}
                 </Text>
                 <View
                   style={[

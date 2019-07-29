@@ -1,20 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  TextInput
-} from "react-native";
+import { View, Text, TouchableOpacity, FlatList, TextInput } from "react-native";
 
-import {
-  cleanCenters,
-  getCenters,
-  getRastes,
-  addRasteToQuery,
-  setSelectedRasteForAddCenter
-} from "../../actions";
+import { cleanCenters, getCenters, getRastes, addRasteToQuery, setSelectedRasteForAddCenter } from "../../actions";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { Icon } from "react-native-elements";
@@ -33,23 +21,16 @@ const RenderRasteItem = ({
   goBack
 }) => {
   const handleRasteSelect = async () => {
-    setAddCenterForm
-      ? await setSelectedRasteForAddCenter(item)
-      : await addRasteToQuery(item);
+    setAddCenterForm ? await setSelectedRasteForAddCenter(item) : await addRasteToQuery(item);
     handleCenterSearch();
     goBack();
   };
   return (
     <TouchableOpacity
       onPress={handleRasteSelect}
-      style={[
-        bodyStyle.flatItemContainer,
-        { backgroundColor: colors[index % colors.length] }
-      ]}
+      style={[bodyStyle.flatItemContainer, { backgroundColor: colors[index % colors.length] }]}
     >
-      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>
-        {item.name}
-      </Text>
+      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>{item.name}</Text>
     </TouchableOpacity>
   );
 };
@@ -68,10 +49,7 @@ class SelectRasteModal extends React.PureComponent {
   componentDidMount() {
     this.props.getRastes();
     this.setState({
-      setAddCenterForm: this.props.navigation.getParam(
-        "setAddCenterForm",
-        false
-      )
+      setAddCenterForm: this.props.navigation.getParam("setAddCenterForm", false)
     });
   }
   handleInpText(inpValue) {
@@ -98,14 +76,11 @@ class SelectRasteModal extends React.PureComponent {
     } = this.props;
     const { setAddCenterForm } = this.state;
     return (
-      <BaseModalNavigation
-        headerTxt="انتخاب رسته"
-        goBack={this.props.navigation.goBack}
-      >
+      <BaseModalNavigation headerTxt="انتخاب رسته" goBack={this.props.navigation.goBack}>
         <View style={searchBarStyles.searchViewContainer}>
           <TextInput
             style={[teamcheStyle.textBase, searchBarStyles.textInp]}
-            placeholder="یک محله را جستجو کنید ..."
+            placeholder="یک رسته را جستجو کنید ..."
             onChangeText={this.handleInpText}
             value={this.state.inpValue}
             onSubmitEditing={this.handleRasteSearch}
