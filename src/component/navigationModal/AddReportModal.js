@@ -1,44 +1,67 @@
 import React from "react";
-import { TextInput, View, StyleSheet, Switch, Text } from "react-native";
+import { View, ScrollView, Text, Switch } from "react-native";
 import { connect } from "react-redux";
 import { Button } from "react-native-elements";
-
 import { showMessage } from "react-native-flash-message";
+import { FormGenerator } from "react-reactive-form";
 
 import { addReport } from "../../actions";
 
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 import { ADD_REPORT } from "../../actions/report/ReportTypes";
 import BaseModalNavigation from "./BaseModalNavigation";
+import { formStyles } from "./AddCenterModal";
+import MyInput, { MySwitch, myInputStyles } from "../utils/MyInput";
+
+const fieldConfig = {
+  controls: {
+    subject: {
+      render: MyInput,
+      meta: { label: "موضوع بازرسی" }
+    },
+    text: {
+      render: MyInput,
+      meta: { label: "توضیخات بازرسی ", multiline: true, numberOfLines: 5 }
+    },
+    fileNumber: {
+      render: MyInput,
+      meta: { label: "شماره پرونده", keyboardType: "number-pad" }
+    },
+    numberOfEmployee: {
+      render: MyInput,
+      meta: { label: "تعداد کارکنان ...", keyboardType: "number-pad" }
+    },
+
+    clause: {
+      render: MyInput,
+      meta: { label: "ماده ۲۶، ۲۷ یا ۲۸", keyboardType: "number-pad" }
+    }
+    // isOwnerPresent: {
+    //   render: MySwitch,
+    //   meta: { label: "در زمان بازرسی متقاضی حضور داشت ؟" }
+    // }
+  }
+};
 
 // TODO must be reCreate this class maybe use react hook and function component ==================
 class AddReportModal extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
-      subject: "",
-      numberOfEmployee: "",
-      isOwnerPresent: false,
-      clause: "",
-      fileNumber: ""
+      isOwnerPresent: false
     };
-    this.handleInpText = this.handleInpText.bind(this);
     this.handleSubmitReport = this.handleSubmitReport.bind(this);
+    this.setForm = this.setForm.bind(this);
   }
-  handleInpText(value, fieldName) {
-    this.setState({ [fieldName]: value });
+  setForm(form) {
+    this.upForm = form;
   }
   handleSubmitReport() {
     const { center } = this.props.center;
-    const { text, subject, numberOfEmployee, isOwnerPresent, clause, fileNumber } = this.state;
+    const { isOwnerPresent } = this.state;
     const reportDetail = {
-      text,
-      subject,
-      numberOfEmployee,
+      ...this.upForm.value,
       isOwnerPresent,
-      clause,
-      fileNumber,
       raste: center.raste._id ? center.raste._id : center.raste,
       etehadiye: center.etehadiye._id ? center.etehadiye._id : center.etehadiye,
       otaghAsnaf: center.otaghAsnaf._id ? center.otaghAsnaf._id : center.otaghAsnaf,
@@ -65,94 +88,44 @@ class AddReportModal extends React.PureComponent {
   }
   render() {
     const { reports } = this.props;
-    const { text, subject, isOwnerPresent, numberOfEmployee, fileNumber, clause } = this.state;
-    const { handleSubmitReport, handleInpText } = this;
+    const { handleSubmitReport } = this;
     return (
       <BaseModalNavigation headerTxt="ثبت بازرسی" goBack={this.props.navigation.goBack}>
-        <View style={reportStyle.container}>
-          <TextInput
-            style={[teamcheStyle.textBase, reportStyle.inp]}
-            placeholder="موضوع بازرسی "
-            onChangeText={value => handleInpText(value, "subject")}
-            value={subject}
-          />
-          <TextInput
-            style={[teamcheStyle.textBase, reportStyle.inp]}
-            placeholder="شماره پرونده"
-            keyboardType="numeric"
-            onChangeText={value => handleInpText(value, "fileNumber")}
-            value={fileNumber}
-            onSubmitEditing={handleSubmitReport}
-          />
-          <TextInput
-            multiline
-            numberOfLines={5}
-            style={[teamcheStyle.textBase, reportStyle.textInp]}
-            placeholder="لطفاْ توضیخات بازرسی را یادداشت کنید ..."
-            onChangeText={value => handleInpText(value, "text")}
-            value={text}
-            onSubmitEditing={handleSubmitReport}
-          />
-          <TextInput
-            style={[teamcheStyle.textBase, reportStyle.inp]}
-            placeholder="تعداد کارکنان ..."
-            keyboardType="numeric"
-            onChangeText={value => handleInpText(value, "numberOfEmployee")}
-            value={numberOfEmployee}
-            onSubmitEditing={handleSubmitReport}
-          />
-          <TextInput
-            style={[teamcheStyle.textBase, reportStyle.inp]}
-            placeholder="ماده ۲۶، ۲۷ یا ۲۸"
-            keyboardType="numeric"
-            onChangeText={value => handleInpText(value, "clause")}
-            value={clause}
-            onSubmitEditing={handleSubmitReport}
-          />
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", marginBottom: 10 }}
-          >
-            <Text style={teamcheStyle.textBase}>در زمان بازرسی متقاضی حضور داشت ؟</Text>
-            <Switch onChange={() => this.setState({ isOwnerPresent: !isOwnerPresent })} value={isOwnerPresent} />
+        <ScrollView style={formStyles.parentContainer}>
+          <View style={formStyles.contentWrapper}>
+            <View style={formStyles.inputWrapper}>
+              <FormGenerator onMount={this.setForm} fieldConfig={fieldConfig} />
+              <View style={myInputStyles.switchText}>
+                <Text style={teamcheStyle.textBase}>در زمان بازرسی متقاضی حضور داشت ؟</Text>
+                <Switch
+                  value={this.state.isOwnerPresent}
+                  onChange={() => this.setState({ isOwnerPresent: !this.state.isOwnerPresent })}
+                />
+              </View>
+            </View>
+            <Button
+              buttonStyle={{
+                borderWidth: 1,
+                borderColor: "#fff",
+                // borderRadius: 50,
+                marginLeft: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                backgroundColor: "rgb(112, 26, 146)"
+              }}
+              titleStyle={{
+                fontFamily: "Shabnam-FD"
+              }}
+              onPress={handleSubmitReport}
+              loading={reports.addReportLoading}
+              title="ثبت بازرسی"
+            />
           </View>
-          <Button
-            buttonStyle={{
-              borderWidth: 1,
-              borderColor: "#fff",
-              // borderRadius: 50,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
-              backgroundColor: "rgb(112, 26, 146)"
-            }}
-            titleStyle={{
-              fontFamily: "Shabnam-FD"
-            }}
-            onPress={handleSubmitReport}
-            loading={reports.addReportLoading}
-            title="ثبت بازرسی"
-          />
-        </View>
+        </ScrollView>
       </BaseModalNavigation>
     );
   }
 }
-const reportStyle = StyleSheet.create({
-  container: { minHeight: 200, backgroundColor: "#fff", padding: 10 },
-  textInp: {
-    backgroundColor: teamcheColors.lightGray,
-    minHeight: 120,
-    marginBottom: 15,
-    padding: 15,
-    textAlign: "right"
-  },
-  inp: {
-    marginBottom: 15,
-    padding: 15,
-    backgroundColor: teamcheColors.lightGray,
-    textAlign: "right"
-  }
-});
 
 const msp = ({ center, reports }) => ({ center, reports });
 

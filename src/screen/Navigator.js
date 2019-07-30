@@ -18,6 +18,7 @@ import CustomHeader from "./header/CustomHeader";
 import { teamcheColors } from "../styles/MyStyles";
 import CenterReportsScreen from "../component/CenterReports";
 import CenterDocs from "../component/CenterDocs";
+import ImageLightBox from "../component/navigationModal/ImageLightBox";
 import DetailReportModal from "../component/navigationModal/DetailReportModal";
 import DetailAlertModal from "../component/navigationModal/DetailAlertModal";
 import SelectRasteModal from "../component/navigationModal/SelectRasteModal";
@@ -223,16 +224,20 @@ const DetailStack = createStackNavigator(
 const CenterDocsModals = createStackNavigator(
   {
     CenterDocs,
-    AddPhotoToCenter
+    AddPhotoToCenter,
+    ImageLightBox
   },
   {
     initialRouteName: "CenterDocs",
     transparentCard: true,
     mode: "modal",
+    headerMode: "none",
     navigationOptions: {
       headerTintColor: teamcheColors.lightPink,
       gesturesEnabled: true,
-      headerTransparent: true
+      headerTransparent: true,
+      headerBackTitle: null,
+      headerStyle: { borderBottomWidth: 0 }
     },
     transitionConfig: () => ModalTransitionConfig()
   }

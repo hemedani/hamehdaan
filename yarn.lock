@@ -5224,6 +5224,13 @@ react-native-elements@^1.1.0:
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
 
+react-native-fit-image@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/react-native-fit-image/-/react-native-fit-image-1.5.4.tgz#73d2fccc7ad902cf2ffcd008a2a74749ad50134a"
+  integrity sha512-wNHlGdDWsUU31qlM5SsvZrMH4eXBZt586FQNXFRFuOiXVqdA++6Xait7aiZ+5vxglgqLf+zzSnoICn0NEvDfrw==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-flash-message@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.1.13.tgz#3ebf9cf17d5aabc61b923dc6dc37ce97a1ad4dd2"
@@ -5481,10 +5488,10 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-reactive-form@^1.0.30:
-  version "1.0.30"
-  resolved "https://registry.yarnpkg.com/react-reactive-form/-/react-reactive-form-1.0.30.tgz#c1c3b0ac29857f703e7ac81ac67c7a6f27c713ba"
-  integrity sha512-uV+wKQ6KzXkUjjdpFAyI2w6DQkygTPnQCjjSscruEyBPpXYk78jZ88LhXncJgosN3ihP26LoiFtV0kKwBVv6pQ==
+react-reactive-form@^1.0.31:
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/react-reactive-form/-/react-reactive-form-1.0.31.tgz#0e13c3f7e54d97b2bfccd4086541e5cac739974a"
+  integrity sha512-7kWbbumZZfbO5+GEJKpFs6YcNwweq6b29EhEpzXhLRIC+boMLlkAXNYG7Rr/3qWlMbg8OM5kUQMQi0a08O1dQQ==
 
 react-redux@^6.0.1:
   version "6.0.1"

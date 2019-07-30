@@ -144,9 +144,9 @@ class AddCenterModal extends PureComponent {
     return (
       <BaseModalNavigation headerTxt="افزودن صنف و اعمال ماده ۲۷" goBack={navigation.goBack}>
         <View>
-          <ScrollView style={styles.parentContainer}>
-            <View style={styles.contentWrapper}>
-              <View style={styles.inputWrapper}>
+          <ScrollView style={formStyles.parentContainer}>
+            <View style={formStyles.contentWrapper}>
+              <View style={formStyles.inputWrapper}>
                 <FormGenerator onMount={this.setForm} fieldConfig={fieldConfig} />
               </View>
               <View
@@ -181,7 +181,7 @@ class AddCenterModal extends PureComponent {
                 </View>
               </View>
 
-              <View style={styles.inputWrapper}>
+              <View style={formStyles.inputWrapper}>
                 <FlatBtn
                   bgColor={selectedRaste ? teamcheColors.royal : teamcheColors.lightPink}
                   btnColor={selectedRaste ? teamcheColors.lightPink : teamcheColors.royal}
@@ -216,7 +216,7 @@ class AddCenterModal extends PureComponent {
   }
 }
 
-const styles = StyleSheet.create({
+export const formStyles = StyleSheet.create({
   parentContainer: {
     height: Dimensions.get("screen").height - 200,
     width: "100%"

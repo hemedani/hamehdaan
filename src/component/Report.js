@@ -12,7 +12,7 @@ const Report = ({ item, index, navigate }) => {
       onPress={handleReportSelect}
       style={[bodyStyle.flatItemContainer, { backgroundColor: colors[index % colors.length] }]}
     >
-      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>{item.text}</Text>
+      <Text style={[teamcheStyle.textBase, bodyStyle.itemText]}>{item.subject}</Text>
     </TouchableOpacity>
   );
 };

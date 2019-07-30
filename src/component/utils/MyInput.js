@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TextInput, Text } from "react-native";
+import { View, StyleSheet, TextInput, Text, Switch } from "react-native";
 import teamcheStyle, { teamcheColors } from "../../styles/MyStyles";
 
 // const MyInput = ({ value, name, onChange, label, ...rest }) => {
@@ -59,6 +59,8 @@ const MyInput = ({ handler, touched, hasError, meta }) => {
         autoCapitalize="none"
         autoCompleteType="off"
         autoCorrect={false}
+        multiline={meta.multiline ? meta.multiline : false}
+        numberOfLines={meta.numberOfLines ? meta.numberOfLines : 1}
         keyboardType={meta.keyboardType ? meta.keyboardType : "default"}
         style={[teamcheStyle.textBase, myInputStyles.textInp]}
         {...handler()}
@@ -67,6 +69,13 @@ const MyInput = ({ handler, touched, hasError, meta }) => {
     </View>
   );
 };
+
+export const MySwitch = ({ handler, touched, hasError, meta }) => (
+  <View style={myInputStyles.switchText}>
+    <Text style={teamcheStyle.textBase}>{meta.label}</Text>
+    <Switch {...handler("checkbox")} />
+  </View>
+);
 
 export const myInputStyles = StyleSheet.create({
   root: {
@@ -78,6 +87,7 @@ export const myInputStyles = StyleSheet.create({
     paddingStart: 15,
     color: teamcheColors.dark
   },
+  switchText: { flexDirection: "row", justifyContent: "space-around", alignItems: "center", marginBottom: 10 },
   textInp: {
     height: 38,
     width: "90%",

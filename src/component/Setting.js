@@ -47,12 +47,10 @@ class SettingsScreen extends React.PureComponent {
             size="xlarge"
             title={"HM"}
             rounded
-            source={
-              user.pic ? { uri: `${RU}/pic/500/${user.pic}` } : defaultUser
-            }
+            source={user.pic ? { uri: `${RU}/pic/500/${user.pic}` } : defaultUser}
             showEditButton
           />
-          {user.familyName && (
+          {!!user.familyName && (
             <Text style={[teamcheStyle.textBase, teamcheStyle.textTitr]}>
               {user.name} {user.familyName}
             </Text>
